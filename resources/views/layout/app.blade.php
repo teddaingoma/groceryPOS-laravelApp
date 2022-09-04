@@ -17,6 +17,7 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
+    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
 
