@@ -34,7 +34,7 @@
         </div>
 
         <main class="pps-main-content">
-          @include('pages.show')
+            @yield('content')
         </main>
     </div>
 

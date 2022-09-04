@@ -1,4 +1,4 @@
-<div class="pps-main-content-header">
+  <div class="pps-main-content-header">
     <h2 class="pps-main-content-title">Lorem, ipsum dolor.</h2>
   </div>
   <div class="pps-main-content-body">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommoditiesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,11 +13,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Route::get('/', function () {
+//     return view('layout.app');
+// });
 
-Route::get('/', function () {
-    return view('layout.app');
-});
+// Route::get('/home', function () {
+//     return view('layout.home');
+// });
 
-Route::get('/home', function () {
-    return view('layout.home');
-});
+//commodities resource route
+Route::resource('/home', CommoditiesController::class);

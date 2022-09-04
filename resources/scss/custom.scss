@@ -755,7 +755,7 @@ form .btn[type="submit"]:hover {
 .flex-col--wrap {
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: start;
 }
 
 @media screen and (min-width: 520px) {
@@ -1081,8 +1081,9 @@ form .btn[type="submit"]:hover {
     font-size: 1.4rem;
     margin: 0 0.5rem;
     white-space: nowrap;
-    overflow: auto;
-    text-overflow: clip;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color:  var(--color-white);
 }
 
 .commodity__tags {
