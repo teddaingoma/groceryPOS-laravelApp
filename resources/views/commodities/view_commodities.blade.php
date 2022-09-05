@@ -36,6 +36,18 @@
                                     @empty
                                         00.00
                                     @endforelse
+                                    <span class="commodity__currency">/
+                                        @forelse ($commodityUnit as $Unit)
+
+                                            @if ($commodity -> id == $Unit -> commodity_id)
+                                                {{ $Unit -> unit }}
+                                            @endif
+
+                                        @empty
+                                            Unit
+                                        @endforelse
+                                    </span>
+
                                 </span>
                                 <span class="commodity__description">{{ $commodity -> description }}</span>
                             </div>
