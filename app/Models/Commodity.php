@@ -20,4 +20,10 @@ class Commodity extends Model
     protected $visible = ['id', 'name', 'description'];
 
     //protected $dateFormat = 'h:m:s';
+
+    // One or more commodities belongs to one or many categories
+    public function Categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }

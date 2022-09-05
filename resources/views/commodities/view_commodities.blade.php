@@ -73,6 +73,11 @@
                                     dd-mm-yyyy
                                 @endforelse
                             </div>
+                            <div>
+                                @foreach ($commodity -> Categories as $category)
+                                    {{ $category -> name }}
+                                @endforeach
+                            </div>
                         </div>
                         <footer class="card__footer">
                             <small class="text-muted">
