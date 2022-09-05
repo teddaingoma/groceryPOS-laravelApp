@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Commodity;
 use App\Models\CommodityPrice;
+use App\Models\CommodityQuantity;
 
 class CommoditiesController extends Controller
 {
@@ -17,10 +18,12 @@ class CommoditiesController extends Controller
     {
         $commodities = Commodity::all();
         $commodityPrice = CommodityPrice::all();
+        $commodityQuantity = CommodityQuantity::all();
 
         return view('commodities.view_commodities', compact(
             'commodities',
-            'commodityPrice'
+            'commodityPrice',
+            'commodityQuantity'
         ));
     }
 

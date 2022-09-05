@@ -41,7 +41,14 @@
                             </div>
                         </header>
                         <div class="card__body">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, quisquam!
+                            Quantity:
+                            @forelse ($commodityQuantity as $Quantity)
+                                @if ($commodity -> id == $Quantity -> commodity_id)
+                                    {{ $Quantity -> quantity}}
+                                @endif
+                            @empty
+                                Out of Stock
+                            @endforelse
                         </div>
                         <footer class="card__footer">
                             <small class="text-muted">
