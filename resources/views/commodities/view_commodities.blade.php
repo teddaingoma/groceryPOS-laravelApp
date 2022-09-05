@@ -53,14 +53,26 @@
                             </div>
                         </header>
                         <div class="card__body">
-                            Quantity:
-                            @forelse ($commodityQuantity as $Quantity)
-                                @if ($commodity -> id == $Quantity -> commodity_id)
-                                    {{ $Quantity -> quantity}}
-                                @endif
-                            @empty
-                                Out of Stock
-                            @endforelse
+                            <div>
+                                Quantity:
+                                @forelse ($commodityQuantity as $Quantity)
+                                    @if ($commodity -> id == $Quantity -> commodity_id)
+                                        {{ $Quantity -> quantity}}
+                                    @endif
+                                @empty
+                                    Out of Stock
+                                @endforelse
+                            </div>
+                            <div>
+                                Date Acquired:
+                                @forelse ($aquisitionDates as $AquisitionDate)
+                                    @if ($commodity -> id == $AquisitionDate -> commodity_id)
+                                        {{ date('d-m-Y', strtotime($AquisitionDate -> aquisition_date)) }}
+                                    @endif
+                                @empty
+                                    dd-mm-yyyy
+                                @endforelse
+                            </div>
                         </div>
                         <footer class="card__footer">
                             <small class="text-muted">

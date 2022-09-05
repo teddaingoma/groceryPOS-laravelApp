@@ -7,6 +7,7 @@ use App\Models\Commodity;
 use App\Models\CommodityPrice;
 use App\Models\CommodityQuantity;
 use App\Models\CommodityUnit;
+use App\Models\CommodityAquisitionDate;
 
 class CommoditiesController extends Controller
 {
@@ -21,12 +22,14 @@ class CommoditiesController extends Controller
         $commodityPrice = CommodityPrice::all();
         $commodityQuantity = CommodityQuantity::all();
         $commodityUnit = CommodityUnit::all();
+        $aquisitionDates = CommodityAquisitionDate::all();
 
         return view('commodities.view_commodities', compact(
             'commodities',
             'commodityPrice',
             'commodityQuantity',
-            'commodityUnit'
+            'commodityUnit',
+            'aquisitionDates'
         ));
     }
 
