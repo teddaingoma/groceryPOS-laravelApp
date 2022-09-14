@@ -1,63 +1,71 @@
-<aside class="pps-sidebar-icon">
-    <div class="d-flex flex-column flex-shrink-0 bg-light pps-sidebar__nav-icon">
-        <span class="d-block pps-sidebar-icon-title" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
-            <span class="icon-container bi me-2">
-                <img class="icon" src="images/menubar-dark.ico" alt="">
-            </span>
-          <span class="visually-hidden">Menu Icon</span>
+<aside class="pps-sidebar wide-display collapse collapse-horizontal" id="collapseSideMenuBar">
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light pps-sidebar__nav">
+        <span class="mb-3 mb-md-0 me-md-auto pps-sidebar-title">
+          <span class="icon-container">
+            <img class="icon" src="images/menubar-dark.ico" alt="">
+          </span>
+          <span class="fs-4">Menu</span>
         </span>
         <hr class="pps-sidebar-divider">
-        <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+        <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <a href="#" class="nav-link py-3 border-bottom" aria-current="page" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
-                <span class="icon--small bi me-2">
-                    <img class="icon" src="images/dashboard-dark.ico" alt="">
-                </span>
+            <a href="#" class="nav-link" aria-current="page">
+              <span class="icon--small bi me-2">
+                <img class="icon" src="images/dashboard-dark.ico" alt="">
+              </span>
+              Dashboard
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link py-3 border-bottom" title="Inventory" data-bs-toggle="tooltip" data-bs-placement="right">
+            <a href="#" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
                     <img class="icon" src="images/inventory-dark.ico" alt="">
                 </span>
+              Inventory
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link py-3 border-bottom" title="Sales" data-bs-toggle="tooltip" data-bs-placement="right">
+            <a href="#" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
                     <img class="icon" src="images/sales-dark.ico" alt="">
                 </span>
+              Sales
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link py-3 border-bottom" title="Purchases" data-bs-toggle="tooltip" data-bs-placement="right">
+            <a href="#" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
                     <img class="icon" src="images/purchase-dark.ico" alt="">
                 </span>
+              Purchases
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link py-3 border-bottom" title="Reports" data-bs-toggle="tooltip" data-bs-placement="right">
+            <a href="#" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
                     <img class="icon" src="images/reports-dark.ico" alt="">
                 </span>
+                Reports
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link py-3 border-bottom" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
+            <a href="#" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
                     <img class="icon" src="images/customers.ico" alt="">
                 </span>
+                Customers
             </a>
           </li>
         </ul>
-        <div class="dropdown border-top">
-          <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" title="Account" data-bs-toggle="dropdown" aria-expanded="false">
+        <hr>
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
             <span class="icon-container">
                 <img class="icon rounded-circle me-2" src="images/account-dark.ico" alt="">
             </span>
+            <strong>Account</strong>
           </a>
-          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
             <li class="dropdown-item item-icon username">
               <span class="icon-container icon--circle">
                 <img class="icon" src="images/admin-light.ico" alt="">

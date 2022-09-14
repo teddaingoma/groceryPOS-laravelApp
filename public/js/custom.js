@@ -62,12 +62,9 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************************!*\
   !*** ./resources/scss/custom.scss ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
+throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleParseError: Module parse failed: Unexpected character '\u0000' (1:0)\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\n(Source code omitted for this binary file)\n    at handleParseError (C:\\Users\\Ngoma\\Desktop\\PROJECT SKETCH\\grocery_pos\\node_modules\\webpack\\lib\\NormalModule.js:976:19)\n    at C:\\Users\\Ngoma\\Desktop\\PROJECT SKETCH\\grocery_pos\\node_modules\\webpack\\lib\\NormalModule.js:1095:5\n    at processResult (C:\\Users\\Ngoma\\Desktop\\PROJECT SKETCH\\grocery_pos\\node_modules\\webpack\\lib\\NormalModule.js:800:11)\n    at C:\\Users\\Ngoma\\Desktop\\PROJECT SKETCH\\grocery_pos\\node_modules\\webpack\\lib\\NormalModule.js:860:5\n    at C:\\Users\\Ngoma\\Desktop\\PROJECT SKETCH\\grocery_pos\\node_modules\\loader-runner\\lib\\LoaderRunner.js:407:3\n    at iterateNormalLoaders (C:\\Users\\Ngoma\\Desktop\\PROJECT SKETCH\\grocery_pos\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:10)\n    at C:\\Users\\Ngoma\\Desktop\\PROJECT SKETCH\\grocery_pos\\node_modules\\loader-runner\\lib\\LoaderRunner.js:224:4\n    at C:\\Users\\Ngoma\\Desktop\\PROJECT SKETCH\\grocery_pos\\node_modules\\webpack\\lib\\NormalModule.js:834:15\n    at Array.eval (eval at create (C:\\Users\\Ngoma\\Desktop\\PROJECT SKETCH\\grocery_pos\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:12:1)\n    at runCallbacks (C:\\Users\\Ngoma\\Desktop\\PROJECT SKETCH\\grocery_pos\\node_modules\\enhanced-resolve\\lib\\CachedInputFileSystem.js:27:15)");
 
 /***/ })
 
@@ -158,7 +155,6 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/custom": 0,
-/******/ 			"css/custom": 0,
 /******/ 			"css/normalize": 0
 /******/ 		};
 /******/ 		
@@ -209,9 +205,9 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/custom","css/normalize"], () => (__webpack_require__("./resources/js/custom.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/custom","css/normalize"], () => (__webpack_require__("./resources/scss/normalize.scss")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/custom","css/normalize"], () => (__webpack_require__("./resources/scss/custom.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/normalize"], () => (__webpack_require__("./resources/js/custom.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/normalize"], () => (__webpack_require__("./resources/scss/normalize.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/normalize"], () => (__webpack_require__("./resources/scss/custom.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

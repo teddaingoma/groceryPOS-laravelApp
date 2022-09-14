@@ -27,9 +27,12 @@
 <body>
     @include('layout.main-header')
 
+    @include('layout.menu-bar-toggler')
+
     <div class="container-fluid px-0 pps-content">
         <div class="pps-aside">
             @include('layout.main-sidebar')
+            @include('layout.main-sidebar-wide')
             @include('layout.main-icon-sidebar')
         </div>
 

@@ -1,6 +1,6 @@
 <div class="container-fluid px-0 pps-header">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light pps-primary-navbar" aria-label="Primary Nav bar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light pps-primary-navbar fixed-top" aria-label="Primary Nav bar">
             <div class="container-fluid">
               <a class="navbar-brand" href="home.html">
                 <span class="icon--circle">
