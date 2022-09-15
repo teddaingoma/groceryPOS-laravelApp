@@ -2,9 +2,9 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light pps-primary-navbar fixed-top" aria-label="Primary Nav bar">
             <div class="container-fluid">
-              <a class="navbar-brand" href="home.html">
+              <a class="navbar-brand" href="/home">
                 <span class="icon--circle">
-                    <img class="icon" src="images/logo-dark.ico" alt="">
+                    <img class="icon" src="{{ asset('images/logo-dark.ico') }}" alt="">
                 </span>
               </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ppsPrimaryNavbar" aria-controls="ppsPrimaryNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,22 +14,22 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 pps-main-nav">
                   <li class="nav-item item-icon">
                     <span class="icon--circle">
-                      <img class="icon" src="/images/home-dark.ico" alt="">
+                      <img class="icon" src="{{ asset('images/home-dark.ico') }}" alt="">
                     </span>
                     <a class="nav-link" href="#">Home</a>
                   </li>
                   <li class="nav-item item-icon">
                     <span class="icon--circle">
-                      <img class="icon" src="images/add-cus-dark.ico" alt="">
+                      <img class="icon" src="{{ asset('images/add-cus-dark.ico') }}" alt="">
                     </span>
                     <a class="nav-link" href="#">Add Customer</a>
                   </li>
 
                   <li class="nav-item item-icon">
                     <span class="icon--circle">
-                      <img class="icon" src="images/add-cus-dark.ico" alt="">
+                      <img class="icon" src="{{ asset('images/add-cus-dark.ico') }}" alt="">
                     </span>
-                    <a class="nav-link" href="pages/add-commodity.html">Add Commodity</a>
+                    <a class="nav-link" href="/home/create">Add Commodity</a>
                   </li>
 
                   <li class="nav-item dropdown">
@@ -43,7 +43,7 @@
 
                   <li class="nav-item item-icon">
                     <span class="icon--circle">
-                      <img class="icon" src="images/sell-dark.ico" alt="">
+                      <img class="icon" src="{{ asset('images/sell-dark.ico') }}" alt="">
                     </span>
                     <a class="nav-link" href="#">Sell</a>
                   </li>
@@ -54,19 +54,19 @@
                         <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" href="#" id="profile" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="icon--circle">
-                                <img class="icon" src="images/admin-light.ico" alt="">
+                                <img class="icon" src="{{ asset('images/admin-light.ico') }}" alt="">
                             </span>
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="profile">
                             <li class="dropdown-item item-icon">
                               <span>
-                                <img class="icon" src="images/register-dark.ico" alt="">
+                                <img class="icon" src="{{ asset('images/register-dark.ico') }}" alt="">
                               </span>
                               <a class="nav-link" href="/pages/register.html">register</a>
                             </li>
                             <li class="dropdown-item item-icon">
                               <span>
-                                <img class="icon" src="images/logout-dark.ico" alt="">
+                                <img class="icon" src="{{ asset('images/logout-dark.ico') }}" alt="">
                               </span>
                               <a class="nav-link" href="/pages/login.html">logout</a>
                             </li>

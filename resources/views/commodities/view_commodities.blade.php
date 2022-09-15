@@ -23,7 +23,7 @@
                     <div class="card">
                         <header class="card__header">
                             <div class="commodity__icon">
-                                <img class="icon" src="{{ URL("images/item-light.ico") }}" alt="">
+                                <img class="icon" src="{{ asset('commodity_images/' . $commodity -> image_path) }}" alt="">
                                 <h3 class="commodity__name">{{ $commodity -> name }}</h3>
                             </div>
                             <div class="commodity__tags">
@@ -100,6 +100,15 @@
                                 @endforeach
                             </span>
 
+                            <span class="commodity__category">
+                                <span class="category-text">Type (s) :</span>
+                                @forelse ($commodity -> Types as $Type)
+                                    <span class="badge category-value">{{ $Type -> type_name }}</span>
+                                @empty
+                                <span class="badge category-value">{{ $commodity -> name }} has no types</span>
+                                @endforelse
+                            </span>
+
                         </div>
                         <div class="card__btn">
                             <button class="btn btn--primary btn--img">
@@ -134,7 +143,7 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Delete Sugar</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Delete {{ $commodity -> name }}</h5>
                                             <span class="btn icon-container" data-bs-dismiss="modal" aria-label="Close">
                                                 <img class="icon" src="{{ URL("images/close-dark.ico") }}" alt="">
                                             </span>
@@ -147,7 +156,7 @@
                                                 Are You Sure?
                                             </h5>
                                             <div class="container-fluid">
-                                                You are about to delete Sugar and all its related content from your inventory!
+                                                You are about to delete {{ $commodity -> name }} and all its related content from your inventory!
                                             </div>
                                         </div>
                                         <div class="modal-footer">

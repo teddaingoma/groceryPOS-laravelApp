@@ -11,7 +11,7 @@
     <meta property="og:description" content="Portable POS system">
     <meta property="og:type" content="website">
     <meta property="og:image" content="http://">
-    <meta property="og:url" content="https://pps.com">
+    <meta property="og:url" content="https://grocerypos.netlify.app">
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">

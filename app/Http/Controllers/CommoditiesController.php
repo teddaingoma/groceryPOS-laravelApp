@@ -43,7 +43,7 @@ class CommoditiesController extends Controller
      */
     public function create()
     {
-        //
+        return view("commodities.add_commodity");
     }
 
     /**
@@ -54,7 +54,23 @@ class CommoditiesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->commodity_image == NULL)
+        {
+            $Commodity_image = 'item-light.ico';
+        }
+        else if ($request->commodity_image != NULL)
+        {
+            $Commodity_image = $request->commodity_name . '-' . time() . '.' . $request->commodity_image->extension();
+            $request->commodity_image->move(public_path('commodity_images'), $Commodity_image);
+        }
+
+        $commodity = Commodity::create([
+            'name' => $request->input('commodity_name'),
+            'description' => $request->input('commodity_description'),
+            'image_path' => $Commodity_image,
+        ]);
+
+        return redirect("/home");
     }
 
     /**

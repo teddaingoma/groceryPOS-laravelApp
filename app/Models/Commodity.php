@@ -26,4 +26,10 @@ class Commodity extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    // Only one Commodity has one or many types: hasMany relationship
+    public function Types()
+    {
+        return $this->hasMany(CommodityType::class);
+    }
 }
