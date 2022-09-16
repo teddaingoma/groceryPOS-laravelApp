@@ -70,7 +70,8 @@ class CommoditiesController extends Controller
             'image_path' => $Commodity_image,
         ]);
 
-        return redirect("/home");
+        $id = $commodity -> id;
+        return redirect("/commodity/$id/add_commodity_attributes");
     }
 
     /**

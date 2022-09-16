@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommoditiesController;
+use App\Http\Controllers\CommodityAttributesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,3 +24,15 @@ use Illuminate\Support\Facades\Route;
 
 //commodities resource route
 Route::resource('/home', CommoditiesController::class);
+
+//assign commodity attributes route
+Route::get(
+    '/commodity/{id}/add_commodity_attributes',
+    [CommodityAttributesController::class, 'assignCommodityAttributes']
+)->name('assign_commodity_attributes');
+
+//Save commodity attributes route
+Route::post(
+    '/commodity/add_commodity_attributes',
+    [CommodityAttributesController::class, 'storeCommodityAttributes']
+);
