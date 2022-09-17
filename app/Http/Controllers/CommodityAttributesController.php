@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Commodity;
+use App\Models\Category;
 use App\Models\CommodityCategory;
 use App\Models\CommodityType;
 use App\Models\CommodityPrice;
@@ -20,9 +21,11 @@ class CommodityAttributesController extends Controller
    public  function assignCommodityAttributes($id)
    {
         $commodity = Commodity::find($id);
+        $categories = Category::all();
 
         return view('commodities.add_commodity_attributes', compact(
             'commodity',
+            'categories'
         ));
    }
 
@@ -32,16 +35,17 @@ class CommodityAttributesController extends Controller
    public function storeCommodityAttributes(Request $request)
    {
         $commodity_id = $request->commodity_id;
-        // $commodity_category = $request->commodity_category;
+        $category_id = $request->category_id;
         $commodity_type = $request->commodity_type;
         $cost_price = $request->cost_price;
         $commodity_quantity = $request->commodity_quantity;
         $commodity_unit = $request->commodity_unit;
         $acquisition_date = $request->acquisition_date;
 
-        // $commodityCategory = CommodityCategory::create([
-
-        // ]);
+        $commodityCategory = CommodityCategory::create([
+            'commodity_id' => $commodity_id,
+            'category_id' => $category_id,
+        ]);
 
         $commodityType = CommodityType::create([
             'commodity_id' => $commodity_id,
@@ -68,7 +72,47 @@ class CommodityAttributesController extends Controller
             'aquisition_date' => $acquisition_date,
         ]);
 
-        return redirect("/home");
+        return redirect()->route('home.index');
 
    }
+
+   /**
+    * Add Commodity Type
+    */
+    public function addCommodityType($id)
+    {
+        $commodity = Commodity::find($id);
+        $commodityPrice = CommodityPrice::all();
+        $commodityQuantity = CommodityQuantity::all();
+        $commodityUnit = CommodityUnit::all();
+        $aquisitionDates = CommodityAquisitionDate::all();
+
+        return view('commodities.add_commodity_type', compact(
+            'commodity',
+            'commodityPrice',
+            'commodityQuantity',
+            'commodityUnit',
+            'aquisitionDates',
+        ));
+
+    }
+
+    /**
+     * Store commodity Type
+     */
+    public function storeCommodityType(Request $request)
+    {
+        $commodity_id = $request->commodity_id;
+        $commodity_type = $request->commodity_type;
+
+        $commodityType = CommodityType::create([
+            'commodity_id' => $commodity_id,
+            'type_name' => $commodity_type,
+        ]);
+
+        if ($commodityType == true)
+        {
+            return redirect()->route('home.index');
+        }
+    }
 }

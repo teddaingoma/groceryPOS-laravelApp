@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Grocery Portable Point-Of-Sales system for small-scale grocery businesses">
         <meta name="author" content="teddai Ngoma">
-        <title>Add Commodity Attributes</title>
+        <title>{{ $commodity -> name }} | Add Commodity Type</title>
         <meta name="description" content="Portable POS system">
         <meta property="og:title" content="Portable POS system">
         <meta property="og:description" content="Portable POS system">
@@ -33,11 +33,11 @@
 
             <div class="form--header">
                 <img class="form--brand" src="{{ asset('images/image1.jpg') }}" alt="">
-                <h1 class="form--title">Add Attributes of {{ $commodity -> name}}</h1>
+                <h1 class="form--title">Add type of {{ $commodity -> name}}</h1>
             </div>
 
             <div class="add-commodity--body">
-                <form class="add-commodity needs-validation" action="/commodity/add_commodity_attributes" method="POST" enctype="multipart/form-data" novalidate>
+                <form class="add-commodity needs-validation" action="{{ route('store_commodity_type') }}" method="POST" enctype="multipart/form-data" novalidate>
                     @csrf
                     <div class="form--control-group">
 
@@ -46,27 +46,20 @@
                             <h2 class="mb-0 control-lead-text">Commodity Item Details</h2>
                         </div>
                         <input name="commodity_id" type="text" class="form-control" id="firstName" value="{{ $commodity -> id }}" readonly>
+                        <span class="d-block">{{ $commodity -> description }}</span>
                         <div class="row g-3">
                             <div class="names row g-3">
 
                                 <div class="col-sm-6 form--input-line">
                                     <label for="category" class="form-label">Commodity Category:</label>
-                                    <select id="category" name="category_id" class="form-select" aria-label="Select Commodity Category" required>
-                                        <option selected>Select your commodity category</option>
-                                        @forelse ($categories as $category)
-                                            <option value="{{ $category -> id }}">{{ $category -> name }}</option>
-                                        @empty
-                                            No Categories Yet
-                                        @endforelse
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        In what category does it belong?
-                                    </div>
+                                    @foreach ($commodity -> Categories as $category)
+                                        <span class="badge category-value">{{ $category -> name }}</span>
+                                    @endforeach
                                 </div>
 
                                 <div class="col-sm-6 form--input-line">
-                                    <label for="formFile" class="form-label">Commodity Type<span class="text-muted">(Optional)</span>:</label>
-                                    <input name="commodity_type" type="text" class="form-control" id="formFile" placeholder="Add a type..." value="">
+                                    <label for="formFile" class="form-label">Commodity Type:</label>
+                                    <input name="commodity_type" type="text" class="form-control" id="formFile" placeholder="Add a type..." value="" required>
                                     <div class="invalid-feedback">
                                         Provide a type if it has one
                                     </div>
@@ -76,27 +69,42 @@
                             </div>
 
                             <div class="col-sm-6 form--input-line">
-                                <label for="lastName" class="form-label">Cost Price <span class="text-muted">MWK</span>:</label>
-                                <input name="cost_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" value="">
-                                <div class="invalid-feedback">
-                                    Enter the cost price, please.
-                                </div>
+                                <label for="lastName" class="form-label">Cost Price
+                                    <span class="text-muted">
+                                        MWK
+                                        @foreach ($commodityPrice as $Price)
+                                            @if ($commodity -> id == $Price -> commodity_id)
+                                                {{ $Price -> price }}
+                                            @endif
+                                        @endforeach
+                                    </span>
+                                </label>
                             </div>
 
                             <div class="col-sm-6 form--input-line">
                                 <label for="firstName" class="form-label">Quantity:</label>
-                                <input name="commodity_quantity" type="number" class="form-control" id="firstName" placeholder="Available quantity" value="">
-                                <div class="invalid-feedback">
-                                    Enter the available quantity of the Commodity, Please.
-                                </div>
+                                <span class="badge quantity-value">
+                                    @forelse ($commodityQuantity as $Quantity)
+                                        @if ($commodity -> id == $Quantity -> commodity_id)
+                                            {{ $Quantity -> quantity}}
+                                        @endif
+                                    @empty
+                                        Out of Stock
+                                    @endforelse
+                                </span>
                             </div>
 
                             <div class="col-sm-6 form--input-line">
-                                <label for="firstName" class="form-label">Commodity Unit:</label>
-                                <input name="commodity_unit" type="text" class="form-control" id="firstName" placeholder="" value="">
-                                <div class="invalid-feedback">
-                                    Enter the unit of measurement of the commodity, Please.
-                                </div>
+                                <label for="firstName" class="form-label">
+                                    Commodity Unit:
+                                    @foreach ($commodityUnit as $Unit)
+
+                                        @if ($commodity -> id == $Unit -> commodity_id)
+                                            {{ $Unit -> unit }}
+                                        @endif
+                                    @endforeach
+                                </label>
+
                             </div>
 
                             <div class="date">
@@ -104,11 +112,15 @@
                                 <div class="col-sm-6 form--input-line">
                                     <label for="dob" class="form-label">Date Acquired</label>
 
-                                    <input type="date" name="acquisition_date" class="form-control" id="dob" placeholder="birthday">
-
-                                    <div class="invalid-feedback">
-                                        When was the commodity purchased or added?.
-                                    </div>
+                                    <span class="badge acquisition-date">
+                                        @forelse ($aquisitionDates as $AquisitionDate)
+                                            @if ($commodity -> id == $AquisitionDate -> commodity_id)
+                                                {{ date('d-m-Y', strtotime($AquisitionDate -> aquisition_date)) }}
+                                            @endif
+                                        @empty
+                                            dd-mm-yyyy
+                                        @endforelse
+                                    </span>
                                 </div>
 
                             </div>

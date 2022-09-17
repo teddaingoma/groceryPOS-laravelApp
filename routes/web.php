@@ -35,4 +35,15 @@ Route::get(
 Route::post(
     '/commodity/add_commodity_attributes',
     [CommodityAttributesController::class, 'storeCommodityAttributes']
-);
+)->name('store_commodity_attributes');
+
+//assign commodity type
+Route::get(
+    '/commodity/{id}/add_commodity_type',
+    [CommodityAttributesController::class, 'addCommodityType']
+)->name('add_commodity_type');
+
+Route::post(
+    '/commodity/add_commodity_type',
+    [CommodityAttributesController::class, 'storeCommodityType']
+)->name('store_commodity_type');

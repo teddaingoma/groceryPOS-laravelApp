@@ -16,6 +16,7 @@ class CreateCommodityCategoriesTable extends Migration
         Schema::create('category_commodity', function (Blueprint $table) {
             $table->integer('commodity_id')->unsigned();
             $table->integer('category_id')->unsigned();
+            $table->timestamps();
 
             $table->foreign('commodity_id')
                     ->references('id')
@@ -36,6 +37,6 @@ class CreateCommodityCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('commodity_categories');
+        Schema::dropIfExists('category_commodity');
     }
 }

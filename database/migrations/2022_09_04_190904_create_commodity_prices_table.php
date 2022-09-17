@@ -14,8 +14,7 @@ class CreateCommodityPricesTable extends Migration
     public function up()
     {
         Schema::create('commodity_prices', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('commodity_id');
+            $table->increments('commodity_id')->onDelete('cascade');
             $table->float('price');
             $table->timestamps();
 

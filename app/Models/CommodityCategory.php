@@ -9,7 +9,7 @@ class CommodityCategory extends Model
 {
     use HasFactory;
 
-    protected $table = 'commodity_categories';
+    protected $table = 'category_commodity';
     protected $timestamp = true;
     protected $fillable = ['commodity_id', 'category_id'];
     protected $visible = ['commodity_id', 'category_id'];

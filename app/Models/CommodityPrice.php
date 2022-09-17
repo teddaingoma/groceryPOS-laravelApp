@@ -11,7 +11,7 @@ class CommodityPrice extends Model
 
     protected $table = 'commodity_prices';
 
-    protected $primary = 'id';
+    protected $primary = 'commodity_id';
 
     protected $timestamp = true;
 

@@ -30,13 +30,11 @@
                                 <span class="commodity__price">
                                     <span class="commodity__currency">MWK</span>
                                     <span class="commodity__amount">
-                                        @forelse ($commodityPrice as $Price)
+                                        @foreach ($commodityPrice as $Price)
                                             @if ($commodity -> id == $Price -> commodity_id)
                                                 {{ $Price -> price }}
                                             @endif
-                                        @empty
-                                            00.00
-                                        @endforelse
+                                        @endforeach
                                     </span>
                                     <span class="commodity__unit">/
                                         @forelse ($commodityUnit as $Unit)
@@ -71,7 +69,7 @@
                                     @forelse ($commodityUnit as $Unit)
 
                                         @if ($commodity -> id == $Unit -> commodity_id)
-                                            {{ $Unit -> unit }}
+                                            {{ $Unit -> unit }} (s)
                                         @endif
 
                                     @empty
@@ -95,9 +93,11 @@
 
                             <span class="commodity__category">
                                 <span class="category-text">Category (s) :</span>
-                                @foreach ($commodity -> Categories as $category)
+                                @forelse ($commodity -> Categories as $category)
                                     <span class="badge category-value">{{ $category -> name }}</span>
-                                @endforeach
+                                @empty
+                                    <span class="badge category-value">no categories</span>
+                                @endforelse
                             </span>
 
                             <span class="commodity__category">
@@ -105,8 +105,13 @@
                                 @forelse ($commodity -> Types as $Type)
                                     <span class="badge category-value">{{ $Type -> type_name }}</span>
                                 @empty
-                                <span class="badge category-value">{{ $commodity -> name }} has no types</span>
+                                    <span class="badge category-value">{{ $commodity -> name }} has no types</span>
                                 @endforelse
+                                <a href="/commodity/{{ $commodity -> id }}/add_commodity_type" role="button" class="btn btn--primary btn--icon">
+                                    <span class="icon-container icon--small">
+                                        <img class="icon" src="{{ asset('images/edit-filled.ico') }}" alt="">
+                                    </span>
+                                </a>
                             </span>
 
                         </div>
