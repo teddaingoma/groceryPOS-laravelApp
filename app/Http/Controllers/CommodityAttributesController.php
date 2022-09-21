@@ -246,4 +246,31 @@ class CommodityAttributesController extends Controller
 
         return redirect()->route('home.index');
     }
+
+    /**
+     * Add a commodity's available quantity
+     */
+    public function addCommodityQuantity($id)
+    {
+        $commodity = Commodity::find($id);
+        return view('commodities.add_commodity_quantity', compact(
+            'commodity'
+        ));
+    }
+
+    /**
+     * Store a commodity's available quantity
+     */
+    public function storeCommodityQuantity(Request $request)
+    {
+        $commodity_id = $request->commodity_id;
+        $commodity_quantity = $request->commodity_quantity;
+
+        $commodityQuantity = CommodityQuantity::create([
+            'commodity_id' => $commodity_id,
+            'quantity' => $commodity_quantity,
+        ]);
+
+        return redirect()->route('home.index');
+    }
 }

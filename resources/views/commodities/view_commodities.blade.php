@@ -65,7 +65,12 @@
                                 <span class="quantity-text">Quantity</span>
                                 <span class="badge quantity-value">
                                     @if ($commodity->Quantity == '')
-                                        Out of stock
+                                        <a href="/commodity/{{ $commodity -> id }}/add_commodity_quantity" role="button" class="btn btn--primary btn--icon">
+                                            <span class="icon-container icon--small">
+                                                <img class="icon" src="{{ asset('images/edit-filled.ico') }}" alt="">
+                                            </span>
+                                            quantity
+                                        </a>
                                     @else
                                         {{ $commodity->Quantity -> quantity }}
                                     @endif

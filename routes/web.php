@@ -87,3 +87,13 @@ Route::post(
     '/commodity/add_commodity_aquisition-date',
     [CommodityAttributesController::class, 'storeCommodityAquisitionDate']
 )->name('store_commodity_aquisition-date');
+
+//Assign and store a commodity's available quantity
+Route::get(
+    '/commodity/{id}/add_commodity_quantity',
+    [CommodityAttributesController::class, 'addCommodityQuantity']
+)->name('add_commodity_quantity');
+Route::post(
+    '/commodity/add_commodity_quantity',
+    [CommodityAttributesController::class, 'storeCommodityQuantity']
+)->name('store_commodity_quantity');
