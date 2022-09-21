@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Commodity extends Model
 {
@@ -32,4 +33,38 @@ class Commodity extends Model
     {
         return $this->hasMany(CommodityType::class);
     }
+
+    //Has one Price
+    public function Price()
+    {
+        return $this->hasOne(
+            CommodityPrice::class
+        );
+    }
+
+    //Has a single quantity amount
+    public function Quantity()
+    {
+        return $this->hasOne(
+            CommodityQuantity::class
+        );
+    }
+
+    //Has a single unit of measurement
+    public function Unit()
+    {
+        return $this->hasOne(
+            CommodityUnit::class
+        );
+    }
+
+    //Has a single date of acquisition
+    public function AquisitionDate()
+    {
+        return $this->hasOne(
+            CommodityAquisitionDate::class
+        );
+    }
+
+
 }

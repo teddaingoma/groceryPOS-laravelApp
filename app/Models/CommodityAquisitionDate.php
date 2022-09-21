@@ -18,4 +18,12 @@ class CommodityAquisitionDate extends Model
     protected $fillable = ['commodity_id', 'aquisition_date'];
 
     protected $visible = ['commodity_id', 'aquisition_date'];
+
+    //An acquisition Date belongs to a single commodity
+    public function Commodity()
+    {
+        return $this->belongsTo(
+            Commodity::class
+        );
+    }
 }

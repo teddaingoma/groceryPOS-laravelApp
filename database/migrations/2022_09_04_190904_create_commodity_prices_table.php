@@ -14,11 +14,14 @@ class CreateCommodityPricesTable extends Migration
     public function up()
     {
         Schema::create('commodity_prices', function (Blueprint $table) {
-            $table->increments('commodity_id')->onDelete('cascade');
+            $table->increments('id')->onDelete('cascade');
             $table->float('price');
+            $table->unsignedInteger('commodity_id');
             $table->timestamps();
 
+            // Foreign Key
             $table->foreign('commodity_id')
+                    ->constrained()
                     ->references('id')
                     ->on('commodities')
                     ->onDelete('cascade');

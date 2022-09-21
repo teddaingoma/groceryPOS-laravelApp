@@ -47,3 +47,43 @@ Route::post(
     '/commodity/add_commodity_type',
     [CommodityAttributesController::class, 'storeCommodityType']
 )->name('store_commodity_type');
+
+//Assign and store a commodity's category
+Route::get(
+    '/commodity/{id}/add_commodity_category',
+    [CommodityAttributesController::class, 'addCommodityCategory']
+)->name('add_commodity_category');
+Route::post(
+    '/commodity/add_commodity_category',
+    [CommodityAttributesController::class, 'storeCommodityCategory']
+)->name('store_commodity_category');
+
+//Assign and Store a commodity's price
+Route::get(
+    '/commodity/{id}/add_commodity_price',
+    [CommodityAttributesController::class, 'addCommodityPrice']
+)->name('add_commodity_price');
+Route::post(
+    '/commodity/add_commodity_price',
+    [CommodityAttributesController::class, 'storeCommodityPrice']
+)->name('store_commodity_price');
+
+//Assign and Store a commodity's Unit of measurement
+Route::get(
+    '/commodity/{id}/add_commodity_unit',
+    [CommodityAttributesController::class, 'addCommodityUnit']
+)->name('add _commodity_unit');
+Route::post(
+    '/commodity/add_commodity_unit',
+    [CommodityAttributesController::class, 'storeCommodityUnit']
+)->name('store_commodity_unit');
+
+//Assign and store a commodity's acquisition date
+Route::get(
+    '/commodity/{id}/add_commodity_aquisition-date',
+    [CommodityAttributesController::class, 'addCommodityAquisitionDate']
+)->name('add_commodity_aquisition-date');
+Route::post(
+    '/commodity/add_commodity_aquisition-date',
+    [CommodityAttributesController::class, 'storeCommodityAquisitionDate']
+)->name('store_commodity_aquisition-date');

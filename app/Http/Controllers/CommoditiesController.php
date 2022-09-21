@@ -20,19 +20,9 @@ class CommoditiesController extends Controller
     public function index()
     {
         $commodities = Commodity::all();
-        $commodityPrice = CommodityPrice::all();
-        $commodityQuantity = CommodityQuantity::all();
-        $commodityUnit = CommodityUnit::all();
-        $aquisitionDates = CommodityAquisitionDate::all();
-        $categories = Category::all();
 
         return view('commodities.view_commodities', compact(
-            'commodities',
-            'commodityPrice',
-            'commodityQuantity',
-            'commodityUnit',
-            'aquisitionDates',
-            'categories'
+            'commodities'
         ));
     }
 

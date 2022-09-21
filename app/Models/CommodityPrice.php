@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CommodityPrice extends Model
 {
@@ -18,4 +19,12 @@ class CommodityPrice extends Model
     protected $fillable = ['commodity_id', 'price'];
 
     protected $visible = ['commodity_id', 'price'];
+
+    //A Single Price is assigned to a single commodity
+    public function CommodityPrice()
+    {
+        return $this->belongsTo(
+            Commodity::class
+        );
+    }
 }

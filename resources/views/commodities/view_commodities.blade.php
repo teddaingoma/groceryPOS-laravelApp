@@ -30,22 +30,29 @@
                                 <span class="commodity__price">
                                     <span class="commodity__currency">MWK</span>
                                     <span class="commodity__amount">
-                                        @foreach ($commodityPrice as $Price)
-                                            @if ($commodity -> id == $Price -> commodity_id)
-                                                {{ $Price -> price }}
-                                            @endif
-                                        @endforeach
+                                        @if ($commodity->Price == '')
+                                            <a href="/commodity/{{ $commodity -> id }}/add_commodity_price" role="button" class="btn btn--primary btn--icon">
+                                                <span class="icon-container icon--small">
+                                                    <img class="icon" src="{{ asset('images/edit-filled.ico') }}" alt="">
+                                                </span>
+                                                price
+                                            </a>
+                                        @else
+                                            {{ $commodity->Price->price }}
+                                        @endif
+
                                     </span>
                                     <span class="commodity__unit">/
-                                        @forelse ($commodityUnit as $Unit)
-
-                                            @if ($commodity -> id == $Unit -> commodity_id)
-                                                {{ $Unit -> unit }}
-                                            @endif
-
-                                        @empty
-                                            Unit
-                                        @endforelse
+                                        @if ($commodity->Unit == '')
+                                            <a href="/commodity/{{ $commodity -> id }}/add_commodity_unit" role="button" class="btn btn--primary btn--icon">
+                                                <span class="icon-container icon--small">
+                                                    <img class="icon" src="{{ asset('images/edit-filled.ico') }}" alt="">
+                                                </span>
+                                                unit
+                                            </a>
+                                        @else
+                                            {{ $commodity->Unit -> unit }}
+                                        @endif
                                     </span>
 
                                 </span>
@@ -57,37 +64,34 @@
                             <span class="commodity__quantity">
                                 <span class="quantity-text">Quantity</span>
                                 <span class="badge quantity-value">
-                                    @forelse ($commodityQuantity as $Quantity)
-                                        @if ($commodity -> id == $Quantity -> commodity_id)
-                                            {{ $Quantity -> quantity}}
-                                        @endif
-                                    @empty
-                                        Out of Stock
-                                    @endforelse
+                                    @if ($commodity->Quantity == '')
+                                        Out of stock
+                                    @else
+                                        {{ $commodity->Quantity -> quantity }}
+                                    @endif
                                 </span>
                                 <span class="commodity__unit">
-                                    @forelse ($commodityUnit as $Unit)
-
-                                        @if ($commodity -> id == $Unit -> commodity_id)
-                                            {{ $Unit -> unit }} (s)
-                                        @endif
-
-                                    @empty
+                                    @if ($commodity->Unit == '')
                                         Unit
-                                    @endforelse
+                                    @else
+                                        {{ $commodity->Unit -> unit }}
+                                    @endif
                                 </span>
                             </span>
 
                             <span class="commodity__acquisition-date">
                                 <span class="acquisition-text">Acquired On</span>
                                 <span class="badge acquisition-date">
-                                    @forelse ($aquisitionDates as $AquisitionDate)
-                                        @if ($commodity -> id == $AquisitionDate -> commodity_id)
-                                            {{ date('d-m-Y', strtotime($AquisitionDate -> aquisition_date)) }}
-                                        @endif
-                                    @empty
-                                        dd-mm-yyyy
-                                    @endforelse
+                                    @if($commodity->AquisitionDate == '')
+                                        <a href="/commodity/{{ $commodity -> id }}/add_commodity_aquisition-date" role="button" class="btn btn--primary btn--icon">
+                                            <span class="icon-container icon--small">
+                                                <img class="icon" src="{{ asset('images/edit-filled.ico') }}" alt="">
+                                            </span>
+                                            date
+                                        </a>
+                                    @else
+                                        {{ $commodity->AquisitionDate -> aquisition_date }}
+                                    @endif
                                 </span>
                             </span>
 
@@ -98,6 +102,11 @@
                                 @empty
                                     <span class="badge category-value">no categories</span>
                                 @endforelse
+                                <a href="/commodity/{{ $commodity -> id }}/add_commodity_category" role="button" class="btn btn--primary btn--icon">
+                                    <span class="icon-container icon--small">
+                                        <img class="icon" src="{{ asset('images/edit-filled.ico') }}" alt="">
+                                    </span>
+                                </a>
                             </span>
 
                             <span class="commodity__category">

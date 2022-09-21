@@ -115,4 +115,135 @@ class CommodityAttributesController extends Controller
             return redirect()->route('home.index');
         }
     }
+
+    /**
+     * Add Commodity Category
+     */
+    public function addCommodityCategory($id)
+    {
+        $commodity = Commodity::find($id);
+        $categories = Category::all();
+        $commodityPrice = CommodityPrice::all();
+        $commodityQuantity = CommodityQuantity::all();
+        $commodityUnit = CommodityUnit::all();
+        $aquisitionDates = CommodityAquisitionDate::all();
+
+        return view('commodities.add_commodity_category', compact(
+            'commodity',
+            'categories',
+            'commodityPrice',
+            'commodityQuantity',
+            'commodityUnit',
+            'aquisitionDates',
+        ));
+    }
+
+    /**
+     * Store Commodity Category
+     */
+    public function storeCommodityCategory(Request $request)
+    {
+        $commodity_id = $request->commodity_id;
+        $category_id = $request->category_id;
+
+        $commodityCategory = CommodityCategory::create([
+            'commodity_id' => $commodity_id,
+            'category_id' => $category_id,
+        ]);
+
+        return redirect()->route('home.index');
+    }
+
+    /**
+     * Add Commodity Price
+     */
+    public function addCommodityPrice($id)
+    {
+        $commodity = Commodity::find($id);
+        $categories = Category::all();
+        $commodityPrice = CommodityPrice::all();
+        $commodityQuantity = CommodityQuantity::all();
+        $commodityUnit = CommodityUnit::all();
+        $aquisitionDates = CommodityAquisitionDate::all();
+
+        return view('commodities.add_commodity_price', compact(
+            'commodity',
+            'categories',
+            'commodityPrice',
+            'commodityQuantity',
+            'commodityUnit',
+            'aquisitionDates',
+        ));
+    }
+
+    /**
+     * Store commodity Price
+     */
+    public function storeCommodityPrice(Request $request)
+    {
+        $commodity_id = $request->commodity_id;
+        $cost_price = $request->cost_price;
+
+        $commodityPrice = CommodityPrice::create([
+            'commodity_id' => $commodity_id,
+            'price' => $cost_price,
+        ]);
+
+        return redirect()->route('home.index');
+    }
+
+    /**
+     * Assign a Commodity's Unit of Measurement
+     */
+    public function addCommodityUnit($id)
+    {
+        $commodity = Commodity::find($id);
+
+        return view('commodities.add_commodity_unit', compact(
+            'commodity'
+        ));
+    }
+
+    /**
+     * Store a commodity's Unit of measurement
+     */
+    public function storeCommodityUnit(Request $request)
+    {
+        $commodity_id = $request->commodity_id;
+        $commodity_unit = $request->commodity_unit;
+
+        $commodityUnit = CommodityUnit::create([
+            'commodity_id' => $commodity_id,
+            'unit' => $commodity_unit,
+        ]);
+
+        return redirect()->route('home.index');
+    }
+
+    /**
+     * Add a commodity's Acquisition Date
+     */
+    public function addCommodityAquisitionDate($id)
+    {
+        $commodity = Commodity::find($id);
+        return view('commodities.add_commodity_acq-date', compact(
+            'commodity'
+        ));
+    }
+
+    /**
+     * Store a commodity's Acquisition Date
+     */
+    public function storeCommodityAquisitionDate(Request $request)
+    {
+        $commodity_id = $request->commodity_id;
+        $acquisition_date = $request->acquisition_date;
+
+        $commodityAquisitionDate = CommodityAquisitionDate::create([
+            'commodity_id' => $commodity_id,
+            'aquisition_date' => $acquisition_date,
+        ]);
+
+        return redirect()->route('home.index');
+    }
 }

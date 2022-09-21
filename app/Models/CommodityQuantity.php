@@ -18,4 +18,12 @@ class CommodityQuantity extends Model
     protected $fillable = ['commodity_id', 'quantity'];
 
     protected $visible = ['commodity_id', 'quantity'];
+
+    //Belongs to a single commodity
+    public function Commodity()
+    {
+        return $this->belongsTo(
+            Commodity::class
+        );
+    }
 }
