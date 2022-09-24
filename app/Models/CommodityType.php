@@ -20,7 +20,30 @@ class CommodityType extends Model
     {
         return $this->belongsTo(
             Commodity::class,
-            'commodity_id',
+        );
+    }
+
+    // One type has is linked to a single price
+    public function TypePrice()
+    {
+        return $this->hasOne(
+            TypePrice::class
+        );
+    }
+
+    // One type has a single amount of available quantity
+    public function TypeQuantity()
+    {
+        return $this->hasOne(
+            TypeQuantity::class
+        );
+    }
+
+    // One type has a single date of acquisition
+    public function TypeAquisitionDate()
+    {
+        return $this->hasOne(
+            TypeAquisitionDate::class
         );
     }
 }

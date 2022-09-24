@@ -130,9 +130,9 @@
 
                         </div>
                         <div class="card__btn">
-                            <button class="btn btn--primary btn--img">
+                            <a href="{{ route('home.show', ['home' => $commodity->id]) }}" class="btn btn--primary btn--img">
                                 <span class="btn__text">view</span>
-                            </button>
+                            </a>
                         </div>
                         <footer class="card__footer">
                             <div class="btn--group">

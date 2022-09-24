@@ -60,10 +60,18 @@ class CommoditiesController extends Controller
             'image_path' => $Commodity_image,
         ]);
 
-        $message = "Added $request->commodity_name successfully";
+        if ($commodity == true)
+        {
+            $message = "Added $request->commodity_name successfully";
 
-        $id = $commodity -> id;
-        return redirect("/commodity/$id/add_commodity_attributes");
+            $id = $commodity -> id;
+            return redirect("/commodity/$id/add_commodity_attributes");
+        }
+        else
+        {
+            return redirect()->route('home.index');
+        }
+
     }
 
     /**
@@ -74,7 +82,10 @@ class CommoditiesController extends Controller
      */
     public function show($id)
     {
-        //
+        $commodity = Commodity::find($id);
+        return view('commodities.show_commodity', compact(
+            'commodity'
+        ));
     }
 
     /**

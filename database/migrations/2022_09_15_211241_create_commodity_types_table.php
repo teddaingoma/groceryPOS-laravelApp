@@ -14,10 +14,12 @@ class CreateCommodityTypesTable extends Migration
     public function up()
     {
         Schema::create('commodity_types', function (Blueprint $table) {
-            $table->id();
-            $table->integer("commodity_id")->unsigned();
+            $table->increments('id');
             $table->string("type_name");
+            $table->longText('description')->nullable(true);
+            $table->string('image_path')->nullable(true);
             $table->timestamps();
+            $table->integer("commodity_id")->unsigned();
 
             $table->foreign("commodity_id")
                     ->references("id")

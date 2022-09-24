@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommoditiesController;
 use App\Http\Controllers\CommodityAttributesController;
+use App\Http\Controllers\CommodityTypesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +15,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/', function () {
-//     return view('layout.app');
-// });
 
-// Route::get('/home', function () {
-//     return view('layout.home');
-// });
 
 //commodities resource route
 Route::resource('/home', CommoditiesController::class);
@@ -97,3 +92,9 @@ Route::post(
     '/commodity/add_commodity_quantity',
     [CommodityAttributesController::class, 'storeCommodityQuantity']
 )->name('store_commodity_quantity');
+
+// Show or View a commodity's Type
+Route::get(
+    'commodities/types/{commodity}/{type}/show_commodity_type',
+    [CommodityTypesController::class, 'showCommodityType']
+)->name('show_commodity_type');

@@ -72,7 +72,21 @@ class CommodityAttributesController extends Controller
             'aquisition_date' => $acquisition_date,
         ]);
 
-        return redirect()->route('home.index');
+        if (
+            $commodityCategory == true &&
+            $commodityType == true &&
+            $commodityPrice == true &&
+            $commodityQuantity == true &&
+            $commodityUnit == true &&
+            $commodityAquisitionDate == true
+        )
+        {
+            return redirect("/home/$commodity_id");
+        }
+        else
+        {
+            return redirect()->route('home.index');
+        }
 
    }
 
@@ -82,17 +96,10 @@ class CommodityAttributesController extends Controller
     public function addCommodityType($id)
     {
         $commodity = Commodity::find($id);
-        $commodityPrice = CommodityPrice::all();
-        $commodityQuantity = CommodityQuantity::all();
-        $commodityUnit = CommodityUnit::all();
-        $aquisitionDates = CommodityAquisitionDate::all();
+
 
         return view('commodities.add_commodity_type', compact(
             'commodity',
-            'commodityPrice',
-            'commodityQuantity',
-            'commodityUnit',
-            'aquisitionDates',
         ));
 
     }
@@ -103,14 +110,44 @@ class CommodityAttributesController extends Controller
     public function storeCommodityType(Request $request)
     {
         $commodity_id = $request->commodity_id;
+        $commodity = Commodity::find($commodity_id);
         $commodity_type = $request->commodity_type;
+
+
+        if ($request->commodity_type_image !== NULL)
+        {
+            $Commodity_type_image = $commodity_type . '-' . time() . '.' . $request->commodity_type_image->extension();
+            $request->commodity_type_image->move(public_path('commodity_images'), $Commodity_type_image);
+        }
+
+        if ($request->commodity_type_image == NULL)
+        {
+            $Commodity_type_image = $commodity->image_path;
+        }
+
+        if ($request->commodity_type_description !== NULL)
+        {
+            $type_description = $request->commodity_type_description;
+        }
+
+        if ($request->commodity_type_description == NULL)
+        {
+            $type_description = $commodity->description;
+        }
 
         $commodityType = CommodityType::create([
             'commodity_id' => $commodity_id,
             'type_name' => $commodity_type,
+            'description' => $type_description,
+            'image_path' => $Commodity_type_image,
         ]);
 
         if ($commodityType == true)
+        {
+            $message = "Successfully added type $commodity_type";
+            return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);
+        }
+        else
         {
             return redirect()->route('home.index');
         }
@@ -151,7 +188,15 @@ class CommodityAttributesController extends Controller
             'category_id' => $category_id,
         ]);
 
-        return redirect()->route('home.index');
+        if ($commodityCategory == true)
+        {
+            $message = "Category Added Successfully";
+            return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);
+        }
+        else
+        {
+            return redirect()->route('home.index');
+        }
     }
 
     /**
@@ -189,7 +234,14 @@ class CommodityAttributesController extends Controller
             'price' => $cost_price,
         ]);
 
-        return redirect()->route('home.index');
+        if ($commodityPrice == true)
+        {
+            return redirect("/home/$commodity_id");
+        }
+        else
+        {
+            return redirect()->route('home.index');
+        }
     }
 
     /**
@@ -217,7 +269,14 @@ class CommodityAttributesController extends Controller
             'unit' => $commodity_unit,
         ]);
 
-        return redirect()->route('home.index');
+        if ($commodityUnit == true)
+        {
+            return redirect("/home/$commodity_id");
+        }
+        else
+        {
+            return redirect()->route('home.index');
+        }
     }
 
     /**
@@ -244,7 +303,14 @@ class CommodityAttributesController extends Controller
             'aquisition_date' => $acquisition_date,
         ]);
 
-        return redirect()->route('home.index');
+        if ($commodityAquisitionDate == true)
+        {
+            return redirect("/home/$commodity_id");
+        }
+        else
+        {
+            return redirect()->route('home.index');
+        }
     }
 
     /**
@@ -271,6 +337,13 @@ class CommodityAttributesController extends Controller
             'quantity' => $commodity_quantity,
         ]);
 
-        return redirect()->route('home.index');
+        if ($commodityQuantity == true)
+        {
+            return redirect("/home/$commodity_id");
+        }
+        else
+        {
+            return redirect()->route('home.index');
+        }
     }
 }

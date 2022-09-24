@@ -52,9 +52,11 @@
 
                                 <div class="col-sm-6 form--input-line">
                                     <label for="category" class="form-label">Commodity Category:</label>
-                                    @foreach ($commodity -> Categories as $category)
+                                    @forelse ($commodity -> Categories as $category)
                                         <span class="badge category-value">{{ $category -> name }}</span>
-                                    @endforeach
+                                    @empty
+                                        <span class="badge category-value">no categories</span>
+                                    @endforelse
                                 </div>
 
                                 <div class="col-sm-6 form--input-line">
@@ -65,18 +67,34 @@
                                     </div>
                                 </div>
 
+                                <div class="col-sm-6 form--input-line">
+                                    <label for="formFile" class="form-label">Image <span class="text-muted">(Optional)</span>:</label>
+                                    <input name="commodity_type_image" type="file" class="form-control" id="formFile" placeholder="" value="">
+                                    <div class="invalid-feedback">
+                                    Provide an image of the commodity Type.
+                                    </div>
+                                </div>
 
+
+                            </div>
+
+                            <div class="form--input-line">
+                                <label for="lastName" class="form-label">Description <span class="text-muted">(Optional)</span>:</label>
+                            </div>
+                            <textarea name="commodity_type_description" class="form-control" id="lastName" placeholder="describe your commodity type in a few words..." value="" aria-label="textarea"></textarea>
+                            <div class="invalid-feedback">
+                                Define the type in a few words...
                             </div>
 
                             <div class="col-sm-6 form--input-line">
                                 <label for="lastName" class="form-label">Cost Price
                                     <span class="text-muted">
                                         MWK
-                                        @foreach ($commodityPrice as $Price)
-                                            @if ($commodity -> id == $Price -> commodity_id)
-                                                {{ $Price -> price }}
-                                            @endif
-                                        @endforeach
+                                        @if ($commodity->Price == '')
+                                            00.00
+                                        @else
+                                            {{ $commodity->Price->price }}
+                                        @endif
                                     </span>
                                 </label>
                             </div>
@@ -84,25 +102,22 @@
                             <div class="col-sm-6 form--input-line">
                                 <label for="firstName" class="form-label">Quantity:</label>
                                 <span class="badge quantity-value">
-                                    @forelse ($commodityQuantity as $Quantity)
-                                        @if ($commodity -> id == $Quantity -> commodity_id)
-                                            {{ $Quantity -> quantity}}
-                                        @endif
-                                    @empty
-                                        Out of Stock
-                                    @endforelse
+                                    @if ($commodity->Quantity == '')
+                                        Out of stock
+                                    @else
+                                        {{ $commodity->Quantity -> quantity }}
+                                    @endif
                                 </span>
                             </div>
 
                             <div class="col-sm-6 form--input-line">
                                 <label for="firstName" class="form-label">
                                     Commodity Unit:
-                                    @foreach ($commodityUnit as $Unit)
-
-                                        @if ($commodity -> id == $Unit -> commodity_id)
-                                            {{ $Unit -> unit }}
-                                        @endif
-                                    @endforeach
+                                    @if ($commodity->Unit == '')
+                                        Unit
+                                    @else
+                                        {{ $commodity->Unit -> unit }}
+                                    @endif
                                 </label>
 
                             </div>
@@ -113,13 +128,11 @@
                                     <label for="dob" class="form-label">Date Acquired</label>
 
                                     <span class="badge acquisition-date">
-                                        @forelse ($aquisitionDates as $AquisitionDate)
-                                            @if ($commodity -> id == $AquisitionDate -> commodity_id)
-                                                {{ date('d-m-Y', strtotime($AquisitionDate -> aquisition_date)) }}
-                                            @endif
-                                        @empty
+                                        @if($commodity->AquisitionDate == '')
                                             dd-mm-yyyy
-                                        @endforelse
+                                        @else
+                                            {{ $commodity->AquisitionDate -> aquisition_date }}
+                                        @endif
                                     </span>
                                 </div>
 
