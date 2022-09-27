@@ -11,8 +11,8 @@ class CommodityType extends Model
 
     protected $table = "commodity_types";
     protected $primary = "id";
-    protected $fillable = ["commodity_id", "type_name"];
-    protected $visible = ["commodity_id", "type_name"];
+    protected $fillable = ["commodity_id", "type_name", "description", "image_path"];
+    protected $visible = ["commodity_id", "type_name", "description", "image_path"];
     protected $timestamp = true;
 
     // One or Many Types belong to only one Commodity: belengsTo

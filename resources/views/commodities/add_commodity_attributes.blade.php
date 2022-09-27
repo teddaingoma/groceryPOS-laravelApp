@@ -32,6 +32,11 @@
         <div class="add-commodity-form">
 
             <div class="form--header">
+                @if (session('status'))
+                    <div class="alert alert-success text-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
                 <img class="form--brand" src="{{ asset('images/image1.jpg') }}" alt="">
                 <h1 class="form--title">Add Attributes of {{ $commodity -> name}}</h1>
             </div>

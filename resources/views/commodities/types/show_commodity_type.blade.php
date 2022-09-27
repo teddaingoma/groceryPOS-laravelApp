@@ -59,7 +59,7 @@
                                         </span>
                                         <span class="commodity__description">
                                             @if($Type->description == '')
-                                                {{ $commodity -> description }}
+                                                {{ $Commodity -> description }}
                                             @else
                                                 {{ $Type->description }}
                                             @endif
@@ -109,7 +109,7 @@
                                         <span class="icon-container icon--small">
                                             <img class="icon" src="{{ URL("images/category-dark.ico") }}" alt="">
                                         </span>
-                                        <span class="btn__text">category</span>
+                                        <span class="btn__text">type</span>
                                     </a>
                                     </div>
                                     <div class="card__divider"></div>

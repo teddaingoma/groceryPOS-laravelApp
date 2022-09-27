@@ -12,8 +12,8 @@ class TypeQuantity extends Model
     protected $table = 'type_quantities';
     protected $primary = 'id';
     protected $timestamp = true;
-    protected $fillable = ['quantity', 'commodity_type_id'];
-    protected $visible = ['quantity', 'commodity_type_id'];
+    protected $fillable = ['type_quantity', 'commodity_type_id'];
+    protected $visible = ['type_quantity', 'commodity_type_id'];
 
     // An amount of quantity is associated to a single Type
     public function Type()

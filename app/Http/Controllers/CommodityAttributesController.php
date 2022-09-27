@@ -135,6 +135,8 @@ class CommodityAttributesController extends Controller
             $type_description = $commodity->description;
         }
 
+        // dd($commodity_id, $commodity_type, $type_description, $Commodity_type_image);
+
         $commodityType = CommodityType::create([
             'commodity_id' => $commodity_id,
             'type_name' => $commodity_type,
@@ -142,10 +144,26 @@ class CommodityAttributesController extends Controller
             'image_path' => $Commodity_type_image,
         ]);
 
+        // dd(
+        //     $commodityType->id,
+        //     $commodityType->type_name,
+        //     $commodityType->description,
+        //     $commodityType->image_path,
+        //     $commodityType->commodity_id
+        // );
+
         if ($commodityType == true)
         {
+            $commodity_type_id = $commodityType->id;
             $message = "Successfully added type $commodity_type";
-            return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);
+
+            return redirect()->route(
+                'assign_type_attributes', [
+                    'commodity' => $commodity_id,
+                    'type' => $commodity_type_id
+                ]
+            )->with('status', $message);
+
         }
         else
         {

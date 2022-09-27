@@ -121,11 +121,7 @@
                                 @empty
                                     <span class="badge category-value">{{ $commodity -> name }} has no types</span>
                                 @endforelse
-                                <a href="/commodity/{{ $commodity -> id }}/add_commodity_type" role="button" class="btn btn--primary btn--icon">
-                                    <span class="icon-container icon--small">
-                                        <img class="icon" src="{{ asset('images/edit-filled.ico') }}" alt="">
-                                    </span>
-                                </a>
+
                             </span>
 
                         </div>
@@ -136,18 +132,18 @@
                         </div>
                         <footer class="card__footer">
                             <div class="btn--group">
-                            <a href="/home/{{ $commodity -> id }}/edit" class="btn btn--edit btn--icon">
-                                <span class="icon-container icon--small">
-                                    <img class="icon" src="{{ URL("images/edit-filled.ico") }}" alt="">
-                                </span>
-                                <span class="btn__text">edit</span>
-                            </a>
-                            <button class="btn btn--category btn--icon">
-                                <span class="icon-container icon--small">
-                                    <img class="icon" src="{{ URL("images/category-dark.ico") }}" alt="">
-                                </span>
-                                <span class="btn__text">category</span>
-                            </button>
+                                <a href="/home/{{ $commodity -> id }}/edit" class="btn btn--edit btn--icon">
+                                    <span class="icon-container icon--small">
+                                        <img class="icon" src="{{ URL("images/edit-filled.ico") }}" alt="">
+                                    </span>
+                                    <span class="btn__text">edit</span>
+                                </a>
+                                <a href="{{ route('add_commodity_type', ['id' => $commodity->id]) }}" class="btn btn--category btn--icon">
+                                    <span class="icon-container icon--small">
+                                        <img class="icon" src="{{ URL("images/category-dark.ico") }}" alt="">
+                                    </span>
+                                    <span class="btn__text">type</span>
+                                </a>
                             </div>
                             <div class="card__divider"></div>
                             <div class="btn--group">

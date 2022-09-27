@@ -95,6 +95,16 @@ Route::post(
 
 // Show or View a commodity's Type
 Route::get(
-    'commodities/types/{commodity}/{type}/show_commodity_type',
+    '/commodities/types/{commodity}/{type}/show_commodity_type',
     [CommodityTypesController::class, 'showCommodityType']
 )->name('show_commodity_type');
+
+// Add and store a commodity's type's attributes
+Route::get(
+    '/commodities/types/{commodity}/{type}/add_type_attributes',
+    [CommodityTypesController::class, 'addTypeAttributes']
+)->name('assign_type_attributes');
+Route::post(
+    '/commodities/types/{commodity}/{type_name}/add_type_attributes',
+    [CommodityTypesController::class, 'storeTypeAttributes']
+)->name('store_type_attributes');

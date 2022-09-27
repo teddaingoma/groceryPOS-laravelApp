@@ -62,10 +62,10 @@ class CommoditiesController extends Controller
 
         if ($commodity == true)
         {
-            $message = "Added $request->commodity_name successfully";
+            $message = "Added $request->commodity_name successfully.";
 
             $id = $commodity -> id;
-            return redirect("/commodity/$id/add_commodity_attributes");
+            return redirect()->route('assign_commodity_attributes', ['id' => $id])->with('status', $message);
         }
         else
         {
