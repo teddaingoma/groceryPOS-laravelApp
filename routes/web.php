@@ -108,3 +108,13 @@ Route::post(
     '/commodities/types/{commodity}/{type_name}/add_type_attributes',
     [CommodityTypesController::class, 'storeTypeAttributes']
 )->name('store_type_attributes');
+
+// Edit attributes of a commodity type
+Route::get(
+    '/commodities/types/{commodity}/{type}/edit_commodity_type',
+    [CommodityTypesController::class, 'editCommodityType']
+)->name('edit_commodity_type');
+Route::put(
+    '/commodities/types/{commodity}/{type}',
+    [CommodityTypesController::class, 'updateCommodityType']
+)->name('update_commodity_type');

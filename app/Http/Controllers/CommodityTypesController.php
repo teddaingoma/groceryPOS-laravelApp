@@ -56,24 +56,44 @@ class CommodityTypesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $commodity and $type
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editCommodityType($commodity, $type)
     {
-        //
+        $Commodity = Commodity::find($commodity);
+        $commodity_type_id = $type;
+
+        return view('commodities.types.edit_commodity_type', compact(
+            'Commodity',
+            'commodity_type_id',
+        ));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $commodity, $type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateCommodityType(Request $request, $commodity, $type)
     {
-        //
+        $commodity = Commodity::find($commodity);
+        $commodity_type = $request->commodity_type;
+
+        if ($request->commodity_type_image !== NULL)
+        {
+            $Commodity_type_image = $commodity_type . '-' . time() . '.' . $request->commodity_type_image->extension();
+            dd($Commodity_type_image);
+            $request->commodity_type_image->move(public_path('commodity_images'), $Commodity_type_image);
+        }
+
+        if ($request->commodity_type_image == NULL)
+        {
+            dd("Path is empty");
+            $Commodity_type_image = $commodity->image_path;
+        }
     }
 
     /**

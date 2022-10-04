@@ -271,7 +271,7 @@
                         </div>
                         <footer class="card__footer">
                             <div class="btn--group">
-                            <a href="/home/{{ $commodity -> id }}/edit" class="btn btn--edit btn--icon">
+                            <a href="{{ route('edit_commodity_type', ['commodity' => $commodity->id, 'type' => $Type->id]) }}" class="btn btn--edit btn--icon">
                                 <span class="icon-container icon--small">
                                     <img class="icon" src="{{ URL("images/edit-filled.ico") }}" alt="">
                                 </span>
