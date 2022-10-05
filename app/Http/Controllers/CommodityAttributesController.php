@@ -135,22 +135,12 @@ class CommodityAttributesController extends Controller
             $type_description = $commodity->description;
         }
 
-        // dd($commodity_id, $commodity_type, $type_description, $Commodity_type_image);
-
         $commodityType = CommodityType::create([
             'commodity_id' => $commodity_id,
             'type_name' => $commodity_type,
             'description' => $type_description,
             'image_path' => $Commodity_type_image,
         ]);
-
-        // dd(
-        //     $commodityType->id,
-        //     $commodityType->type_name,
-        //     $commodityType->description,
-        //     $commodityType->image_path,
-        //     $commodityType->commodity_id
-        // );
 
         if ($commodityType == true)
         {
