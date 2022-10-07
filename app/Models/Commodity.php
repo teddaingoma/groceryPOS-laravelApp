@@ -18,7 +18,7 @@ class Commodity extends Model
 
     protected $fillable = ['name', 'description', 'image_path'];
 
-    protected $visible = ['id', 'name', 'description'];
+    protected $visible = ['id', 'name', 'description', 'image_path'];
 
     //protected $dateFormat = 'h:m:s';
 
@@ -34,11 +34,19 @@ class Commodity extends Model
         return $this->hasMany(CommodityType::class);
     }
 
-    //Has one Price
+    //Has one Selling Price
     public function Price()
     {
         return $this->hasOne(
             CommodityPrice::class
+        );
+    }
+
+    //Has one Cost Price
+    public function CostPrice()
+    {
+        return $this->hasOne(
+            CommodityCostPrice::class
         );
     }
 
@@ -66,5 +74,28 @@ class Commodity extends Model
         );
     }
 
+    //A commodity can be purchased (acquired, bought, or increased) once or many times
+    public function CommodityPurchases()
+    {
+        return $this->hasMany(
+            CommodityPurchase::class
+        );
+    }
+
+    //A commodity can be (budgeted to be) sold once or many times
+    public function CommodityBudgetedSales()
+    {
+        return $this->hasMany(
+            CommodityBudgetedSale::class
+        );
+    }
+
+    //A commodity item can be sold once or many times
+    public function SoldCommodityItem()
+    {
+        return $this->hasMany(
+            SoldCommodityItem::class
+        );
+    }
 
 }

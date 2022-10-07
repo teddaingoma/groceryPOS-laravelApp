@@ -71,7 +71,15 @@
 
                                                             <div class="col-sm-6 form--input-line">
                                                                 <label for="lastName" class="form-label">Cost Price <span class="text-muted">MWK</span>:</label>
-                                                                <input name="type_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" required>
+                                                                <input name="type_cost_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" required>
+                                                                <div class="invalid-feedback">
+                                                                    Enter the cost price, please.
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-6 form--input-line">
+                                                                <label for="lastName" class="form-label">Selling Price <span class="text-muted">MWK</span>:</label>
+                                                                <input name="type_selling_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" required>
                                                                 <div class="invalid-feedback">
                                                                     Enter the cost price, please.
                                                                 </div>

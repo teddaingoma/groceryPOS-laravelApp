@@ -131,6 +131,12 @@
                             </span>
                             <span class="btn__text">type</span>
                         </a>
+                        <a href="{{ route('sell_commodity', ['commodity' => $commodity->id]) }}" class="btn btn--category btn--icon">
+                            <span class="icon-container icon--small">
+                                <img class="icon" src="{{ URL("images/sell-dark.ico") }}" alt="">
+                            </span>
+                            <span class="btn__text">Sell</span>
+                        </a>
                         </div>
                         <div class="card__divider"></div>
                         <div class="btn--group">

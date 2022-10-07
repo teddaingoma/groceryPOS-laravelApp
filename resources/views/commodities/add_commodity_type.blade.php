@@ -87,7 +87,7 @@
                             </div>
 
                             <div class="col-sm-6 form--input-line">
-                                <label for="lastName" class="form-label">Cost Price
+                                <label for="lastName" class="form-label">Selling Price
                                     <span class="text-muted">
                                         MWK
                                         @if ($commodity->Price == '')

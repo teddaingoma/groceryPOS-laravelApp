@@ -7,10 +7,13 @@ use App\Models\Commodity;
 use App\Models\Category;
 use App\Models\CommodityCategory;
 use App\Models\CommodityType;
+use App\Models\CommodityCostPrice;
 use App\Models\CommodityPrice;
 use App\Models\CommodityQuantity;
 use App\Models\CommodityUnit;
 use App\Models\CommodityAquisitionDate;
+use App\Models\CommodityPurchase;
+use App\Models\CommodityBudgetedSale;
 
 class CommodityAttributesController extends Controller
 {
@@ -23,7 +26,7 @@ class CommodityAttributesController extends Controller
         $commodity = Commodity::find($id);
         $categories = Category::all();
 
-        return view('commodities.add_commodity_attributes', compact(
+        return view("commodities.add_commodity_attributes", compact(
             'commodity',
             'categories'
         ));
@@ -36,8 +39,8 @@ class CommodityAttributesController extends Controller
    {
         $commodity_id = $request->commodity_id;
         $category_id = $request->category_id;
-        $commodity_type = $request->commodity_type;
         $cost_price = $request->cost_price;
+        $selling_price = $request->selling_price;
         $commodity_quantity = $request->commodity_quantity;
         $commodity_unit = $request->commodity_unit;
         $acquisition_date = $request->acquisition_date;
@@ -47,14 +50,14 @@ class CommodityAttributesController extends Controller
             'category_id' => $category_id,
         ]);
 
-        $commodityType = CommodityType::create([
+        $commodityCostPrice = CommodityCostPrice::create([
             'commodity_id' => $commodity_id,
-            'type_name' => $commodity_type,
+            'cost_price' => $cost_price
         ]);
 
         $commodityPrice = CommodityPrice::create([
             'commodity_id' => $commodity_id,
-            'price' => $cost_price,
+            'price' => $selling_price,
         ]);
 
         $commodityQuantity = CommodityQuantity::create([
@@ -72,16 +75,31 @@ class CommodityAttributesController extends Controller
             'aquisition_date' => $acquisition_date,
         ]);
 
+        $commodityPurchase = CommodityPurchase::create([
+            'commodity_id' => $commodity_id,
+            'quantity' => $commodity_quantity,
+            'cost_price' => $cost_price
+        ]);
+
+        $commodityBudgetedSale = CommodityBudgetedSale::create([
+            'commodity_id' => $commodity_id,
+            'quantity' => $commodity_quantity,
+            'selling_price' => $selling_price
+        ]);
+
         if (
             $commodityCategory == true &&
-            $commodityType == true &&
+            $commodityCostPrice == true &&
             $commodityPrice == true &&
             $commodityQuantity == true &&
             $commodityUnit == true &&
-            $commodityAquisitionDate == true
+            $commodityAquisitionDate == true &&
+            $commodityPurchase == true &&
+            $commodityBudgetedSale == true
         )
         {
-            return redirect("/home/$commodity_id");
+            $message = "Successfully Added";
+            return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);
         }
         else
         {

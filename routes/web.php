@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommoditiesController;
 use App\Http\Controllers\CommodityAttributesController;
 use App\Http\Controllers\CommodityTypesController;
+use App\Http\Controllers\TransactionsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -118,3 +119,14 @@ Route::put(
     '/commodities/types/{commodity}/{type}',
     [CommodityTypesController::class, 'updateCommodityType']
 )->name('update_commodity_type');
+
+
+//Route to record a Sales transaction of a commodity
+Route::get(
+    '/sales/commodities/{commodity}/sell_commodity',
+    [TransactionsController::class, 'sellCommodity']
+)->name('sell_commodity');
+Route::post(
+    '/sales/commodities/sell_commodity',
+    [TransactionsController::class, 'recordSellCommodity']
+)->name('record_sell_commodity');

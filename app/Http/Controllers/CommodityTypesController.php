@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Commodity;
 use App\Models\CommodityType;
 use App\Models\TypeAquisitionDate;
+use App\Models\TypeCostPrice;
 use App\Models\TypePrice;
 use App\Models\TypeQuantity;
 
@@ -225,15 +226,21 @@ class CommodityTypesController extends Controller
         $commodity_type_id = $request->commodity_type_id;
         $type_aquisition_date = $request->type_acquisition_date;
         $type_quantity = $request->type_quantity;
-        $type_price = $request->type_price;
+        $type_cost_price = $request->type_cost_price;
+        $type_selling_price = $request->type_selling_price;
 
         $TypeAquisitionDate = TypeAquisitionDate::create([
             'type_aquisition_date' => $type_aquisition_date,
             'commodity_type_id' => $commodity_type_id
         ]);
 
+        $TypeCostPrice = TypeCostPrice::create([
+            'type_cost_price' => $type_cost_price,
+            'commodity_type_id' => $commodity_type_id
+        ]);
+
         $TypePrice = TypePrice::create([
-            'type_price' => $type_price,
+            'type_price' => $type_selling_price,
             'commodity_type_id' => $commodity_type_id
         ]);
 
@@ -244,6 +251,7 @@ class CommodityTypesController extends Controller
 
         if (
             $TypeAquisitionDate == true &&
+            $TypeCostPrice == true &&
             $TypePrice == true &&
             $TypeQuantity == true
         )

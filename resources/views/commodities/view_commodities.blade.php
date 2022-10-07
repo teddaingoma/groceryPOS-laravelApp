@@ -3,6 +3,11 @@
 @section('content')
 
   <div class="pps-main-content-header">
+    @if (session('status'))
+        <div class="alert alert-success text-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <h2 class="pps-main-content-title">Lorem, ipsum dolor.</h2>
   </div>
 
@@ -15,6 +20,7 @@
       </div>
     </nav>
     <div class="tab-content pps-body-content" id="nav-tabContent">
+
       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         <div class="pps-commodities">
           <div class="flex flex-col--wrap">
@@ -144,6 +150,12 @@
                                     </span>
                                     <span class="btn__text">type</span>
                                 </a>
+                                <a href="{{ route('sell_commodity', ['commodity' => $commodity->id]) }}" class="btn btn--category btn--icon">
+                                    <span class="icon-container icon--small">
+                                        <img class="icon" src="{{ URL("images/sell-dark.ico") }}" alt="">
+                                    </span>
+                                    <span class="btn__text">Sell</span>
+                                </a>
                             </div>
                             <div class="card__divider"></div>
                             <div class="btn--group">
@@ -214,19 +226,105 @@
           </div>
         </div>
       </div>
+
       <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-        <p><strong>This is some placeholder content the Profile tab's associated content.</strong> Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling. You can use it with tabs, pills, and any other <code>.nav</code>-powered navigation.</p>
+
+        <div class="flex flex-col--wrap">
+
+            @forelse ($commodityBudgetedSales as $budgetedSales)
+                @forelse ($commodityPurchases as $Purchases)
+                    @if($budgetedSales->commodity_id == $Purchases->commodity_id)
+
+                        <div class="commodity">
+                            <div class="card">
+                                <header class="card__header">
+                                    <div class="commodity__icon">
+                                        <h3 class="commodity__name">{{ $Purchases->CommodityPurchase->name }}</h3>
+                                    </div>
+
+                                </header>
+                                <div class="card__body">
+
+                                    <span class="commodity__quantity">
+                                        <span class="quantity-text">Budgeted Sales</span>
+                                        <span class="badge quantity-value">
+                                            {{ $budgetedSales->quantity * $budgetedSales->selling_price }}
+                                        </span>
+                                    </span>
+
+                                    <span class="commodity__acquisition-date">
+                                        <span class="acquisition-text">Cost of Sales</span>
+                                        <span class="badge acquisition-date">
+                                            {{ $Purchases->quantity * $Purchases->cost_price }}
+                                        </span>
+                                    </span>
+
+                                    <span class="commodity__acquisition-date">
+                                        <span class="acquisition-text">Gross Profit</span>
+                                        <span class="badge acquisition-date">
+                                            {{
+                                                ($budgetedSales->quantity * $budgetedSales->selling_price) - ($Purchases->quantity * $Purchases->cost_price)
+                                            }}
+                                        </span>
+                                    </span>
+
+                                </div>
+
+                                <footer class="card__footer">
+
+
+                                </footer>
+                            </div>
+                        </div>
+
+                    @endif
+                @empty
+                    No Sales and Purchases
+                @endforelse
+            @empty
+                if ($commodityPurchases == NULL)
+                {
+                    No Sales and Purchases
+                }
+            @endforelse
+        </div>
+
+        <div class="card">
+            <div class="card__body">
+
+                <span class="commodity__quantity">
+                    <span class="quantity-text">Total Gross Profit</span>
+                    <span class="badge quantity-value">
+                        {{ $totalGrossProfit }}
+                    </span>
+                </span>
+
+            </div>
+
+        </div>
+
       </div>
       <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-        <p><strong>This is some placeholder content the Contact tab's associated content.</strong> Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling. You can use it with tabs, pills, and any other <code>.nav</code>-powered navigation.</p>
+        <p><strong>This is some placeholder content the Contact tabs associated content.</strong> Clicking another ta will toggle the visibility of this one fo the next. The ta JavaScript swaps classes to control the content visibility and styling. You can us it with tabs, pills, and any other <code>.nav</code>-powered navigation.</p>
       </div>
     </div>
   </div>
 
   <footer class="pps-main-content-footer">
-    <p>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta culpa adipisci consequuntur incidunt sint quae minima totam non aliquid sapiente?
-    </p>
+
+    <div class="commodity">
+        <div class="card">
+            <div class="card__body">
+                <span class="commodity__quantity">
+                    <span class="quantity-text">Total Gross Profit</span>
+                    <span class="badge quantity-value">
+                        {{ $totalGrossProfit }}
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+
   </footer>
 
 @endsection

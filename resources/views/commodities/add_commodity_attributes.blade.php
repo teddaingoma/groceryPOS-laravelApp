@@ -42,7 +42,7 @@
             </div>
 
             <div class="add-commodity--body">
-                <form class="add-commodity needs-validation" action="/commodity/add_commodity_attributes" method="POST" enctype="multipart/form-data" novalidate>
+                <form class="add-commodity needs-validation" action="{{ route('store_commodity_attributes') }}" method="POST" enctype="multipart/form-data" novalidate>
                     @csrf
                     <div class="form--control-group">
 
@@ -74,6 +74,14 @@
                             <div class="col-sm-6 form--input-line">
                                 <label for="lastName" class="form-label">Cost Price <span class="text-muted">MWK</span>:</label>
                                 <input name="cost_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" value="">
+                                <div class="invalid-feedback">
+                                    Enter the cost price, please.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 form--input-line">
+                                <label for="lastName" class="form-label">Selling Price <span class="text-muted">MWK</span>:</label>
+                                <input name="selling_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" value="">
                                 <div class="invalid-feedback">
                                     Enter the cost price, please.
                                 </div>

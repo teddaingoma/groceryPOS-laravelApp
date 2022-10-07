@@ -9,6 +9,10 @@ use App\Models\CommodityQuantity;
 use App\Models\CommodityUnit;
 use App\Models\CommodityAquisitionDate;
 use App\Models\Category;
+use App\Models\CommodityBudgetedSale;
+use App\Models\CommodityPurchase;
+
+use NunoMaduro\Collision\Adapters\Phpunit\Printer;
 
 class CommoditiesController extends Controller
 {
@@ -20,10 +24,54 @@ class CommoditiesController extends Controller
     public function index()
     {
         $commodities = Commodity::all();
+        $commodityBudgetedSales = CommodityBudgetedSale::all();
+        $commodityPurchases = CommodityPurchase::all();
+
+        $totalGrossProfit = 0.0;
+
+        foreach ($commodityBudgetedSales as $Sales)
+        {
+            foreach ($commodityPurchases as $Purchases)
+            {
+                if ($Sales->commodity_id == $Purchases->commodity_id)
+                {
+                    /*
+                        print("------Budgeted Sales-----");
+                        print($Sales->CommodityBudgetedSale->name);
+                        print("-");
+                        Print($Sales->quantity);
+                        print("-");
+                        print($Sales->selling_price);
+                        print("-");
+                        print($Sales->quantity * $Sales->selling_price);
+                        print("-Budgeted");
+                        print("------Purchases-----");
+                        print("-");
+                        print($Purchases->CommodityPurchase->name);
+                        print("-");
+                        print($Purchases->quantity);
+                        print("-");
+                        print($Purchases->cost_price);
+                        print("-Cost of sales");
+                        print($Purchases->quantity * $Purchases->cost_price);
+                        print("****************");
+                    */
+                    $itemBudgetedSales = $Sales->quantity * $Sales->selling_price;
+                    $itemPurchases = $Purchases->quantity * $Purchases->cost_price;
+                    $itemGrossProfit = $itemBudgetedSales - $itemPurchases;
+                    $totalGrossProfit = $totalGrossProfit + $itemGrossProfit;
+                }
+            }
+
+        }
 
         return view('commodities.view_commodities', compact(
-            'commodities'
+            'commodities',
+            'commodityBudgetedSales',
+            'commodityPurchases',
+            'totalGrossProfit'
         ));
+
     }
 
     /**

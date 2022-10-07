@@ -23,7 +23,15 @@ class CommodityType extends Model
         );
     }
 
-    // One type has is linked to a single price
+    // One type has or is linked to a single cost price
+    public function TypeCostPrice()
+    {
+        return $this->hasOne(
+            TypeCostPrice::class
+        );
+    }
+
+    // One type has or is linked to a single sellinf price
     public function TypePrice()
     {
         return $this->hasOne(
