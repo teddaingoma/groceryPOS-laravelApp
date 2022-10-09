@@ -38,25 +38,61 @@ class TransactionsController extends Controller
         $sell_quantity = $request->sell_quantity;
         $selling_price = $request->selling_price;
 
-        $commodityQuantity = DB::table('commodity_quantities')
-                                ->where('commodity_id', $commodity_id)
-                                ->first()
-        ;
+        $Commodity = Commodity::find($commodity_id);
 
-        $current_quantity = $commodityQuantity->quantity - $sell_quantity;
+        if ($Commodity->Quantity == null)
+        {
+            $message = "$Commodity->name has no inventory level. Might consider purchasing some stock.";
+            return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);
+        }
 
-        $soldCommodityItem = SoldCommodityItem::create([
-            'commodity_id' => $commodity_id,
-            'sold_quantity' => $sell_quantity,
-            'selling_price' => $selling_price,
-        ]);
+        if ($Commodity->Quantity !== null)
+        {
+            if ($Commodity->Quantity->quantity < 1)
+            {
+                $message = "Sorry, it appears $Commodity->name is out of stock. Consider re-ordering";
+                return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);
+            }
 
-        $updateCommodityQuantity = CommodityQuantity::where('commodity_id', $commodity_id)->update([
-            'quantity' => $current_quantity,
-        ]);
+            if ($Commodity->Quantity->quantity > 0)
+            {
+                if ($Commodity->Quantity->quantity < $sell_quantity)
+                {
+                    $message = "Sorry, it appears you have less inventory, almost ".$Commodity->Quantity->quantity." left!";
+                    return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);
+                }
 
-        $message = "Successfully Sold";
+                if ($Commodity->Quantity->quantity >= $sell_quantity)
+                {
+                    if ($Commodity->SoldCommodityItem !== null)
+                    {
+                        $current_sells = $Commodity->SoldCommodityItem->sold_quantity + $sell_quantity;
 
-        return redirect()->route('home.index')->with('status', $message);
+                        $soldCommodityItem = SoldCommodityItem::where('commodity_id', $commodity_id)->update([
+                            'sold_quantity' => $current_sells,
+                            'selling_price' => $selling_price,
+                        ]);
+                    }
+
+                    if ($Commodity->SoldCommodityItem == null)
+                    {
+                        $soldCommodityItem = SoldCommodityItem::create([
+                            'commodity_id' => $commodity_id,
+                            'sold_quantity' => $sell_quantity,
+                            'selling_price' => $selling_price,
+                        ]);
+                    }
+
+                    $current_quantity = $Commodity->Quantity->quantity - $sell_quantity;
+                    $updateCommodityQuantity = CommodityQuantity::where('commodity_id', $commodity_id)->update([
+                        'quantity' => $current_quantity,
+                    ]);
+
+                    $message = "Successfully sold $sell_quantity item (s) of $Commodity->name!";
+                    return redirect()->route('home.index')->with('status', $message);
+                }
+            }
+        }
+
     }
 }

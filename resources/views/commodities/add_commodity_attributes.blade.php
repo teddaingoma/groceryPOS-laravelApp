@@ -57,7 +57,7 @@
                                 <div class="col-sm-6 form--input-line">
                                     <label for="category" class="form-label">Commodity Category:</label>
                                     <select id="category" name="category_id" class="form-select" aria-label="Select Commodity Category" required>
-                                        <option selected>Select your commodity category</option>
+                                        <option selected>include {{ $commodity->name }} in a category</option>
                                         @forelse ($categories as $category)
                                             <option value="{{ $category -> id }}">{{ $category -> name }}</option>
                                         @empty
@@ -73,7 +73,7 @@
 
                             <div class="col-sm-6 form--input-line">
                                 <label for="lastName" class="form-label">Cost Price <span class="text-muted">MWK</span>:</label>
-                                <input name="cost_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" value="">
+                                <input name="cost_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" value="" required>
                                 <div class="invalid-feedback">
                                     Enter the cost price, please.
                                 </div>
@@ -81,7 +81,7 @@
 
                             <div class="col-sm-6 form--input-line">
                                 <label for="lastName" class="form-label">Selling Price <span class="text-muted">MWK</span>:</label>
-                                <input name="selling_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" value="">
+                                <input name="selling_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" value="" required>
                                 <div class="invalid-feedback">
                                     Enter the cost price, please.
                                 </div>
@@ -89,7 +89,7 @@
 
                             <div class="col-sm-6 form--input-line">
                                 <label for="firstName" class="form-label">Quantity:</label>
-                                <input name="commodity_quantity" type="number" class="form-control" id="firstName" placeholder="Available quantity" value="">
+                                <input name="commodity_quantity" type="number" class="form-control" id="firstName" placeholder="Available quantity" value="" required>
                                 <div class="invalid-feedback">
                                     Enter the available quantity of the Commodity, Please.
                                 </div>
@@ -97,7 +97,7 @@
 
                             <div class="col-sm-6 form--input-line">
                                 <label for="firstName" class="form-label">Commodity Unit:</label>
-                                <input name="commodity_unit" type="text" class="form-control" id="firstName" placeholder="" value="">
+                                <input name="commodity_unit" type="text" class="form-control" id="firstName" placeholder="" value="" required>
                                 <div class="invalid-feedback">
                                     Enter the unit of measurement of the commodity, Please.
                                 </div>
@@ -108,16 +108,12 @@
                                 <div class="col-sm-6 form--input-line">
                                     <label for="dob" class="form-label">Date Acquired</label>
 
-                                    <input type="date" name="acquisition_date" class="form-control" id="dob" placeholder="birthday">
+                                    <input type="date" name="acquisition_date" class="form-control" id="dob" placeholder="birthday" required>
 
                                     <div class="invalid-feedback">
                                         When was the commodity purchased or added?.
                                     </div>
                                 </div>
-
-                            </div>
-
-                            <div class="col-sm-6 form--input-line">
 
                             </div>
 

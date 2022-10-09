@@ -11,6 +11,7 @@ use App\Models\CommodityAquisitionDate;
 use App\Models\Category;
 use App\Models\CommodityBudgetedSale;
 use App\Models\CommodityPurchase;
+use App\Models\SoldCommodityItem;
 
 use NunoMaduro\Collision\Adapters\Phpunit\Printer;
 
@@ -26,8 +27,10 @@ class CommoditiesController extends Controller
         $commodities = Commodity::all();
         $commodityBudgetedSales = CommodityBudgetedSale::all();
         $commodityPurchases = CommodityPurchase::all();
+        $soldCommodityItem = SoldCommodityItem::all();
 
         $totalGrossProfit = 0.0;
+        $totalActualSales = 0.0;
 
         foreach ($commodityBudgetedSales as $Sales)
         {
@@ -65,11 +68,19 @@ class CommoditiesController extends Controller
 
         }
 
+        foreach ($soldCommodityItem as $soldCommodity)
+        {
+            $itemSales = $soldCommodity->sold_quantity * $soldCommodity->selling_price;
+            $totalActualSales = $totalActualSales + $itemSales;
+        }
+
         return view('commodities.view_commodities', compact(
             'commodities',
             'commodityBudgetedSales',
             'commodityPurchases',
-            'totalGrossProfit'
+            'soldCommodityItem',
+            'totalGrossProfit',
+            'totalActualSales',
         ));
 
     }
@@ -112,8 +123,15 @@ class CommoditiesController extends Controller
         {
             $message = "Added $request->commodity_name successfully.";
 
-            $id = $commodity -> id;
-            return redirect()->route('assign_commodity_attributes', ['id' => $id])->with('status', $message);
+            $commodity_id = $commodity -> id;
+
+            $SoldCommodityItem = SoldCommodityItem::create([
+                'commodity_id' => $commodity_id,
+                'sold_quantity' => '0',
+                'selling_price' => '00.00',
+            ]);
+
+            return redirect()->route('assign_commodity_attributes', ['id' => $commodity_id])->with('status', $message);
         }
         else
         {

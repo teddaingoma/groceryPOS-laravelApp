@@ -37,7 +37,7 @@
             </div>
 
             <div class="add-commodity--body">
-                <form class="add-commodity needs-validation" action="/home" method="POST" enctype="multipart/form-data" novalidate>
+                <form class="add-commodity needs-validation" action="{{ route('home.store') }}" method="POST" enctype="multipart/form-data" novalidate>
                     @csrf
                     <div class="form--control-group">
 

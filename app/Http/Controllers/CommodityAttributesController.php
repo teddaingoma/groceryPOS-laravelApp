@@ -14,6 +14,7 @@ use App\Models\CommodityUnit;
 use App\Models\CommodityAquisitionDate;
 use App\Models\CommodityPurchase;
 use App\Models\CommodityBudgetedSale;
+use App\Models\SoldCommodityItem;
 
 class CommodityAttributesController extends Controller
 {
@@ -38,6 +39,9 @@ class CommodityAttributesController extends Controller
    public function storeCommodityAttributes(Request $request)
    {
         $commodity_id = $request->commodity_id;
+
+        $Commodity = Commodity::find($commodity_id);
+
         $category_id = $request->category_id;
         $cost_price = $request->cost_price;
         $selling_price = $request->selling_price;
@@ -87,6 +91,22 @@ class CommodityAttributesController extends Controller
             'selling_price' => $selling_price
         ]);
 
+        if ($Commodity->SoldCommodityItem == null)
+        {
+            $soldCommodityItem = SoldCommodityItem::create([
+                'commodity_id' => $commodity_id,
+                'sold_quantity' => '0',
+                'selling_price' => $selling_price,
+            ]);
+        }
+
+        if ($Commodity->SoldCommodityItem !== null)
+        {
+            $soldCommodityItem = SoldCommodityItem::where('commodity_id', $commodity_id)->update([
+                'selling_price' => $selling_price,
+            ]);
+        }
+
         if (
             $commodityCategory == true &&
             $commodityCostPrice == true &&
@@ -95,7 +115,8 @@ class CommodityAttributesController extends Controller
             $commodityUnit == true &&
             $commodityAquisitionDate == true &&
             $commodityPurchase == true &&
-            $commodityBudgetedSale == true
+            $commodityBudgetedSale == true &&
+            $soldCommodityItem == true
         )
         {
             $message = "Successfully Added";
@@ -254,15 +275,25 @@ class CommodityAttributesController extends Controller
     {
         $commodity_id = $request->commodity_id;
         $cost_price = $request->cost_price;
+        $selling_price = $request->selling_price;
 
-        $commodityPrice = CommodityPrice::create([
+        $commodityCostPrice = CommodityCostPrice::create([
             'commodity_id' => $commodity_id,
-            'price' => $cost_price,
+            'cost_price' => $cost_price,
         ]);
 
-        if ($commodityPrice == true)
+        $commoditySellingPrice = CommodityPrice::create([
+            'commodity_id' => $commodity_id,
+            'price' => $selling_price,
+        ]);
+
+        if (
+            $commodityCostPrice == true &&
+            $commoditySellingPrice == true
+        )
         {
-            return redirect("/home/$commodity_id");
+            $message = "Successfully added cost and selling price";
+            return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);
         }
         else
         {
@@ -358,6 +389,8 @@ class CommodityAttributesController extends Controller
         $commodity_id = $request->commodity_id;
         $commodity_quantity = $request->commodity_quantity;
 
+        $Commodity = Commodity::find($commodity_id);
+
         $commodityQuantity = CommodityQuantity::create([
             'commodity_id' => $commodity_id,
             'quantity' => $commodity_quantity,
@@ -365,11 +398,91 @@ class CommodityAttributesController extends Controller
 
         if ($commodityQuantity == true)
         {
-            return redirect("/home/$commodity_id");
+            $message = "Successfully Assigned Quantity amount of $Commodity->name: $commodityQuantity->quantity";
+            return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);
         }
         else
         {
             return redirect()->route('home.index');
         }
+    }
+
+     /**
+     * Add a commodity's purchase from a supplier
+     * @param int $id
+     */
+    public function addCommoditySupply($id)
+    {
+        $commodity = Commodity::find($id);
+        return view('commodities.commodity_supplier_purchase', compact(
+            'commodity'
+        ));
+    }
+
+    /**
+     * Store a commodity's available quantity
+     */
+    public function storeCommoditySupply(Request $request)
+    {
+        $commodity_id = $request->commodity_id;
+        $supplier_quantity = $request->supplier_quantity;
+        $cost_price = $request->cost_price;
+        $selling_price = $request->selling_price;
+
+        $Commodity = Commodity::find($commodity_id);
+
+        if ($Commodity->Quantity == null)
+        {
+            $commodityQuantity = CommodityQuantity::create([
+                'commodity_id' => $commodity_id,
+                'quantity' => $supplier_quantity,
+            ]);
+
+            if ($Commodity->CommodityPurchases == null && $Commodity->CommodityBudgetedSales == null)
+            {
+                $commodityPurchase = CommodityPurchase::create([
+                    'commodity_id' => $commodity_id,
+                    'quantity' => $supplier_quantity,
+                    'cost_price' => $cost_price,
+                ]);
+
+                $commodityBudgetedSale = CommodityBudgetedSale::create([
+                    'commodity_id' => $commodity_id,
+                    'quantity' => $supplier_quantity,
+                    'selling_price' => $selling_price,
+                ]);
+            }
+
+        }
+
+        if ($Commodity->Quantity !== null)
+        {
+            $current_quantity = $Commodity->Quantity->quantity + $supplier_quantity;
+
+            $commodityQuantity = CommodityQuantity::where('commodity_id', $commodity_id)->update([
+                'quantity' => $current_quantity,
+            ]);
+
+            if ($Commodity->CommodityPurchases !== null && $Commodity->CommodityBudgetedSales !== null)
+            {
+                $current_purchases = $Commodity->CommodityPurchases->quantity + $supplier_quantity;
+                $current_sales = $Commodity->CommodityBudgetedSales->quantity + $supplier_quantity;
+
+                $commodityPurchase = CommodityPurchase::where('commodity_id', $commodity_id)->update([
+                    'quantity' => $current_purchases,
+                    'cost_price' => $cost_price,
+                ]);
+
+                $commodityBudgetedSale = CommodityBudgetedSale::where('commodity_id', $commodity_id)->update([
+                    'quantity' => $current_sales,
+                    'selling_price' => $selling_price,
+                ]);
+            }
+
+        }
+
+        $message = "Successfully Added $supplier_quantity of $Commodity->name (s) in Inventory";
+        return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);
+
     }
 }

@@ -77,7 +77,7 @@ class Commodity extends Model
     //A commodity can be purchased (acquired, bought, or increased) once or many times
     public function CommodityPurchases()
     {
-        return $this->hasMany(
+        return $this->hasOne(
             CommodityPurchase::class
         );
     }
@@ -85,7 +85,7 @@ class Commodity extends Model
     //A commodity can be (budgeted to be) sold once or many times
     public function CommodityBudgetedSales()
     {
-        return $this->hasMany(
+        return $this->hasOne(
             CommodityBudgetedSale::class
         );
     }
@@ -93,7 +93,7 @@ class Commodity extends Model
     //A commodity item can be sold once or many times
     public function SoldCommodityItem()
     {
-        return $this->hasMany(
+        return $this->hasOne(
             SoldCommodityItem::class
         );
     }

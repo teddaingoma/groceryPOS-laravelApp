@@ -156,6 +156,13 @@
                                     </span>
                                     <span class="btn__text">Sell</span>
                                 </a>
+
+                                <a href="{{ route('add_commodity_supply', ['id' => $commodity->id]) }}" class="btn btn--category btn--icon">
+                                    <span class="icon-container icon--small">
+                                        <img class="icon" src="{{ URL("images/sell-dark.ico") }}" alt="">
+                                    </span>
+                                    <span class="btn__text">Supplier Purchase</span>
+                                </a>
                             </div>
                             <div class="card__divider"></div>
                             <div class="btn--group">
@@ -305,7 +312,56 @@
 
       </div>
       <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-        <p><strong>This is some placeholder content the Contact tabs associated content.</strong> Clicking another ta will toggle the visibility of this one fo the next. The ta JavaScript swaps classes to control the content visibility and styling. You can us it with tabs, pills, and any other <code>.nav</code>-powered navigation.</p>
+
+        <div class="flex flex-col--wrap">
+
+            @forelse ($soldCommodityItem as $soldCommodity)
+
+                <div class="commodity">
+                    <div class="card">
+                        <header class="card__header">
+                            <div class="commodity__icon">
+                                <h3 class="commodity__name">{{ $soldCommodity->SoldCommodity->name }}</h3>
+                            </div>
+
+                        </header>
+                        <div class="card__body">
+
+                            <span class="commodity__quantity">
+                                <span class="quantity-text">Actual Sales</span>
+                                <span class="badge quantity-value">
+                                    {{ $soldCommodity->sold_quantity * $soldCommodity->selling_price }}
+                                </span>
+                            </span>
+
+                        </div>
+
+                        <footer class="card__footer">
+
+
+                        </footer>
+                    </div>
+                </div>
+
+            @empty
+                No sales
+            @endforelse
+        </div>
+
+        <div class="card">
+            <div class="card__body">
+
+                <span class="commodity__quantity">
+                    <span class="quantity-text">Total Actual Sales</span>
+                    <span class="badge quantity-value">
+                        {{ $totalActualSales }}
+                    </span>
+                </span>
+
+            </div>
+
+        </div>
+
       </div>
     </div>
   </div>

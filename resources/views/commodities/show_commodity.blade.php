@@ -137,6 +137,12 @@
                             </span>
                             <span class="btn__text">Sell</span>
                         </a>
+                        <a href="{{ route('add_commodity_supply', ['id' => $commodity->id]) }}" class="btn btn--category btn--icon">
+                            <span class="icon-container icon--small">
+                                <img class="icon" src="{{ URL("images/sell-dark.ico") }}" alt="">
+                            </span>
+                            <span class="btn__text">Supplier Purchase</span>
+                        </a>
                         </div>
                         <div class="card__divider"></div>
                         <div class="btn--group">

@@ -136,7 +136,11 @@
                                         Are You Sure?
                                     </h5>
                                     <div class="container-fluid">
-                                       You are about to Sell {{  $Commodity->Unit -> unit }} (s) of {{ $Commodity->name }}!
+                                        @if($Commodity->Unit == null)
+                                            You are about to Sell {{ $Commodity->name }}!
+                                        @else
+                                            You are about to Sell {{  $Commodity->Unit -> unit }} (s) of {{ $Commodity->name }}!
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="modal-footer">

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Grocery Portable Point-Of-Sales system for small-scale grocery businesses">
         <meta name="author" content="teddai Ngoma">
-        <title>{{ $commodity -> name }} | Add Commodity Price</title>
+        <title>{{ $commodity -> name }} | Supplier Purchase</title>
         <meta name="description" content="Portable POS system">
         <meta property="og:title" content="Portable POS system">
         <meta property="og:description" content="Portable POS system">
@@ -33,11 +33,11 @@
 
             <div class="form--header">
                 <img class="form--brand" src="{{ asset('images/image1.jpg') }}" alt="">
-                <h1 class="form--title">Add price of {{ $commodity -> name}}</h1>
+                <h1 class="form--title">Add Quantity of {{ $commodity -> name}} from a Supplier purchase</h1>
             </div>
 
             <div class="add-commodity--body">
-                <form class="add-commodity needs-validation" action="{{ route('store_commodity_price') }}" method="POST" enctype="multipart/form-data" novalidate>
+                <form class="add-commodity needs-validation" action="{{ route('store_commodity_supply') }}" method="POST" enctype="multipart/form-data" novalidate>
                     @csrf
                     <div class="form--control-group">
 
@@ -71,45 +71,52 @@
                             </div>
 
                             <div class="col-sm-6 form--input-line">
-                                <label for="lastName" class="form-label">Cost Price <span class="text-muted">MWK</span>:</label>
-                                <input name="cost_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" value="" required>
+                                <label for="firstName" class="form-label">Supplier Quantity:</label>
+                                <input name="supplier_quantity" type="number" class="form-control" id="firstName" placeholder="Supplier quantity" value="" required>
                                 <div class="invalid-feedback">
-                                    Enter the cost price, please.
+                                    Enter the quantity purchased from your supplier, Please.
                                 </div>
+                            </div>
+
+                            <div class="col-sm-6 form--input-line">
+                                <label for="lastName" class="form-label">Cost Price <span class="text-muted">MWK</span>:</label>
+                                @if ($commodity->CostPrice == '')
+                                    <input name="cost_price" type="number" class="form-control" id="lastName" placeholder="00.00" value="" required>
+                                    <div class="invalid-feedback">
+                                        Sorry, Cost Price is required.
+                                    </div>
+                                @else
+                                    <input name="cost_price" type="number" class="form-control" id="lastName" placeholder="{{ $commodity->CostPrice->cost_price }}" value="{{ $commodity->CostPrice->cost_price }}" required>
+                                    <div class="invalid-feedback">
+                                        Sorry, Cost Price is required.
+                                    </div>
+                                @endif
                             </div>
 
                             <div class="col-sm-6 form--input-line">
                                 <label for="lastName" class="form-label">Selling Price <span class="text-muted">MWK</span>:</label>
-                                <input name="selling_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" value="" required>
-                                <div class="invalid-feedback">
-                                    Enter the selling price, please.
-                                </div>
+                                @if ($commodity->Price == '')
+                                    <input name="selling_price" type="number" class="form-control" id="lastName" placeholder="00.00" value="" required>
+                                    <div class="invalid-feedback">
+                                        Sorry, selling Price is required.
+                                    </div>
+                                @else
+                                    <input name="selling_price" type="number" class="form-control" id="lastName" placeholder="{{ $commodity->Price->price }}" value="{{ $commodity->Price->price }}" required>
+                                    <div class="invalid-feedback">
+                                        Sorry, selling Price is required.
+                                    </div>
+                                @endif
                             </div>
 
                             <div class="col-sm-6 form--input-line">
-                                <label for="firstName" class="form-label">Quantity:</label>
-                                <span class="badge quantity-value">
-                                    @forelse ($commodityQuantity as $Quantity)
-                                        @if ($commodity -> id == $Quantity -> commodity_id)
-                                            {{ $Quantity -> quantity}}
-                                        @endif
-                                    @empty
-                                        Out of Stock
-                                    @endforelse
+                                <label for="firstName" class="form-label">Commodity Unit:</label>
+                                <span class="commodity__unit">
+                                    @if ($commodity->Unit == '')
+                                        Unit
+                                    @else
+                                        {{ $commodity->Unit -> unit }}
+                                    @endif
                                 </span>
-                            </div>
-
-                            <div class="col-sm-6 form--input-line">
-                                <label for="firstName" class="form-label">
-                                    Commodity Unit:
-                                    @foreach ($commodityUnit as $Unit)
-
-                                        @if ($commodity -> id == $Unit -> commodity_id)
-                                            {{ $Unit -> unit }}
-                                        @endif
-                                    @endforeach
-                                </label>
-
                             </div>
 
                             <div class="date">
@@ -118,13 +125,11 @@
                                     <label for="dob" class="form-label">Date Acquired</label>
 
                                     <span class="badge acquisition-date">
-                                        @forelse ($aquisitionDates as $AquisitionDate)
-                                            @if ($commodity -> id == $AquisitionDate -> commodity_id)
-                                                {{ date('d-m-Y', strtotime($AquisitionDate -> aquisition_date)) }}
-                                            @endif
-                                        @empty
+                                        @if($commodity->AquisitionDate == '')
                                             dd-mm-yyyy
-                                        @endforelse
+                                        @else
+                                            {{ $commodity->AquisitionDate -> aquisition_date }}
+                                        @endif
                                     </span>
                                 </div>
 

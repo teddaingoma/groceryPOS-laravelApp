@@ -130,3 +130,13 @@ Route::post(
     '/sales/commodities/sell_commodity',
     [TransactionsController::class, 'recordSellCommodity']
 )->name('record_sell_commodity');
+
+//Route to add and store a commodity purchase from a supplier
+Route::get(
+    '/commodities/{id}/commodity_supplier_purchase',
+    [CommodityAttributesController::class, 'addCommoditySupply']
+)->name('add_commodity_supply');
+Route::post(
+    '/commodity/commodity_supplier_purchase',
+    [CommodityAttributesController::class, 'storeCommoditySupply']
+)->name('store_commodity_supply');
