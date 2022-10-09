@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\CommodityBudgetedSale;
 use App\Models\CommodityPurchase;
 use App\Models\SoldCommodityItem;
+use App\Models\TypePurchase;
 
 use NunoMaduro\Collision\Adapters\Phpunit\Printer;
 
@@ -28,6 +29,15 @@ class CommoditiesController extends Controller
         $commodityBudgetedSales = CommodityBudgetedSale::all();
         $commodityPurchases = CommodityPurchase::all();
         $soldCommodityItem = SoldCommodityItem::all();
+        $typePurchases = TypePurchase::all();
+
+        /*
+            foreach ($typePurchases as $typePurchase)
+            {
+                print($typePurchase->CommodityType->TypeQuantity->type_quantity);
+            }
+            dd("Test");
+        */
 
         $totalGrossProfit = 0.0;
         $totalActualSales = 0.0;
@@ -81,6 +91,7 @@ class CommoditiesController extends Controller
             'soldCommodityItem',
             'totalGrossProfit',
             'totalActualSales',
+            'typePurchases',
         ));
 
     }

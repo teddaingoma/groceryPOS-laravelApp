@@ -54,4 +54,12 @@ class CommodityType extends Model
             TypeAquisitionDate::class
         );
     }
+
+    // A commodity type has one purchase with many counts
+    public function TypePurchase()
+    {
+        return $this->hasOne(
+            TypePurchase::class
+        );
+    }
 }

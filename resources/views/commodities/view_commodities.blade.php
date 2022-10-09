@@ -284,6 +284,38 @@
                             </div>
                         </div>
 
+                        @foreach ($typePurchases as $typePurchase)
+                            @if ( $typePurchase->commodity_id == $Purchases->CommodityPurchase->id)
+
+                                <div class="commodity">
+                                    <div class="card">
+                                        <header class="card__header">
+                                            <div class="commodity__icon">
+                                                <h3 class="commodity__name">{{ $typePurchase->CommodityType->type_name }}</h3>
+                                            </div>
+
+                                        </header>
+                                        <div class="card__body">
+
+                                            <span class="commodity__acquisition-date">
+                                                <span class="acquisition-text">Cost of Sales</span>
+                                                <span class="badge acquisition-date">
+                                                    {{ $typePurchase->cost_price * $typePurchase->quantity }}
+                                                </span>
+                                            </span>
+
+                                        </div>
+
+                                        <footer class="card__footer">
+
+
+                                        </footer>
+                                    </div>
+                                </div>
+
+                            @endif
+                        @endforeach
+
                     @endif
                 @empty
                     No Sales and Purchases

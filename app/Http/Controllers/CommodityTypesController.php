@@ -11,6 +11,7 @@ use App\Models\TypeAquisitionDate;
 use App\Models\TypeCostPrice;
 use App\Models\TypePrice;
 use App\Models\TypeQuantity;
+use App\Models\TypePurchase;
 
 class CommodityTypesController extends Controller
 {
@@ -249,11 +250,19 @@ class CommodityTypesController extends Controller
             'commodity_type_id' => $commodity_type_id
         ]);
 
+        $TypePurchase = TypePurchase::create([
+            'commodity_id' => $commodity_id,
+            'type_id' => $commodity_type_id,
+            'quantity' => $type_quantity,
+            'cost_price' => $type_cost_price,
+        ]);
+
         if (
             $TypeAquisitionDate == true &&
             $TypeCostPrice == true &&
             $TypePrice == true &&
-            $TypeQuantity == true
+            $TypeQuantity == true &&
+            $TypePurchase == true
         )
         {
             $message = "Successfully Added Attributes of $commodity_type_name";
