@@ -32,6 +32,11 @@
         <div class="add-commodity-form">
 
             <div class="form--header">
+                @if (session('status'))
+                    <div class="alert alert-success text-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
                 <img class="form--brand" src="{{ asset('images/image1.jpg') }}" alt="">
                 <h1 class="form--title">Sell {{ $Commodity -> name}}</h1>
             </div>
@@ -55,6 +60,14 @@
                                     <input name="sell_quantity" type="number" class="form-control" id="firstName" placeholder="Available quantity" value="1" required>
                                     <div class="invalid-feedback">
                                         How much of {{ $Commodity->name }} are you selling?.
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 form--input-line">
+                                    <label for="firstName" class="form-label">Payment Amount:</label>
+                                    <input name="paid_amount" type="number" class="form-control" id="firstName" placeholder="Amount Paid" required>
+                                    <div class="invalid-feedback">
+                                        How much has been paid?.
                                     </div>
                                 </div>
 

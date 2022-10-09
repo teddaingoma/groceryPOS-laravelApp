@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Commodity;
 use App\Models\SoldCommodityItem;
 use App\Models\CommodityQuantity;
+use App\Models\CommoditySellInvoice;
 
 class TransactionsController extends Controller
 {
@@ -37,6 +38,9 @@ class TransactionsController extends Controller
         $commodity_id = $request->commodity_id;
         $sell_quantity = $request->sell_quantity;
         $selling_price = $request->selling_price;
+        $payment = $request->paid_amount;
+
+        $TotalCost = $selling_price * $sell_quantity;
 
         $Commodity = Commodity::find($commodity_id);
 
@@ -64,32 +68,57 @@ class TransactionsController extends Controller
 
                 if ($Commodity->Quantity->quantity >= $sell_quantity)
                 {
-                    if ($Commodity->SoldCommodityItem !== null)
+                    if ($payment < $TotalCost)
                     {
-                        $current_sells = $Commodity->SoldCommodityItem->sold_quantity + $sell_quantity;
-
-                        $soldCommodityItem = SoldCommodityItem::where('commodity_id', $commodity_id)->update([
-                            'sold_quantity' => $current_sells,
-                            'selling_price' => $selling_price,
-                        ]);
+                        $top_up = $TotalCost - $payment;
+                        $message = "Sorry, the amount Paid, MWK$payment, is less then the total cost of the item (s), MWK$TotalCost. May you top up atleast MWK$top_up";
+                        return redirect()->back()->with('status', $message);
                     }
 
-                    if ($Commodity->SoldCommodityItem == null)
+                    if ($payment >= $TotalCost)
                     {
-                        $soldCommodityItem = SoldCommodityItem::create([
+
+                        if ($Commodity->SoldCommodityItem !== null)
+                        {
+                            $current_sells = $Commodity->SoldCommodityItem->sold_quantity + $sell_quantity;
+
+                            $soldCommodityItem = SoldCommodityItem::where('commodity_id', $commodity_id)->update([
+                                'sold_quantity' => $current_sells,
+                                'selling_price' => $selling_price,
+                            ]);
+                        }
+
+                        if ($Commodity->SoldCommodityItem == null)
+                        {
+                            $soldCommodityItem = SoldCommodityItem::create([
+                                'commodity_id' => $commodity_id,
+                                'sold_quantity' => $sell_quantity,
+                                'selling_price' => $selling_price,
+                            ]);
+                        }
+
+                        $current_quantity = $Commodity->Quantity->quantity - $sell_quantity;
+                        $updateCommodityQuantity = CommodityQuantity::where('commodity_id', $commodity_id)->update([
+                            'quantity' => $current_quantity,
+                        ]);
+
+                        $change = $payment - $TotalCost;
+
+                        $commoditySellInvoice = CommoditySellInvoice::create([
                             'commodity_id' => $commodity_id,
-                            'sold_quantity' => $sell_quantity,
+                            'sell_quantity' => $sell_quantity,
                             'selling_price' => $selling_price,
+                            'total_cost' => $TotalCost,
+                            'payment' => $payment,
+                            'change' => $change,
+                            'owner_id' => 0,
+                            'customer_id' => 0,
                         ]);
+
+                        $message = "Successfully sold $sell_quantity item (s) of $Commodity->name!";
+                        return redirect()->route('home.index')->with('status', $message);
+
                     }
-
-                    $current_quantity = $Commodity->Quantity->quantity - $sell_quantity;
-                    $updateCommodityQuantity = CommodityQuantity::where('commodity_id', $commodity_id)->update([
-                        'quantity' => $current_quantity,
-                    ]);
-
-                    $message = "Successfully sold $sell_quantity item (s) of $Commodity->name!";
-                    return redirect()->route('home.index')->with('status', $message);
                 }
             }
         }

@@ -98,4 +98,12 @@ class Commodity extends Model
         );
     }
 
+    // A commodity is included in many purchase or sell invoices
+    public function CommoditySellInvoices()
+    {
+        return $this->hasMany(
+            CommoditySellInvoice::class
+        );
+    }
+
 }
