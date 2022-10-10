@@ -295,6 +295,18 @@
                                 </span>
                                 <span class="btn__text">type</span>
                             </a>
+                            <a href="{{ route('sell_type', ['commodity' => $commodity->id, 'type' => $Type->id]) }}" class="btn btn--category btn--icon">
+                                <span class="icon-container icon--small">
+                                    <img class="icon" src="{{ URL("images/sell-dark.ico") }}" alt="">
+                                </span>
+                                <span class="btn__text">Sell</span>
+                            </a>
+                            <a href="{{ route('add_type_supply', ['commodity' => $commodity->id, 'type' => $Type->id]) }}" class="btn btn--category btn--icon">
+                                <span class="icon-container icon--small">
+                                    <img class="icon" src="{{ URL("images/sell-dark.ico") }}" alt="">
+                                </span>
+                                <span class="btn__text">Supplier Purchase</span>
+                            </a>
                             </div>
                             <div class="card__divider"></div>
                             <div class="btn--group">

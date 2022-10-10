@@ -13,6 +13,7 @@ use App\Models\CommodityBudgetedSale;
 use App\Models\CommodityPurchase;
 use App\Models\SoldCommodityItem;
 use App\Models\TypePurchase;
+use App\Models\TypeBudgetedSale;
 
 use NunoMaduro\Collision\Adapters\Phpunit\Printer;
 
@@ -30,6 +31,7 @@ class CommoditiesController extends Controller
         $commodityPurchases = CommodityPurchase::all();
         $soldCommodityItem = SoldCommodityItem::all();
         $typePurchases = TypePurchase::all();
+        $typeBudgetedSales = TypeBudgetedSale::all();
 
         /*
             foreach ($typePurchases as $typePurchase)
@@ -38,6 +40,14 @@ class CommoditiesController extends Controller
             }
             dd("Test");
         */
+        /*
+            foreach ($typeBudgetedSales as $typeSale)
+            {
+                print($typeSale->CommodityType->TypeQuantity->type_quantity);
+            }
+            dd("Test");
+        */
+
 
         $totalGrossProfit = 0.0;
         $totalActualSales = 0.0;
@@ -78,6 +88,20 @@ class CommoditiesController extends Controller
 
         }
 
+        foreach ($typeBudgetedSales as $typeSale)
+        {
+            foreach ($typePurchases as $typePurchase)
+            {
+                if($typeSale->type_id == $typePurchase->type_id)
+                {
+                    $type_budgeted_sales = $typeSale->quantity * $typeSale->selling_price;
+                    $type_purchase = $typePurchase->quantity * $typePurchase->cost_price;
+                    $type_gross_profit = $type_budgeted_sales - $type_purchase;
+                    $totalGrossProfit = $totalGrossProfit + $type_gross_profit;
+                }
+            }
+        }
+
         foreach ($soldCommodityItem as $soldCommodity)
         {
             $itemSales = $soldCommodity->sold_quantity * $soldCommodity->selling_price;
@@ -92,6 +116,7 @@ class CommoditiesController extends Controller
             'totalGrossProfit',
             'totalActualSales',
             'typePurchases',
+            'typeBudgetedSales',
         ));
 
     }

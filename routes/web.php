@@ -137,6 +137,26 @@ Route::get(
     [CommodityAttributesController::class, 'addCommoditySupply']
 )->name('add_commodity_supply');
 Route::post(
-    '/commodity/commodity_supplier_purchase',
+    '/commodities/commodity_supplier_purchase',
     [CommodityAttributesController::class, 'storeCommoditySupply']
 )->name('store_commodity_supply');
+
+//Route to add and store a commodity type purchase from a supplier
+Route::get(
+    '/commodities/types/{commodity}/{type}/type_supplier_purchase',
+    [CommodityTypesController::class, 'addTypeSupply']
+)->name('add_type_supply');
+Route::post(
+    '/commodities/types/{commodity}/{type}/type_supplier_purchase',
+    [CommodityTypesController::class, 'storeTypeSupply']
+)->name('store_type_supply');
+
+//Route to record and store a sells of a type item
+Route::get(
+    '/sales/types/{commodity}/{type}/sell_type',
+    [TransactionsController::class, 'sellType']
+)->name('sell_type');
+Route::post(
+    '/sales/types/{commodity}/{type}/sell_type',
+    [TransactionsController::class, 'recordSellType']
+)->name('record_sell_type');

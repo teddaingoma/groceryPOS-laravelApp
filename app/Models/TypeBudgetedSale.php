@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TypePurchase extends Model
+class TypeBudgetedSale extends Model
 {
     use HasFactory;
 
-    protected $table = 'type_purchases';
+    protected $table = 'type_budgeted_sales';
     protected $primary = 'id';
     public $timestamps = true;
     protected $timestamp = true;
-    protected $fillable = ['commodity_id', 'commodity_type_id', 'quantity', 'cost_price'];
-    protected $visible = ['commodity_id', 'commodity_type_id', 'quantity', 'cost_price'];
+    protected $fillable = ['commodity_id', 'commodity_type_id', 'quantity', 'selling_price'];
+    protected $visible = ['commodity_id', 'commodity_type_id', 'quantity', 'selling_price'];
 
-    // A commodity type has many purchase counts
+    // A commodity type has a budgeted sale with many counts
     public function CommodityType()
     {
         return $this->belongsTo(

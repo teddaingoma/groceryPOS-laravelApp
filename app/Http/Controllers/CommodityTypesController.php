@@ -12,6 +12,7 @@ use App\Models\TypeCostPrice;
 use App\Models\TypePrice;
 use App\Models\TypeQuantity;
 use App\Models\TypePurchase;
+use App\Models\TypeBudgetedSale;
 
 class CommodityTypesController extends Controller
 {
@@ -85,6 +86,7 @@ class CommodityTypesController extends Controller
     {
         $commodity = Commodity::find($commodity);
         $commodity_type = CommodityType::find($type);
+
         $Type_price = DB::table('type_prices')
                         ->where('commodity_type_id', $type)
                         ->first();
@@ -123,13 +125,22 @@ class CommodityTypesController extends Controller
             $request->commodity_type_image->move(public_path('commodity_images'), $Commodity_type_image);
         }
 
-        if ($request->type_price == NULL)
+        if ($request->type_cost_price == NULL)
         {
-            $type_price = $Type_price->type_price;
+            $type_cost_price = $commodity_type->TypeCostPrice->type_cost_price;
         }
-        if ($request->type_price !== NULL)
+        if ($request->type_cost_price !== NULL)
         {
-            $type_price = $request->type_price;
+            $type_cost_price = $request->type_cost_price;
+        }
+
+        if ($request->type_selling_price == NULL)
+        {
+            $type_selling_price = $commodity_type->TypePrice->type_price;
+        }
+        if ($request->type_selling_price !== NULL)
+        {
+            $type_selling_price = $request->type_selling_price;
         }
 
         if ($request->type_acquisition_date == NULL)
@@ -147,8 +158,12 @@ class CommodityTypesController extends Controller
             'image_path' => $Commodity_type_image
         ]);
 
-        $update_type_price = TypePrice::where('commodity_type_id', $type)->update([
-            'type_price' => $type_price
+        $update_type_cost_price = TypeCostPrice::where('commodity_type_id', $type)->update([
+            'type_cost_price' => $type_cost_price,
+        ]);
+
+        $update_type_selling_price = TypePrice::where('commodity_type_id', $type)->update([
+            'type_price' => $type_selling_price,
         ]);
 
         $update_type_aquisition_date = TypeAquisitionDate::where('commodity_type_id', $type)->update([
@@ -257,12 +272,20 @@ class CommodityTypesController extends Controller
             'cost_price' => $type_cost_price,
         ]);
 
+        $TypeBudgetedSale = TypeBudgetedSale::create([
+            'commodity_id' => $commodity_id,
+            'type_id' => $commodity_type_id,
+            'quantity' => $type_quantity,
+            'selling_price' => $type_selling_price,
+        ]);
+
         if (
             $TypeAquisitionDate == true &&
             $TypeCostPrice == true &&
             $TypePrice == true &&
             $TypeQuantity == true &&
-            $TypePurchase == true
+            $TypePurchase == true &&
+            $TypeBudgetedSale == true
         )
         {
             $message = "Successfully Added Attributes of $commodity_type_name";
@@ -277,5 +300,66 @@ class CommodityTypesController extends Controller
         {
             return redirect()->route('home.index');
         }
+    }
+
+    /**
+     * Return a form for adding a commodity type supplier quantity reorder
+     * @param int $commodity, $type
+     */
+    public function addTypeSupply($commodity, $type)
+    {
+        $Commodity = Commodity::find($commodity);
+        $commodity_type_id = $type;
+
+        return view('commodities.types.type_supplier_purchase', compact(
+            'Commodity',
+            'commodity_type_id',
+        ));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request, int $commodity, $type
+     * @return \Illuminate\Http\Response
+     */
+    public function storeTypeSupply(Request $request, $commodity, $type)
+    {
+        $commodity_id = $commodity;
+        $type_id = $type;
+        $supplier_quantity = $request->supplier_type_quantity;
+
+        $commodityType = CommodityType::find($type_id);
+
+        if ($commodityType->TypeQuantity == null)
+        {
+            dd("We got nun");
+        }
+
+        if ($commodityType->TypeQuantity !== null)
+        {
+
+            $current_quantity = $commodityType->TypeQuantity->type_quantity + $supplier_quantity;
+            $current_purchases = $commodityType->TypePurchase->quantity + $supplier_quantity;
+            $current_budgeted_sales = $commodityType->TypeBudgetedSale->quantity + $supplier_quantity;
+
+            // dd($commodityType->TypeBudgetedSale->quantity);
+
+            $typeQuantity = TypeQuantity::where('commodity_type_id', $type_id)->update([
+                'type_quantity' => $current_quantity,
+            ]);
+
+            $typePurchase = TypePurchase::where('commodity_type_id', $type_id)->update([
+                'quantity' => $current_purchases,
+            ]);
+
+            $typeBudgetedSale = TypeBudgetedSale::where('commodity_type_id', $type_id)->update([
+                'quantity' => $current_budgeted_sales,
+            ]);
+
+            $message = "Successfully Added $supplier_quantity of $commodityType->type_name (s) in Inventory";
+            return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);
+        }
+
     }
 }

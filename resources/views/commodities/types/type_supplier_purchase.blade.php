@@ -12,7 +12,7 @@
                         {{ session('status') }}
                     </div>
                 @endif
-                <h2 class="pps-main-content-title">Edit {{ $Type->type_name }}</h2>
+                <h2 class="pps-main-content-title">Add stock of {{ $Type->type_name }} from a supplier</h2>
             </div>
 
             <div class="pps-main-content-body">
@@ -27,9 +27,8 @@
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="pps-commodities">
                         <div class="commodity">
-                            <form action="{{ route('update_commodity_type', ['commodity' => $Commodity->id, 'type' => $Type->id]) }}" method="POST" enctype="multipart/form-data" novalidate class="add-commodity needs-validation">
+                            <form action="{{ route('store_type_supply', ['commodity' => $Commodity->id, 'type' => $Type->id]) }}" method="POST" enctype="multipart/form-data" novalidate class="add-commodity needs-validation">
                                 @csrf
-                                @method('PUT')
                                 <div class="card">
                                     <header class="card__header">
                                         <div class="commodity__icon">
@@ -57,61 +56,32 @@
                                             <div class="names row g-3">
 
                                                 <div class="col-sm-6 form--input-line">
-                                                    <label for="formFile" class="form-label">Change Name:</label>
-                                                    <input name="commodity_type" type="text" class="form-control" id="formFile" placeholder="{{ $Type->type_name }}" value="{{ $Type->type_name }}">
-                                                    <div class="invalid-feedback">
-                                                        Provide a type if it has one
-                                                    </div>
+                                                    <label for="formFile" class="form-label">Name: {{ $Type->type_name }}</label>
                                                 </div>
-
-                                                <div class="col-sm-6 form--input-line">
-                                                    <label for="formFile" class="form-label">Change Image <span class="text-muted">(Optional)</span>:</label>
-                                                    <input name="commodity_type_image" type="file" class="form-control" id="formFile" placeholder="" value="{{  asset('commodity_images/' . $Type -> image_path) }}">
-                                                    <div class="invalid-feedback">
-                                                    Provide an image of the commodity Type.
-                                                    </div>
-                                                </div>
-
 
                                             </div>
 
                                             <div class="col-sm-6 form--input-line">
-                                                <label for="lastName" class="form-label">Change Cost Price <span class="text-muted">MWK</span>:</label>
-                                                <input name="type_cost_price" type="number" class="form-control" id="lastName" placeholder="{{ $Type->TypeCostPrice->type_cost_price }}" value="{{ $Type->TypeCostPrice->type_cost_price }}" required>
+                                                <label for="firstName" class="form-label">Supplier Quantity:</label>
+                                                <input name="supplier_type_quantity" type="number" class="form-control" id="firstName" placeholder="Supplier Quantity" required>
+                                                <div class="invalid-feedback">
+                                                    Enter the quantity purchased from your supplier, Please.
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 form--input-line">
+                                                <label for="lastName" class="form-label">Cost Price <span class="text-muted">MWK</span>:</label>
+                                                <input name="type_cost_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" required>
                                                 <div class="invalid-feedback">
                                                     Enter the cost price, please.
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-6 form--input-line">
-                                                <label for="lastName" class="form-label">Change Selling Price <span class="text-muted">MWK</span>:</label>
-                                                <input name="type_selling_price" type="number" class="form-control" id="lastName" placeholder="{{ $Type->TypePrice->type_price }}" value="{{ $Type->TypePrice->type_price }}" required>
+                                                <label for="lastName" class="form-label">Selling Price <span class="text-muted">MWK</span>:</label>
+                                                <input name="type_selling_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" required>
                                                 <div class="invalid-feedback">
                                                     Enter the cost price, please.
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form--input-line">
-                                            <label for="lastName" class="form-label">Change description <span class="text-muted">(Optional)</span>:</label>
-                                        </div>
-                                        <textarea name="commodity_type_description" class="form-control" id="lastName" placeholder="describe your commodity type in a few words..." value="{{ $Type->description }}" aria-label="textarea">
-                                            {{ $Type->description }}
-                                        </textarea>
-                                        <div class="invalid-feedback">
-                                            Define the type in a few words...
-                                        </div>
-
-                                        <div class="date">
-
-                                            <div class="col-sm-6 form--input-line">
-                                                <label for="dob" class="form-label">Change Date Acquired</label>
-
-                                                <input type="date" name="type_acquisition_date" class="form-control" id="dob" placeholder="{{ $Type->TypeAquisitionDate->type_aquisition_date }}" value="{{ $Type->TypeAquisitionDate->type_aquisition_date }}">
-
-                                                <div class="invalid-feedback">
-                                                    When was the commodity purchased or added?.
                                                 </div>
                                             </div>
 

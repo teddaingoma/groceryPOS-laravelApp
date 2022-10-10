@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTypePurchasesTable extends Migration
+class CreateSoldTypeItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateTypePurchasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('type_purchases', function (Blueprint $table) {
+        Schema::create('sold_type_items', function (Blueprint $table) {
             $table->increments('id')->onDelete('cascade');
             $table->unsignedInteger('commodity_id')->nullable();
             $table->unsignedInteger('commodity_type_id');
-            $table->float('quantity');
-            $table->float('cost_price');
-            $table->timestamp('purchase_date');
+            $table->unsignedInteger('sold_quantity');
+            $table->float('selling_price');
             $table->timestamps();
 
             $table->foreign('commodity_id')
@@ -43,6 +42,6 @@ class CreateTypePurchasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('type_purchases');
+        Schema::dropIfExists('sold_type_items');
     }
 }

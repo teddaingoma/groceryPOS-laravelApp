@@ -62,4 +62,20 @@ class CommodityType extends Model
             TypePurchase::class
         );
     }
+
+    // A commodity type has one budgeted sale with many counts
+    public function TypeBudgetedSale()
+    {
+        return $this->hasOne(
+            TypeBudgetedSale::class,
+        );
+    }
+
+    // A commodity type has a sells with many counts
+    public function SoldTypeItem()
+    {
+        return $this->hasOne(
+            SoldTypeItem::class,
+        );
+    }
 }

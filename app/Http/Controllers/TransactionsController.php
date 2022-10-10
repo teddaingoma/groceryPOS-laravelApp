@@ -8,6 +8,7 @@ use App\Models\Commodity;
 use App\Models\SoldCommodityItem;
 use App\Models\CommodityQuantity;
 use App\Models\CommoditySellInvoice;
+use App\Models\CommodityType;
 
 class TransactionsController extends Controller
 {
@@ -123,5 +124,40 @@ class TransactionsController extends Controller
             }
         }
 
+    }
+
+    /**
+     * Show the form for adding or creating a type sell invoice.
+     *
+     * @param  int  $commodity, $type
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sellType($commodity, $type)
+    {
+        $Commodity = Commodity::find($commodity);
+        $commodity_type_id = $type;
+
+        return view('sales.types.sell_type', compact(
+            'Commodity',
+            'commodity_type_id',
+        ));
+    }
+
+    /**
+     * Store a newly created commodity sell invoice in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request, int $commodity, $type
+     * @return \Illuminate\Http\Response
+     */
+    public function recordSellType(Request $request, $commodity, $type)
+    {
+        $commodity_id = $commodity;
+        $sell_quantity = $request->sell_quantity;
+        $payment = $request->paid_amount;
+
+        $commodityType = CommodityType::find($type);
+        $selling_price = $commodityType->TypePrice->type_price;
+        dd($commodityType->TypePrice->type_price);
     }
 }

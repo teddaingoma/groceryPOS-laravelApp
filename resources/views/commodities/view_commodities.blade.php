@@ -284,37 +284,60 @@
                             </div>
                         </div>
 
-                        @foreach ($typePurchases as $typePurchase)
-                            @if ( $typePurchase->commodity_id == $Purchases->CommodityPurchase->id)
+                        @foreach ($typeBudgetedSales as $typeSale)
 
-                                <div class="commodity">
-                                    <div class="card">
-                                        <header class="card__header">
-                                            <div class="commodity__icon">
-                                                <h3 class="commodity__name">{{ $typePurchase->CommodityType->type_name }}</h3>
+                            @foreach ($typePurchases as $typePurchase)
+                                @if($typeSale->type_id == $typePurchase->type_id)
+
+                                    @if ( $typePurchase->commodity_id == $Purchases->CommodityPurchase->id)
+
+                                        <div class="commodity">
+                                            <div class="card">
+                                                <header class="card__header">
+                                                    <div class="commodity__icon">
+                                                        <h3 class="commodity__name">{{ $typePurchase->CommodityType->type_name }}</h3>
+                                                    </div>
+
+                                                </header>
+                                                <div class="card__body">
+
+                                                    <span class="commodity__acquisition-date">
+                                                        <span class="acquisition-text">Budgeted Sales</span>
+                                                        <span class="badge acquisition-date">
+                                                            {{ $typeSale->selling_price * $typeSale->quantity }}
+                                                        </span>
+                                                    </span>
+
+                                                    <span class="commodity__acquisition-date">
+                                                        <span class="acquisition-text">Cost of Sales</span>
+                                                        <span class="badge acquisition-date">
+                                                            {{ $typePurchase->cost_price * $typePurchase->quantity }}
+                                                        </span>
+                                                    </span>
+
+                                                    <span class="commodity__acquisition-date">
+                                                        <span class="acquisition-text">Gross Profit</span>
+                                                        <span class="badge acquisition-date">
+                                                           {{  ( $typeSale->selling_price * $typeSale->quantity ) - ( $typePurchase->cost_price * $typePurchase->quantity ) }}
+                                                        </span>
+                                                    </span>
+
+                                                </div>
+
+                                                <footer class="card__footer">
+
+
+                                                </footer>
                                             </div>
-
-                                        </header>
-                                        <div class="card__body">
-
-                                            <span class="commodity__acquisition-date">
-                                                <span class="acquisition-text">Cost of Sales</span>
-                                                <span class="badge acquisition-date">
-                                                    {{ $typePurchase->cost_price * $typePurchase->quantity }}
-                                                </span>
-                                            </span>
-
                                         </div>
 
-                                        <footer class="card__footer">
+                                    @endif
 
+                                @endif
+                            @endforeach
 
-                                        </footer>
-                                    </div>
-                                </div>
-
-                            @endif
                         @endforeach
+
 
                     @endif
                 @empty
@@ -403,12 +426,7 @@
     <div class="commodity">
         <div class="card">
             <div class="card__body">
-                <span class="commodity__quantity">
-                    <span class="quantity-text">Total Gross Profit</span>
-                    <span class="badge quantity-value">
-                        {{ $totalGrossProfit }}
-                    </span>
-                </span>
+
             </div>
         </div>
     </div>
