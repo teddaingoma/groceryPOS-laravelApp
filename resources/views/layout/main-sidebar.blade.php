@@ -1,97 +1,97 @@
 <aside class="pps-sidebar collapse collapse-horizontal" id="collapseSideMenuBar">
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-light pps-sidebar__nav">
         <span class="mb-3 mb-md-0 me-md-auto pps-sidebar-title">
-            <span class="icon-container">
-            <img class="icon" src="images/menubar-dark.ico" alt="">
-            </span>
-            <span class="fs-4">Menu</span>
+          <span class="icon-container">
+            <img class="icon" src="{{ asset('images/menubar-dark.ico') }}" alt="">
+          </span>
+          <span class="fs-4">Menu</span>
         </span>
         <hr class="pps-sidebar-divider">
         <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-            <a href="#" class="nav-link" aria-current="page">
-                <span class="icon--small bi me-2">
-                <img class="icon" src="images/dashboard-dark.ico" alt="">
-                </span>
-                Dashboard
+          <li class="nav-item">
+            <a href="{{ route('home.index') }}" class="nav-link" aria-current="page">
+              <span class="icon--small bi me-2">
+                <img class="icon" src="{{ asset('images/dashboard-dark.ico') }}" alt="">
+              </span>
+              Dashboard
             </a>
-            </li>
-            <li class="nav-item">
-            <a href="#" class="nav-link link-dark">
+          </li>
+          <li class="nav-item">
+            <a href="pages/view-inventory.html" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
-                    <img class="icon" src="images/inventory-dark.ico" alt="">
+                    <img class="icon" src="{{ asset('images/inventory-dark.ico') }}" alt="">
                 </span>
-                Inventory
+              Inventory
             </a>
-            </li>
-            <li class="nav-item">
-            <a href="#" class="nav-link link-dark">
+          </li>
+          <li class="nav-item">
+            <a href="pages/view-budgeted-sales.html" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
-                    <img class="icon" src="images/sales-dark.ico" alt="">
+                    <img class="icon" src="{{ asset('images/sales-dark.ico') }}" alt="">
                 </span>
-                Sales
+              Sales
             </a>
-            </li>
-            <li class="nav-item">
-            <a href="#" class="nav-link link-dark">
+          </li>
+          <li class="nav-item">
+            <a href="pages/view-purchases.html" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
-                    <img class="icon" src="images/purchase-dark.ico" alt="">
+                    <img class="icon" src="{{ asset('images/purchase-dark.ico') }}" alt="">
                 </span>
-                Purchases
+              Purchases
             </a>
-            </li>
-            <li class="nav-item">
-            <a href="#" class="nav-link link-dark">
+          </li>
+          <li class="nav-item">
+            <a href="pages/view-financial-statements.html" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
-                    <img class="icon" src="images/reports-dark.ico" alt="">
+                    <img class="icon" src="{{ asset('images/reports-dark.ico') }}" alt="">
                 </span>
                 Reports
             </a>
-            </li>
-            <li class="nav-item">
-            <a href="#" class="nav-link link-dark">
+          </li>
+          <li class="nav-item">
+            <a href="pages/add-customer.html" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
-                    <img class="icon" src="images/customers.ico" alt="">
+                    <img class="icon" src="{{ asset('images/customers.ico') }}" alt="">
                 </span>
                 Customers
             </a>
-            </li>
+          </li>
         </ul>
         <hr>
         <div class="dropdown">
-            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+          <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
             <span class="icon-container">
-                <img class="icon rounded-circle me-2" src="images/account-dark.ico" alt="">
+                <img class="icon rounded-circle me-2" src="{{ asset('images/account-dark.ico') }}" alt="">
             </span>
-            <strong>Account</strong>
-            </a>
-            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+            <strong>Profile</strong>
+          </a>
+          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
             <li class="dropdown-item item-icon username">
-                <span class="icon-container icon--circle">
-                <img class="icon" src="images/admin-light.ico" alt="">
-                </span>
-                <a class="nav-link" href="">username</a>
+              <span class="icon-container icon--circle">
+                <img class="icon" src="{{ asset('images/admin-light.ico') }}" alt="">
+              </span>
+              <a class="nav-link" href="pages/user-profile.html">username</a>
             </li>
             <li class="dropdown-item item-icon">
-                <span>
-                <img class="icon" src="images/profile-dark.ico" alt="">
-                </span>
-                <a class="nav-link" href="">Profile</a>
+              <span>
+                <img class="icon" src="{{ asset('images/profile-dark.ico') }}" alt="">
+              </span>
+              <a class="nav-link" href="pages/user-profile.html">Profile</a>
             </li>
             <li class="dropdown-item item-icon">
-                <span>
-                <img class="icon" src="images/settings2-dark.ico" alt="">
-                </span>
-                <a class="nav-link" href="/pages/login.html">Settings</a>
+              <span>
+                <img class="icon" src="{{ asset('images/settings2-dark.ico') }}" alt="">
+              </span>
+              <a class="nav-link" href="/pages/user-profile.html">Settings</a>
             </li>
             <li><hr class="dropdown-divider"></li>
             <li class="dropdown-item item-icon">
-                <span>
-                <img class="icon" src="images/logout-dark.ico" alt="">
-                </span>
-                <a class="nav-link" href="/pages/login.html">logout</a>
+              <span>
+                <img class="icon" src="{{asset('images/logout-dark.ico')}}" alt="">
+              </span>
+              <a class="nav-link" href="/pages/login.html">logout</a>
             </li>
-            </ul>
+          </ul>
         </div>
     </div>
 </aside>

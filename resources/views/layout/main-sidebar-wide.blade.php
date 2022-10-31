@@ -9,7 +9,7 @@
         <hr class="pps-sidebar-divider">
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <a href="#" class="nav-link" aria-current="page">
+            <a href="{{ route('home.index') }}" class="nav-link" aria-current="page">
               <span class="icon--small bi me-2">
                 <img class="icon" src="{{ asset('images/dashboard-dark.ico') }}" alt="">
               </span>

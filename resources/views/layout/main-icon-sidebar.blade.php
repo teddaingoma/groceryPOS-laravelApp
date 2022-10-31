@@ -9,7 +9,7 @@
         <hr class="pps-sidebar-divider">
         <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
           <li class="nav-item">
-            <a href="#" class="nav-link py-3 border-bottom" aria-current="page" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
+            <a href="{{ route('home.index') }}" class="nav-link py-3 border-bottom" aria-current="page" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
                 <span class="icon--small bi me-2">
                     <img class="icon" src="images/dashboard-dark.ico" alt="">
                 </span>
