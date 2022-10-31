@@ -14,6 +14,7 @@ use App\Models\CommodityPurchase;
 use App\Models\SoldCommodityItem;
 use App\Models\TypePurchase;
 use App\Models\TypeBudgetedSale;
+use App\Models\SoldTypeItem;
 
 use NunoMaduro\Collision\Adapters\Phpunit\Printer;
 
@@ -32,7 +33,18 @@ class CommoditiesController extends Controller
         $soldCommodityItem = SoldCommodityItem::all();
         $typePurchases = TypePurchase::all();
         $typeBudgetedSales = TypeBudgetedSale::all();
+        $soldTypeItems = SoldTypeItem::all();
 
+        /*
+            foreach ($soldCommodityItem as $soldCommodity)
+            {
+                foreach ($soldCommodity->SoldCommodity->Types as $Type);
+                {
+                    print($Type->type_name);
+                }
+            }
+            dd("test");
+        */
         /*
             foreach ($typePurchases as $typePurchase)
             {
@@ -44,6 +56,13 @@ class CommoditiesController extends Controller
             foreach ($typeBudgetedSales as $typeSale)
             {
                 print($typeSale->CommodityType->TypeQuantity->type_quantity);
+            }
+            dd("Test");
+        */
+        /*
+            foreach ($soldTypeItems as $soldType)
+            {
+                print($soldType->SoldType->TypeQuantity->type_quantity);
             }
             dd("Test");
         */
@@ -88,23 +107,29 @@ class CommoditiesController extends Controller
 
         }
 
-        foreach ($typeBudgetedSales as $typeSale)
-        {
-            foreach ($typePurchases as $typePurchase)
-            {
-                if($typeSale->type_id == $typePurchase->type_id)
-                {
-                    $type_budgeted_sales = $typeSale->quantity * $typeSale->selling_price;
-                    $type_purchase = $typePurchase->quantity * $typePurchase->cost_price;
-                    $type_gross_profit = $type_budgeted_sales - $type_purchase;
-                    $totalGrossProfit = $totalGrossProfit + $type_gross_profit;
-                }
-            }
-        }
+        // foreach ($typeBudgetedSales as $typeSale)
+        // {
+        //     foreach ($typePurchases as $typePurchase)
+        //     {
+        //         if($typeSale->type_id == $typePurchase->type_id)
+        //         {
+        //             $type_budgeted_sales = $typeSale->quantity * $typeSale->selling_price;
+        //             $type_purchase = $typePurchase->quantity * $typePurchase->cost_price;
+        //             $type_gross_profit = $type_budgeted_sales - $type_purchase;
+        //             $totalGrossProfit = $totalGrossProfit + $type_gross_profit;
+        //         }
+        //     }
+        // }
 
         foreach ($soldCommodityItem as $soldCommodity)
         {
             $itemSales = $soldCommodity->sold_quantity * $soldCommodity->selling_price;
+            $totalActualSales = $totalActualSales + $itemSales;
+        }
+
+        foreach ($soldTypeItems as $soldType)
+        {
+            $itemSales = $soldType->selling_price * $soldType->sold_quantity;
             $totalActualSales = $totalActualSales + $itemSales;
         }
 
@@ -117,6 +142,7 @@ class CommoditiesController extends Controller
             'totalActualSales',
             'typePurchases',
             'typeBudgetedSales',
+            'soldTypeItems',
         ));
 
     }

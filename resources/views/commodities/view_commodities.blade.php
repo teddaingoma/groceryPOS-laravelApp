@@ -123,7 +123,12 @@
                             <span class="commodity__category">
                                 <span class="category-text">Type (s) :</span>
                                 @forelse ($commodity -> Types as $Type)
-                                    <span class="badge category-value">{{ $Type -> type_name }}</span>
+                                    <span class="badge category-value">
+                                        <a href="{{ route('show_commodity_type', ['commodity' => $commodity->id, 'type' => $Type->id]) }}" class="link">
+                                           {{ $Type -> type_name }} 
+                                        </a>
+                                        
+                                    </span>
                                 @empty
                                     <span class="badge category-value">{{ $commodity -> name }} has no types</span>
                                 @endforelse
@@ -238,117 +243,113 @@
 
         <div class="flex flex-col--wrap">
 
-            @forelse ($commodityBudgetedSales as $budgetedSales)
-                @forelse ($commodityPurchases as $Purchases)
-                    @if($budgetedSales->commodity_id == $Purchases->commodity_id)
 
-                        <div class="commodity">
-                            <div class="card">
-                                <header class="card__header">
-                                    <div class="commodity__icon">
-                                        <h3 class="commodity__name">{{ $Purchases->CommodityPurchase->name }}</h3>
-                                    </div>
-
-                                </header>
-                                <div class="card__body">
-
-                                    <span class="commodity__quantity">
-                                        <span class="quantity-text">Budgeted Sales</span>
-                                        <span class="badge quantity-value">
-                                            {{ $budgetedSales->quantity * $budgetedSales->selling_price }}
-                                        </span>
-                                    </span>
-
-                                    <span class="commodity__acquisition-date">
-                                        <span class="acquisition-text">Cost of Sales</span>
-                                        <span class="badge acquisition-date">
-                                            {{ $Purchases->quantity * $Purchases->cost_price }}
-                                        </span>
-                                    </span>
-
-                                    <span class="commodity__acquisition-date">
-                                        <span class="acquisition-text">Gross Profit</span>
-                                        <span class="badge acquisition-date">
-                                            {{
-                                                ($budgetedSales->quantity * $budgetedSales->selling_price) - ($Purchases->quantity * $Purchases->cost_price)
-                                            }}
-                                        </span>
-                                    </span>
-
-                                </div>
-
-                                <footer class="card__footer">
-
-
-                                </footer>
-                            </div>
-                        </div>
-
-                        @foreach ($typeBudgetedSales as $typeSale)
-
-                            @foreach ($typePurchases as $typePurchase)
-                                @if($typeSale->type_id == $typePurchase->type_id)
-
-                                    @if ( $typePurchase->commodity_id == $Purchases->CommodityPurchase->id)
-
-                                        <div class="commodity">
-                                            <div class="card">
-                                                <header class="card__header">
-                                                    <div class="commodity__icon">
-                                                        <h3 class="commodity__name">{{ $typePurchase->CommodityType->type_name }}</h3>
-                                                    </div>
-
-                                                </header>
-                                                <div class="card__body">
-
-                                                    <span class="commodity__acquisition-date">
-                                                        <span class="acquisition-text">Budgeted Sales</span>
-                                                        <span class="badge acquisition-date">
-                                                            {{ $typeSale->selling_price * $typeSale->quantity }}
-                                                        </span>
-                                                    </span>
-
-                                                    <span class="commodity__acquisition-date">
-                                                        <span class="acquisition-text">Cost of Sales</span>
-                                                        <span class="badge acquisition-date">
-                                                            {{ $typePurchase->cost_price * $typePurchase->quantity }}
-                                                        </span>
-                                                    </span>
-
-                                                    <span class="commodity__acquisition-date">
-                                                        <span class="acquisition-text">Gross Profit</span>
-                                                        <span class="badge acquisition-date">
-                                                           {{  ( $typeSale->selling_price * $typeSale->quantity ) - ( $typePurchase->cost_price * $typePurchase->quantity ) }}
-                                                        </span>
-                                                    </span>
-
-                                                </div>
-
-                                                <footer class="card__footer">
-
-
-                                                </footer>
+                @forelse ($commodityBudgetedSales as $budgetedSales)
+                    @forelse ($commodityPurchases as $Purchases)
+                        @if($budgetedSales->commodity_id == $Purchases->commodity_id)
+                                <div class="commodity">
+                                    <div class="card">
+                                        <header class="card__header">
+                                            <div class="commodity__icon">
+                                                <h3 class="commodity__name">{{ $Purchases->CommodityPurchase->name }}</h3>
                                             </div>
+
+                                        </header>
+                                        <div class="card__body">
+
+                                            <span class="commodity__quantity">
+                                                <span class="quantity-text">Budgeted Sales</span>
+                                                <span class="badge quantity-value">
+                                                    {{ $budgetedSales->quantity * $budgetedSales->selling_price }}
+                                                </span>
+                                            </span>
+
+                                            <span class="commodity__acquisition-date">
+                                                <span class="acquisition-text">Cost of Sales</span>
+                                                <span class="badge acquisition-date">
+                                                    {{ $Purchases->quantity * $Purchases->cost_price }}
+                                                </span>
+                                            </span>
+
+                                            <span class="commodity__acquisition-date">
+                                                <span class="acquisition-text">Gross Profit</span>
+                                                <span class="badge acquisition-date">
+                                                    {{
+                                                        ($budgetedSales->quantity * $budgetedSales->selling_price) - ($Purchases->quantity * $Purchases->cost_price)
+                                                    }}
+                                                </span>
+                                            </span>
+
                                         </div>
 
-                                    @endif
-
-                                @endif
-                            @endforeach
-
-                        @endforeach
+                                        <footer class="card__footer">
 
 
-                    @endif
+                                        </footer>
+                                    </div>
+                                </div>
+                        @endif
+                    @empty
+                        No Sales and Purchases
+                    @endforelse
                 @empty
-                    No Sales and Purchases
+                    if ($commodityPurchases == NULL)
+                    {
+                        No Sales and Purchases
+                    }
                 @endforelse
-            @empty
-                if ($commodityPurchases == NULL)
-                {
-                    No Sales and Purchases
-                }
-            @endforelse
+
+                @foreach ($typeBudgetedSales as $typeSale)
+
+                    @foreach ($typePurchases as $typePurchase)
+                        @if($typeSale->commodity_type_id == $typePurchase->commodity_type_id)
+
+                            <div class="commodity">
+                                <div class="card">
+                                    <header class="card__header">
+                                        <div class="commodity__icon">
+                                            <h3 class="commodity__name">{{ $typePurchase->CommodityType->type_name }}</h3>
+                                        </div>
+
+                                    </header>
+                                    <div class="card__body">
+
+                                        <span class="commodity__acquisition-date">
+                                            <span class="acquisition-text">Budgeted Sales</span>
+                                            <span class="badge acquisition-date">
+                                                {{ $typeSale->selling_price * $typeSale->quantity }}
+                                            </span>
+                                        </span>
+
+                                        <span class="commodity__acquisition-date">
+                                            <span class="acquisition-text">Cost of Sales</span>
+                                            <span class="badge acquisition-date">
+                                                {{ $typePurchase->cost_price * $typePurchase->quantity }}
+                                            </span>
+                                        </span>
+
+                                        <span class="commodity__acquisition-date">
+                                            <span class="acquisition-text">Gross Profit</span>
+                                            <span class="badge acquisition-date">
+                                            {{  ( $typeSale->selling_price * $typeSale->quantity ) - ( $typePurchase->cost_price * $typePurchase->quantity ) }}
+                                            </span>
+                                        </span>
+
+                                    </div>
+
+                                    <footer class="card__footer">
+
+
+                                    </footer>
+                                </div>
+                            </div>
+
+                        @endif
+                    @endforeach
+
+                @endforeach
+
+
         </div>
 
         <div class="card">
@@ -397,6 +398,36 @@
                         </footer>
                     </div>
                 </div>
+
+                @foreach ($soldTypeItems as $soldType)
+                    @if($soldType->commodity_id == $soldCommodity->SoldCommodity->id )
+                        <div class="commodity">
+                            <div class="card">
+                                <header class="card__header">
+                                    <div class="commodity__icon">
+                                        <h3 class="commodity__name">{{ $soldType->SoldType->type_name }}</h3>
+                                    </div>
+
+                                </header>
+                                <div class="card__body">
+
+                                    <span class="commodity__quantity">
+                                        <span class="quantity-text">Actual Sales</span>
+                                        <span class="badge quantity-value">
+                                            {{ $soldType->selling_price * $soldType->sold_quantity }}
+                                        </span>
+                                    </span>
+
+                                </div>
+
+                                <footer class="card__footer">
+
+
+                                </footer>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
 
             @empty
                 No sales

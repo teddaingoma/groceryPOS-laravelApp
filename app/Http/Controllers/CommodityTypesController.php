@@ -13,6 +13,7 @@ use App\Models\TypePrice;
 use App\Models\TypeQuantity;
 use App\Models\TypePurchase;
 use App\Models\TypeBudgetedSale;
+use App\Models\SoldTypeItem;
 
 class CommodityTypesController extends Controller
 {
@@ -240,6 +241,9 @@ class CommodityTypesController extends Controller
         $commodity_type_name = $type_name;
 
         $commodity_type_id = $request->commodity_type_id;
+
+        $commodityType = CommodityType::find($commodity_type_id);
+
         $type_aquisition_date = $request->type_acquisition_date;
         $type_quantity = $request->type_quantity;
         $type_cost_price = $request->type_cost_price;
@@ -267,17 +271,35 @@ class CommodityTypesController extends Controller
 
         $TypePurchase = TypePurchase::create([
             'commodity_id' => $commodity_id,
-            'type_id' => $commodity_type_id,
+            'commodity_type_id' => $commodity_type_id,
             'quantity' => $type_quantity,
             'cost_price' => $type_cost_price,
         ]);
 
         $TypeBudgetedSale = TypeBudgetedSale::create([
             'commodity_id' => $commodity_id,
-            'type_id' => $commodity_type_id,
+            'commodity_type_id' => $commodity_type_id,
             'quantity' => $type_quantity,
             'selling_price' => $type_selling_price,
         ]);
+
+
+        if ($commodityType->SoldTypeItem == NULL)
+        {
+            $soldTypeItem = SoldTypeItem::create([
+                'commodity_id' => $commodity_id,
+                'commodity_type_id' => $commodity_type_id,
+                'sold_quantity' => '0',
+                'selling_price' => $type_selling_price,
+            ]);
+        }
+        if ($commodityType->SoldTypeItem !== NULL)
+        {
+            $soldTypeItem = SoldTypeItem::where('commodity_type_id', $commodity_type_id)->update([
+                'selling_price' => $type_selling_price,
+            ]);
+        }
+
 
         if (
             $TypeAquisitionDate == true &&
@@ -285,7 +307,8 @@ class CommodityTypesController extends Controller
             $TypePrice == true &&
             $TypeQuantity == true &&
             $TypePurchase == true &&
-            $TypeBudgetedSale == true
+            $TypeBudgetedSale == true &&
+            $soldTypeItem == true
         )
         {
             $message = "Successfully Added Attributes of $commodity_type_name";

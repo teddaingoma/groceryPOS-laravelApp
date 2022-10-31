@@ -15,6 +15,7 @@ use App\Models\CommodityAquisitionDate;
 use App\Models\CommodityPurchase;
 use App\Models\CommodityBudgetedSale;
 use App\Models\SoldCommodityItem;
+use App\Models\SoldTypeItem;
 
 class CommodityAttributesController extends Controller
 {
@@ -181,10 +182,19 @@ class CommodityAttributesController extends Controller
             'image_path' => $Commodity_type_image,
         ]);
 
+
         if ($commodityType == true)
         {
             $commodity_type_id = $commodityType->id;
-            $message = "Successfully added type $commodity_type";
+
+            $soldTypeItem = SoldTypeItem::create([
+                'commodity_id' => $commodity_id,
+                'commodity_type_id' => $commodity_type_id,
+                'sold_quantity' => '0',
+                'selling_price' => '00.00',
+            ]);
+
+            $message = "Successfully added type $commodityType->type_name";
 
             return redirect()->route(
                 'assign_type_attributes', [

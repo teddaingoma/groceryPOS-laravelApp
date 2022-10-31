@@ -110,11 +110,11 @@
 
                             <div class="col-sm-6 form--input-line">
                                 <label for="firstName" class="form-label">Commodity Unit:</label>
-                                <span class="commodity__unit">
+                                <span class="commodity__unit text-dark">
                                     @if ($commodity->Unit == '')
                                         Unit
                                     @else
-                                        {{ $commodity->Unit -> unit }}
+                                        {{ $commodity->Unit->unit }}
                                     @endif
                                 </span>
                             </div>

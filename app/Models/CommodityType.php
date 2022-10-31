@@ -78,4 +78,12 @@ class CommodityType extends Model
             SoldTypeItem::class,
         );
     }
+
+    // A commodity type is included in many purchase or sell invoices
+    public function TypeSellInvoices()
+    {
+        return $this->belongsTo(
+            TypeSellInvoive::class
+        );
+    }
 }
