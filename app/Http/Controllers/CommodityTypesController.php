@@ -351,38 +351,97 @@ class CommodityTypesController extends Controller
         $commodity_id = $commodity;
         $type_id = $type;
         $supplier_quantity = $request->supplier_type_quantity;
+        $type_cost_price = $request->type_cost_price;
+        $type_selling_price = $request->type_selling_price;
 
         $commodityType = CommodityType::find($type_id);
 
         if ($commodityType->TypeQuantity == null)
         {
-            dd("We got nun");
+            $TypeQuantity = TypeQuantity::create([
+                'type_quantity' => $supplier_quantity,
+                'commodity_type_id' => $type,
+            ]);
+
+            $TypeBudgetedSale = TypeBudgetedSale::create([
+                'commodity_id' => $commodity_id,
+                'commodity_type_id' => $type,
+                'quantity' => $supplier_quantity,
+                'selling_price' => $type_selling_price,
+            ]);
+
+            $TypePurchase = TypePurchase::create([
+                'commodity_id' => $commodity_id,
+                'commodity_type_id' => $type,
+                'quantity' => $supplier_quantity,
+                'cost_price' => $type_cost_price,
+            ]);
         }
 
-        if ($commodityType->TypeQuantity !== null)
-        {
+        if($commodityType->TypePrice == null){
+            $TypePrice = TypePrice::create([
+                'type_price' => $type_selling_price,
+                'commodity_type_id' => $type,
+            ]);
 
+            if ($commodityType->TypeQuantity == null)
+            {
+
+                $TypeBudgetedSale = TypeBudgetedSale::create([
+                    'commodity_id' => $commodity_id,
+                    'commodity_type_id' => $type,
+                    'quantity' => $supplier_quantity,
+                    'selling_price' => $type_selling_price,
+                ]);
+            }
+        }
+
+        if ($commodityType->TypeCostPrice == null)
+        {
+            $TypeCostPrice = TypeCostPrice::create([
+                'type_cost_price' => $type_cost_price,
+                'commodity_type_id' => $type,
+            ]);
+
+            if ($commodityType->TypeQuantity == null)
+            {
+                $TypePurchase = TypePurchase::create([
+                    'commodity_id' => $commodity_id,
+                    'commodity_type_id' => $type,
+                    'quantity' => $supplier_quantity,
+                    'cost_price' => $type_cost_price,
+                ]);
+            }
+        }
+
+
+        if (
+            $commodityType->TypeQuantity !== null &&
+            $commodityType->TypeCostPrice !== null &&
+            $commodityType->TypePrice !== null
+        )
+        {
+            // dd($commodityType->TypeBudgetedSale->quantity);
             $current_quantity = $commodityType->TypeQuantity->type_quantity + $supplier_quantity;
             $current_purchases = $commodityType->TypePurchase->quantity + $supplier_quantity;
             $current_budgeted_sales = $commodityType->TypeBudgetedSale->quantity + $supplier_quantity;
 
-            // dd($commodityType->TypeBudgetedSale->quantity);
-
             $typeQuantity = TypeQuantity::where('commodity_type_id', $type_id)->update([
                 'type_quantity' => $current_quantity,
             ]);
-
             $typePurchase = TypePurchase::where('commodity_type_id', $type_id)->update([
                 'quantity' => $current_purchases,
+                'cost_price' => $type_cost_price,
             ]);
 
             $typeBudgetedSale = TypeBudgetedSale::where('commodity_type_id', $type_id)->update([
                 'quantity' => $current_budgeted_sales,
+                'selling_price' => $type_selling_price,
             ]);
-
-            $message = "Successfully Added $supplier_quantity of $commodityType->type_name (s) in Inventory";
-            return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);
         }
+
+        $message = "Successfully Added $supplier_quantity of $commodityType->type_name (s) in Inventory";
+        return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);
 
     }
 }

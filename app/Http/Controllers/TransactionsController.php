@@ -12,6 +12,11 @@ use App\Models\CommodityType;
 use App\Models\SoldTypeItem;
 use App\Models\TypeQuantity;
 use App\Models\TypeSellInvoive;
+use App\Models\Category;
+use App\Models\CommodityBudgetedSale;
+use App\Models\CommodityPurchase;
+use App\Models\TypePurchase;
+use App\Models\TypeBudgetedSale;
 
 class TransactionsController extends Controller
 {
@@ -239,5 +244,422 @@ class TransactionsController extends Controller
                 }
             }
         }
+    }
+
+    /**
+     * Show the the list of available commodities to sell
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function AvailableCommodities()
+    {
+        $commodities = Commodity::all();
+
+        // foreach ($commodities as $commodity) {
+
+        //     if ($commodity->Quantity !== null) {
+        //         if ($commodity->Quantity->quantity > 10) {
+        //             print($commodity->name);
+        //             print("...");
+        //             print($commodity->Quantity->quantity);
+        //             print(" ------ ");
+        //         }
+        //     }
+        // }
+
+        return view('sales.available_commodities', compact(
+            'commodities',
+
+        ));
+    }
+
+    /**
+     * Display a listing of the sales reports.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function viewSalesReport()
+    {
+        $commodities = Commodity::all();
+        $commodityBudgetedSales = CommodityBudgetedSale::all();
+        $commodityPurchases = CommodityPurchase::all();
+        $soldCommodityItem = SoldCommodityItem::all();
+        $typePurchases = TypePurchase::all();
+        $typeBudgetedSales = TypeBudgetedSale::all();
+        $soldTypeItems = SoldTypeItem::all();
+
+        /*
+            foreach ($soldCommodityItem as $soldCommodity)
+            {
+                foreach ($soldCommodity->SoldCommodity->Types as $Type);
+                {
+                    print($Type->type_name);
+                }
+            }
+            dd("test");
+        */
+        /*
+            foreach ($typePurchases as $typePurchase)
+            {
+                print($typePurchase->CommodityType->TypeQuantity->type_quantity);
+            }
+            dd("Test");
+        */
+        /*
+            foreach ($typeBudgetedSales as $typeSale)
+            {
+                print($typeSale->CommodityType->TypeQuantity->type_quantity);
+            }
+            dd("Test");
+        */
+        /*
+            foreach ($soldTypeItems as $soldType)
+            {
+                print($soldType->SoldType->TypeQuantity->type_quantity);
+            }
+            dd("Test");
+        */
+
+
+        $totalGrossProfit = 0.0;
+        $totalActualSales = 0.0;
+        $totalPurchaseCosts = 0.0;
+
+        foreach ($commodityBudgetedSales as $Sales)
+        {
+            foreach ($commodityPurchases as $Purchases)
+            {
+                if ($Sales->commodity_id == $Purchases->commodity_id)
+                {
+                    /*
+                        print("------Budgeted Sales-----");
+                        print($Sales->CommodityBudgetedSale->name);
+                        print("-");
+                        Print($Sales->quantity);
+                        print("-");
+                        print($Sales->selling_price);
+                        print("-");
+                        print($Sales->quantity * $Sales->selling_price);
+                        print("-Budgeted");
+                        print("------Purchases-----");
+                        print("-");
+                        print($Purchases->CommodityPurchase->name);
+                        print("-");
+                        print($Purchases->quantity);
+                        print("-");
+                        print($Purchases->cost_price);
+                        print("-Cost of sales");
+                        print($Purchases->quantity * $Purchases->cost_price);
+                        print("****************");
+                    */
+                    $itemBudgetedSales = $Sales->quantity * $Sales->selling_price;
+                    $itemPurchases = $Purchases->quantity * $Purchases->cost_price;
+                    $totalPurchaseCosts += $itemPurchases;
+                    $itemGrossProfit = $itemBudgetedSales - $itemPurchases;
+                    $totalGrossProfit = $totalGrossProfit + $itemGrossProfit;
+                }
+            }
+
+        }
+
+        foreach ($typeBudgetedSales as $typeSale)
+        {
+            foreach ($typePurchases as $typePurchase)
+            {
+                if($typeSale->type_id == $typePurchase->type_id)
+                {
+                    $type_budgeted_sales = $typeSale->quantity * $typeSale->selling_price;
+                    $type_purchase = $typePurchase->quantity * $typePurchase->cost_price;
+                    $type_gross_profit = $type_budgeted_sales - $type_purchase;
+                    $totalGrossProfit = $totalGrossProfit + $type_gross_profit;
+                }
+            }
+        }
+
+        foreach ($soldCommodityItem as $soldCommodity)
+        {
+            $itemSales = $soldCommodity->sold_quantity * $soldCommodity->selling_price;
+            $totalActualSales = $totalActualSales + $itemSales;
+        }
+
+        foreach ($soldTypeItems as $soldType)
+        {
+            $itemSales = $soldType->selling_price * $soldType->sold_quantity;
+            $totalActualSales = $totalActualSales + $itemSales;
+        }
+
+        return view('sales.sales_report', compact(
+            'commodities',
+            'commodityBudgetedSales',
+            'commodityPurchases',
+            'soldCommodityItem',
+            'totalGrossProfit',
+            'totalActualSales',
+            'typePurchases',
+            'typeBudgetedSales',
+            'soldTypeItems',
+        ));
+    }
+
+    /**
+     * Display a listing of the financial reports.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function viewFinancialStatements()
+    {
+        $commodities = Commodity::all();
+        $commodityBudgetedSales = CommodityBudgetedSale::all();
+        $commodityPurchases = CommodityPurchase::all();
+        $soldCommodityItem = SoldCommodityItem::all();
+        $typePurchases = TypePurchase::all();
+        $typeBudgetedSales = TypeBudgetedSale::all();
+        $soldTypeItems = SoldTypeItem::all();
+
+        /*
+            foreach ($soldCommodityItem as $soldCommodity)
+            {
+                foreach ($soldCommodity->SoldCommodity->Types as $Type);
+                {
+                    print($Type->type_name);
+                }
+            }
+            dd("test");
+        */
+        /*
+            foreach ($typePurchases as $typePurchase)
+            {
+                print($typePurchase->CommodityType->TypeQuantity->type_quantity);
+            }
+            dd("Test");
+        */
+        /*
+            foreach ($typeBudgetedSales as $typeSale)
+            {
+                print($typeSale->CommodityType->TypeQuantity->type_quantity);
+            }
+            dd("Test");
+        */
+        /*
+            foreach ($soldTypeItems as $soldType)
+            {
+                print($soldType->SoldType->TypeQuantity->type_quantity);
+            }
+            dd("Test");
+        */
+
+
+        $totalGrossProfit = 0.0;
+        $totalActualSales = 0.0;
+        $totalPurchaseCosts = 0.0;
+
+        foreach ($commodityBudgetedSales as $Sales)
+        {
+            foreach ($commodityPurchases as $Purchases)
+            {
+                if ($Sales->commodity_id == $Purchases->commodity_id)
+                {
+                    /*
+                        print("------Budgeted Sales-----");
+                        print($Sales->CommodityBudgetedSale->name);
+                        print("-");
+                        Print($Sales->quantity);
+                        print("-");
+                        print($Sales->selling_price);
+                        print("-");
+                        print($Sales->quantity * $Sales->selling_price);
+                        print("-Budgeted");
+                        print("------Purchases-----");
+                        print("-");
+                        print($Purchases->CommodityPurchase->name);
+                        print("-");
+                        print($Purchases->quantity);
+                        print("-");
+                        print($Purchases->cost_price);
+                        print("-Cost of sales");
+                        print($Purchases->quantity * $Purchases->cost_price);
+                        print("****************");
+                    */
+                    $itemBudgetedSales = $Sales->quantity * $Sales->selling_price;
+                    $itemPurchases = $Purchases->quantity * $Purchases->cost_price;
+                    $totalPurchaseCosts += $itemPurchases;
+                    $itemGrossProfit = $itemBudgetedSales - $itemPurchases;
+                    $totalGrossProfit = $totalGrossProfit + $itemGrossProfit;
+                }
+            }
+
+        }
+
+
+        foreach ($typeBudgetedSales as $typeSale)
+        {
+            foreach ($typePurchases as $typePurchase)
+            {
+                if($typeSale->type_id == $typePurchase->type_id)
+                {
+                    $type_budgeted_sales = $typeSale->quantity * $typeSale->selling_price;
+                    $type_purchase = $typePurchase->quantity * $typePurchase->cost_price;
+                    $totalPurchaseCosts += $type_purchase;
+                    $type_gross_profit = $type_budgeted_sales - $type_purchase;
+                    $totalGrossProfit = $totalGrossProfit + $type_gross_profit;
+                }
+            }
+        }
+
+        foreach ($soldCommodityItem as $soldCommodity)
+        {
+            $itemSales = $soldCommodity->sold_quantity * $soldCommodity->selling_price;
+            $totalActualSales = $totalActualSales + $itemSales;
+        }
+
+        foreach ($soldTypeItems as $soldType)
+        {
+            $itemSales = $soldType->selling_price * $soldType->sold_quantity;
+            $totalActualSales = $totalActualSales + $itemSales;
+        }
+
+        return view('sales.financial_statements', compact(
+            'commodities',
+            'commodityBudgetedSales',
+            'commodityPurchases',
+            'soldCommodityItem',
+            'totalGrossProfit',
+            'totalActualSales',
+            'typePurchases',
+            'typeBudgetedSales',
+            'soldTypeItems',
+            'totalPurchaseCosts'
+        ));
+    }
+
+    /**
+     * Display a listing of the financial reports.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function viewPurchaseReport()
+    {
+        $commodities = Commodity::all();
+        $commodityBudgetedSales = CommodityBudgetedSale::all();
+        $commodityPurchases = CommodityPurchase::all();
+        $soldCommodityItem = SoldCommodityItem::all();
+        $typePurchases = TypePurchase::all();
+        $typeBudgetedSales = TypeBudgetedSale::all();
+        $soldTypeItems = SoldTypeItem::all();
+
+        /*
+            foreach ($soldCommodityItem as $soldCommodity)
+            {
+                foreach ($soldCommodity->SoldCommodity->Types as $Type);
+                {
+                    print($Type->type_name);
+                }
+            }
+            dd("test");
+        */
+        /*
+            foreach ($typePurchases as $typePurchase)
+            {
+                print($typePurchase->CommodityType->TypeQuantity->type_quantity);
+            }
+            dd("Test");
+        */
+        /*
+            foreach ($typeBudgetedSales as $typeSale)
+            {
+                print($typeSale->CommodityType->TypeQuantity->type_quantity);
+            }
+            dd("Test");
+        */
+        /*
+            foreach ($soldTypeItems as $soldType)
+            {
+                print($soldType->SoldType->TypeQuantity->type_quantity);
+            }
+            dd("Test");
+        */
+
+
+        $totalGrossProfit = 0.0;
+        $totalActualSales = 0.0;
+        $totalPurchaseCosts = 0.0;
+
+        foreach ($commodityBudgetedSales as $Sales)
+        {
+            foreach ($commodityPurchases as $Purchases)
+            {
+                if ($Sales->commodity_id == $Purchases->commodity_id)
+                {
+                    /*
+                        print("------Budgeted Sales-----");
+                        print($Sales->CommodityBudgetedSale->name);
+                        print("-");
+                        Print($Sales->quantity);
+                        print("-");
+                        print($Sales->selling_price);
+                        print("-");
+                        print($Sales->quantity * $Sales->selling_price);
+                        print("-Budgeted");
+                        print("------Purchases-----");
+                        print("-");
+                        print($Purchases->CommodityPurchase->name);
+                        print("-");
+                        print($Purchases->quantity);
+                        print("-");
+                        print($Purchases->cost_price);
+                        print("-Cost of sales");
+                        print($Purchases->quantity * $Purchases->cost_price);
+                        print("****************");
+                    */
+                    $itemBudgetedSales = $Sales->quantity * $Sales->selling_price;
+                    $itemPurchases = $Purchases->quantity * $Purchases->cost_price;
+                    $totalPurchaseCosts += $itemPurchases;
+                    $itemGrossProfit = $itemBudgetedSales - $itemPurchases;
+                    $totalGrossProfit = $totalGrossProfit + $itemGrossProfit;
+                }
+            }
+
+        }
+
+
+        foreach ($typeBudgetedSales as $typeSale)
+        {
+            foreach ($typePurchases as $typePurchase)
+            {
+                if($typeSale->type_id == $typePurchase->type_id)
+                {
+                    $type_budgeted_sales = $typeSale->quantity * $typeSale->selling_price;
+                    $type_purchase = $typePurchase->quantity * $typePurchase->cost_price;
+                    $totalPurchaseCosts += $type_purchase;
+                    $type_gross_profit = $type_budgeted_sales - $type_purchase;
+                    $totalGrossProfit = $totalGrossProfit + $type_gross_profit;
+                }
+            }
+        }
+
+        foreach ($soldCommodityItem as $soldCommodity)
+        {
+            $itemSales = $soldCommodity->sold_quantity * $soldCommodity->selling_price;
+            $totalActualSales = $totalActualSales + $itemSales;
+        }
+
+        foreach ($soldTypeItems as $soldType)
+        {
+            $itemSales = $soldType->selling_price * $soldType->sold_quantity;
+            $totalActualSales = $totalActualSales + $itemSales;
+        }
+
+        return view('sales.purchases_report', compact(
+            'commodities',
+            'commodityBudgetedSales',
+            'commodityPurchases',
+            'soldCommodityItem',
+            'totalGrossProfit',
+            'totalActualSales',
+            'typePurchases',
+            'typeBudgetedSales',
+            'soldTypeItems',
+            'totalPurchaseCosts'
+        ));
     }
 }

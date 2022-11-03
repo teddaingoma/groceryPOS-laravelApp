@@ -2,7 +2,7 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-light pps-primary-navbar fixed-top" aria-label="Primary Nav bar">
             <div class="container-fluid">
-              <a class="navbar-brand" href="home.html">
+              <a class="navbar-brand" href="{{ route('home.index') }}">
                 <span class="icon--circle">
                     <img class="icon" src="{{ asset('images/logo-dark.ico') }}" alt="">
                 </span>
@@ -18,20 +18,20 @@
                     <span class="icon--circle">
                       <img class="icon" src="{{ asset('images/home-dark.ico') }}" alt="">
                     </span>
-                    <a class="nav-link" href="home.html">Home</a>
+                    <a class="nav-link" href="{{ route('home.index') }}">Home</a>
                   </li>
                   <li class="nav-item item-icon">
                     <span class="icon--circle">
                       <img class="icon" src="{{ asset('images/add-cus-dark.ico') }}" alt="">
                     </span>
-                    <a class="nav-link" href="pages/add-customer.html">Add Customer</a>
+                    <a class="nav-link" href="{{ asset('pages/add-customer.html') }}">Add Customer</a>
                   </li>
 
                   <li class="nav-item item-icon">
                     <span class="icon--circle">
                       <img class="icon" src="{{ asset('images/add-commodity-dark.ico') }}" alt="">
                     </span>
-                    <a class="nav-link" href="pages/add-commodity.html">Add Commodity</a>
+                    <a class="nav-link" href="{{ route('home.create') }}">Add Commodity</a>
                   </li>
 
                   <li class="nav-item dropdown">
@@ -47,14 +47,14 @@
                     <span class="icon--circle">
                       <img class="icon" src="{{ asset('images/sell-dark.ico') }}" alt="">
                     </span>
-                    <a class="nav-link" href="pages/sell-commodity.html">Sell</a>
+                    <a class="nav-link" href="{{ route('available_commodities') }}">Sell</a>
                   </li>
                 </ul>
                 <div class="user">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                         <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" id="profile" data-bs-toggle="dropdown" aria-expanded="false">
+                          <a class="nav-link dropdown-toggle" href="{{ asset('pages/user_profile.html') }}" id="profile" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="icon--circle">
                                 <img class="icon" src="{{ asset('images/admin-light.ico') }}" alt="">
                             </span>
@@ -64,7 +64,7 @@
                               <span>
                                 <img class="icon" src="{{ asset('images/register-dark.ico') }}" alt="">
                               </span>
-                              <a class="nav-link" href="/pages/register.html">register</a>
+                              <a class="nav-link" href="{{ asset('pages/register.html') }}">register</a>
                             </li>
                             <li class="dropdown-item item-icon">
                               <span>
@@ -75,7 +75,7 @@
                           </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/user-profile.html" class="nav-link">username</a>
+                            <a href="{{ asset('pages/user_profile.html') }}" class="nav-link">username</a>
                         </li>
                     </ul>
                 </div>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Grocery Portable Point-Of-Sales system for small-scale grocery businesses">
+    <meta name="author" content="teddai Ngoma">
+    <title>Register Page</title>
+    <meta name="description" content="Portable POS system">
+    <meta property="og:title" content="Portable POS system">
+    <meta property="og:description" content="Portable POS system">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="http://">
+    <meta property="og:url" content="https://pps.com">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/custom.css" rel="stylesheet">
+
+
+    <!-- HypeGames icon -->
+    <link rel="icon" href="../images/pc.ico">
+</head>
+<body class="register-body">
+
+
+  <div class="register-form">
+
+    <div class="form--header">
+        <img class="form--brand" src="../images/register-light.ico" alt="">
+        <h1 class="form--title">register your business</h1>
+    </div>
+
+    <div class="register--body">
+      <form class="register needs-validation" action="../home.html" novalidate>
+
+        <div class="form--control-group" id="personal-details">
+
+          <div class="form--control-lead">
+            <img class="control-lead-icon" src="../images/personal-dark.ico" alt="">
+            <h2 class="mb-0 control-lead-text">Personal Details</h2>
+          </div>
+
+          <div class="row g-3">
+            <div class="names row g-3">
+              <div class="col-sm-6 form--input-line">
+                <label for="firstName" class="form-label">First name:</label>
+                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                <div class="invalid-feedback">
+                  Enter your First Name, Please.
+                </div>
+              </div>
+              <div class="col-sm-6 form--input-line">
+                <label for="lastName" class="form-label">Last name:</label>
+                <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                <div class="invalid-feedback">
+                  Enter your Last Name, Please.
+                </div>
+              </div>
+              <div class="col-sm-6 form--input-line">
+                <label for="lastName" class="form-label">Middle Name <span class="text-muted">(Optional)</span>:</label>
+                <input type="text" class="form-control" id="lastName" placeholder="" value="">
+                <div class="invalid-feedback">
+                  Enter your Middle Name, if any.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6 radio">
+
+              <div class="col-sm-6 form--input-line">
+                <label for="RadioTitle" class="form-label">Gender:</label>
+              </div>
+
+              <div class="my-0">
+                <div class="form-check">
+                  <input id="male" name="gender" type="radio" class="form-check-input" required>
+                  <label class="form-check-label" for="male">Male</label>
+                </div>
+                <div class="form-check">
+                  <input id="female" name="gender" type="radio" class="form-check-input" required>
+                  <label class="form-check-label" for="female">Female</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="date">
+
+              <div class="col-sm-6 form--input-line">
+                <label for="dob" class="form-label">Date of Birth:</label>
+
+                <input type="date" name="DOB" class="form-control" id="dob" placeholder="birthday">
+
+                <div class="invalid-feedback">
+                    Provide your date of birth, please.
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form--control-group" id="contact-details">
+
+          <div class="form--control-lead">
+            <img class="control-lead-icon" src="../images/contact.ico" alt="">
+            <h2 class="mb-0 control-lead-text">Contact Details</h2>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-sm-6 form--input-line">
+              <label for="firstName" class="form-label">Phone Number:</label>
+              <input type="number" maxlength="13" class="form-control" id="firstName" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Enter your phone number, Please.
+              </div>
+            </div>
+
+            <div class="col-sm-6 form--input-line">
+              <label for="lastName" class="form-label">Residential Address:</label>
+              <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Enter your Residential Address, Please.
+              </div>
+            </div>
+
+            <div class="col-sm-6 form--input-line">
+              <label for="lastName" class="form-label">Email Address <span class="text-muted">(Optional)</span>:</label>
+              <input type="email" class="form-control" id="lastName" placeholder="name@example.com" value="">
+              <div class="invalid-feedback">
+                Enter your email address, if any.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form--control-group" id="business-datails">
+
+          <div class="form--control-lead">
+            <img class="control-lead-icon" src="../images/business.ico" alt="">
+            <h2 class="mb-0 control-lead-text">Business Details</h2>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-sm-6 form--input-line">
+              <label for="firstName" class="form-label">Name of Business:</label>
+              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                What is the name of your business?.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form--btn-group">
+          <button class="btn btn--primary" type="reset">Clear</button>
+          <button class="btn btn--primary" type="submit">Register</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="container-fluid px-0 pps-footer register">
+      <footer class="block footer">
+        <div class="grid footer__sections">
+            <section class="footer__brand">
+                <img src="/images/logo-dark.ico" alt="">
+                <p class="footer__copyright">
+                    Copyright 2022 Grocery POS system
+                </p>
+            </section>
+        </div>
+      </footer>
+  </div>
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="../js/jquery.min.js" ></script>
+  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="../js/custom.js"></script>
+
+</body>
+</html>

@@ -4,8 +4,9 @@
 
   <div class="pps-main-content-header">
     @if (session('status'))
-        <div class="alert alert-success text-success">
+        <div class="alert alert-success alert-dismissible fade show text-wrap" role="alert">
             {{ session('status') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     <h2 class="pps-main-content-title">{{ $commodity -> name }}</h2>
@@ -361,10 +362,10 @@
                                 <span class="commodity__description">{{ $commodity->name }} has no types</span>
 
                             </header>
-                            <div class="card__body">
+                            <div class="card__body text-wrap">
                                 If {{ $commodity->name }} has a variety of types or flavours, add them
                             </div>
-                            <footer class="card__footer">
+                            <footer class="card__footer mx-auto">
                                 <small class="text-muted">
                                     <a href="/commodity/{{ $commodity -> id }}/add_commodity_type" role="button" class="btn btn--primary btn--icon">
                                         <span class="icon-container icon--small">

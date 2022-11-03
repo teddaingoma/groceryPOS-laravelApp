@@ -160,3 +160,28 @@ Route::post(
     '/sales/types/{commodity}/{type}/sell_type',
     [TransactionsController::class, 'recordSellType']
 )->name('record_sell_type');
+
+
+//Route to Display Available Commodities
+Route::get(
+    '/sales/available_commodities',
+    [TransactionsController::class, 'AvailableCommodities']
+)->name('available_commodities');
+
+//Route to view sales reports
+Route::get(
+    '/sales/sales_report',
+    [TransactionsController::class, 'viewSalesReport']
+)->name('sales_report');
+
+//Route to view Financial Statements
+Route::get(
+    '/sales/financial_statements',
+    [TransactionsController::class, 'viewFinancialStatements']
+)->name('financial_statements');
+
+//Route to view Purchase Reports
+Route::get(
+    '/sales/purchases_report',
+    [TransactionsController::class, 'viewPurchaseReport']
+)->name('purchases_report');

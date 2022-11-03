@@ -8,7 +8,7 @@
               </header>
               <div class="collapsible__content">
                   <ul class="list">
-                      <li><a href="pages/view-inventory.html">View Commodities</a></li>
+                      <li><a href="{{ route('home.index') }}">View Commodities</a></li>
                   </ul>
               </div>
           </section>
@@ -19,7 +19,7 @@
               </header>
               <div class="collapsible__content">
                   <ul class="list">
-                      <li><a href="pages/user-profile.html">About</a></li>
+                      <li><a href="{{ asset('pages/user_profile.html') }}">About</a></li>
                       <li><a href="#">Affiliates</a></li>
                       <li><a href="#">Blog</a></li>
                   </ul>
@@ -32,7 +32,7 @@
               </header>
               <div class="collapsible__content">
                   <ul class="list">
-                      <li><a href="pages/user-profile.html">Contact</a></li>
+                      <li><a href="{{ asset('pages/user_profile.html') }}">Contact</a></li>
                       <li><a href="#">Knowledge Base</a></li>
                       <li><a href="#">FAQ</a></li>
                   </ul>
@@ -45,25 +45,25 @@
               </header>
               <div class="collapsible__content">
                   <ul class="list list--icon">
-                      <li><a href="#">
+                      <li><a href="{{ asset('pages/user_profile.html') }}">
                         <span class="icon-container icon--small">
                             <img class="icon" src="{{ asset('images/whatsapp.ico') }}" alt="">
                         </span>
                         <span>whatsapp</span>
                       </a></li>
-                      <li><a href="#">
+                      <li><a href="{{ asset('pages/user_profile.html') }}">
                         <span class="icon-container icon--small">
                             <img class="icon" src="{{ asset('images/facebook.ico') }}" alt="">
                         </span>
                         <span>facebook</span>
                       </a></li>
-                      <li><a href="#">
+                      <li><a href="{{ asset('pages/user_profile.html') }}">
                         <span class="icon-container icon--small">
                             <img class="icon" src="{{ asset('images/instagram.ico') }}" alt="">
                         </span>
                         <span>instagram</span>
                       </a></li>
-                      <li><a href="#">
+                      <li><a href="{{ asset('pages/user_profile.html') }}">
                         <span class="icon-container icon--small">
                             <img class="icon" src="{{ asset('images/twitter.ico') }}" alt="">
                         </span>

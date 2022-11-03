@@ -29,7 +29,7 @@
 
         @include('layout.main-header')
 
-        <div class="add-commodity-form">
+        {{--  <div class="add-commodity-form">
 
             <div class="form--header">
                 <img class="form--brand" src="{{ asset('images/image1.jpg') }}" alt="">
@@ -149,6 +149,191 @@
                     </div>
                 </form>
             </div>
+
+        </div>  --}}
+
+        <div class="container-fluid px-0 pps-content">
+
+            <div class="pps-aside">
+
+                <aside class="pps-sidebar-icon">
+                    <div class="d-flex flex-column flex-shrink-0 pps-sidebar__nav-icon">
+                        <span class="d-block pps-sidebar-icon-title" title="Add Commodity item" data-bs-toggle="tooltip" data-bs-placement="right">
+                            <span class="icon-container bi me-2">
+                                <img class="icon" src="{{ asset('images/sell-light.ico') }}" alt="">
+                            </span>
+                          <span class="visually-hidden">Purchase from SUpplier</span>
+                        </span>
+                        <hr class="pps-sidebar-divider">
+                    </div>
+                </aside>
+
+                <aside class="pps-sidebar wide-display collapse collapse-horizontal" id="collapseSideMenuBar">
+                    <div class="form--header">
+                        <img class="form--brand" src="{{ asset('images/sell-light.ico') }}" alt="">
+                        <h1 class="form--title">Purchase from Supplier</h1>
+                    </div>
+                </aside>
+
+            </div>
+
+            <main class="pps-main-content">
+
+              <div class="pps-main-content-header">
+                <h2 class="pps-main-content-title">Supplier Purchase | Restock</h2>
+              </div>
+
+              <div class="pps-main-content-body">
+
+                <nav class="pps-body-nav">
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Commodities</button>
+
+                  </div>
+                </nav>
+
+                <div class="tab-content pps-body-content" id="nav-tabContent">
+
+                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                    <div class="add-commodity-form scrollable-list">
+                        <div class="form--header">
+                            <img class="form--brand" src="{{ asset('images/image1.jpg') }}" alt="">
+                            <h1 class="form--title">Add Quantity of {{ $commodity -> name}} from a Supplier purchase</h1>
+                        </div>
+
+
+                        <div class="add-commodity--body">
+                            <form class="add-commodity sell supplier-purchase needs-validation" action="{{ route('store_commodity_supply') }}" method="POST" enctype="multipart/form-data" novalidate>
+                                @csrf
+                                <div class="form--control-group">
+
+                                    <div class="form--control-lead">
+                                        <img class="control-lead-icon" src="{{ asset('commodity_images/' . $commodity -> image_path) }}" alt="">
+                                        <h2 class="mb-0 control-lead-text">Commodity Item Details</h2>
+                                    </div>
+
+                                    <input class="no-view" name="commodity_id" type="text" class="form-control" id="firstName"  value="{{ $commodity -> id }}" readonly>
+                                    <span class="d-block">{{ $commodity -> description }}</span>
+
+                                    <div class="names row g-3">
+
+                                        <div class="col-sm-6 form--input-line">
+                                            <label for="firstName" class="form-label">Supplier Quantity:</label>
+                                            <input name="supplier_quantity" type="number" class="form-control" id="firstName" placeholder="Supplier quantity" value="" required>
+                                            <div class="invalid-feedback">
+                                                Enter the quantity purchased from your supplier, Please.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 form--input-line">
+                                            <label for="lastName" class="form-label">Cost Price <span class="text-muted">MWK</span>:</label>
+                                            @if ($commodity->CostPrice == '')
+                                                <input name="cost_price" type="number" class="form-control" id="lastName" placeholder="00.00" value="" required>
+                                                <div class="invalid-feedback">
+                                                    Sorry, Cost Price is required.
+                                                </div>
+                                            @else
+                                                <input name="cost_price" type="number" class="form-control" id="lastName" placeholder="{{ $commodity->CostPrice->cost_price }}" value="{{ $commodity->CostPrice->cost_price }}" required>
+                                                <div class="invalid-feedback">
+                                                    Sorry, Cost Price is required.
+                                                </div>
+                                            @endif
+                                        </div>
+
+                                        <div class="col-sm-6 form--input-line">
+                                            <label for="lastName" class="form-label">Selling Price <span class="text-muted">MWK</span>:</label>
+                                            @if ($commodity->Price == '')
+                                                <input name="selling_price" type="number" class="form-control" id="lastName" placeholder="00.00" value="" required>
+                                                <div class="invalid-feedback">
+                                                    Sorry, selling Price is required.
+                                                </div>
+                                            @else
+                                                <input name="selling_price" type="number" class="form-control" id="lastName" placeholder="{{ $commodity->Price->price }}" value="{{ $commodity->Price->price }}" required>
+                                                <div class="invalid-feedback">
+                                                    Sorry, selling Price is required.
+                                                </div>
+                                            @endif
+                                        </div>
+
+                                    </div>
+
+                                    <span class="commodity__quantity">
+                                        <span class="quantity-text">Available Quantity</span>
+                                        <span class="badge quantity-value">
+                                            @if ($commodity->Quantity == '')
+                                                Out of stock
+                                            @else
+                                                {{ $commodity->Quantity -> quantity }}
+                                            @endif
+                                        </span>
+                                        <span class="commodity__unit">
+                                            @if ($commodity->Unit == '')
+                                                Unit
+                                            @else
+                                                {{ $commodity->Unit -> unit }}
+                                            @endif
+                                        </span>
+                                    </span>
+
+                                </div>
+
+                                <div class="form--btn-group">
+                                  <button class="btn btn--primary" type="reset">Clear</button>
+                                  <a role="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#commodityPurchaseModal">Proceed</a>
+
+                                  <div class="modal fade" id="commodityPurchaseModal" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="WarningToDelete" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Purchase {{ $commodity->name }}?</h5>
+                                                    <buttom class="btn icon-container" data-bs-dismiss="modal" aria-label="Close">
+                                                        <img class="icon" src="{{ asset('images/close-dark.ico') }}" alt="">
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5 class="text-danger warning--text">
+                                                        <span class="icon-container">
+                                                        <img class="icon" src="{{ asset('images/danger-filled.ico') }}" alt="">
+                                                        </span>
+                                                        Are You Sure?
+                                                    </h5>
+                                                    <div class="container-fluid">
+                                                        You are about to Purchase
+                                                        @if ($commodity->Unit == '')
+                                                            Unit (s)
+                                                        @else
+                                                            {{ $commodity->Unit -> unit }}
+                                                        @endif
+                                                        of {{ $commodity->name }}!
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-success">Purchase</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <footer class="pps-main-content-footer">
+                <p>
+                    Supplier Purchase
+                </p>
+              </footer>
+
+            </main>
 
         </div>
 

@@ -17,7 +17,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/view-inventory.html" class="nav-link link-dark">
+            <a href="{{ route('available_commodities') }}" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
                     <img class="icon" src="{{ asset('images/inventory-dark.ico') }}" alt="">
                 </span>
@@ -25,7 +25,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/view-budgeted-sales.html" class="nav-link link-dark">
+            <a href="{{ route('sales_report') }}" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
                     <img class="icon" src="{{ asset('images/sales-dark.ico') }}" alt="">
                 </span>
@@ -33,7 +33,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/view-purchases.html" class="nav-link link-dark">
+            <a href="{{ route('purchases_report') }}" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
                     <img class="icon" src="{{ asset('images/purchase-dark.ico') }}" alt="">
                 </span>
@@ -41,7 +41,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/view-financial-statements.html" class="nav-link link-dark">
+            <a href="{{ route('financial_statements') }}" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
                     <img class="icon" src="{{ asset('images/reports-dark.ico') }}" alt="">
                 </span>
@@ -49,7 +49,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/add-customer.html" class="nav-link link-dark">
+            <a href="{{ asset('pages/add-customer.html') }}" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
                     <img class="icon" src="{{ asset('images/customers.ico') }}" alt="">
                 </span>
@@ -70,19 +70,19 @@
               <span class="icon-container icon--circle">
                 <img class="icon" src="{{ asset('images/admin-light.ico') }}" alt="">
               </span>
-              <a class="nav-link" href="pages/user-profile.html">username</a>
+              <a class="nav-link" href="{{ asset('pages/user_profile.html') }}">username</a>
             </li>
             <li class="dropdown-item item-icon">
               <span>
                 <img class="icon" src="{{ asset('images/profile-dark.ico') }}" alt="">
               </span>
-              <a class="nav-link" href="pages/user-profile.html">Profile</a>
+              <a class="nav-link" href="{{ asset('pages/user_profile.html') }}">Profile</a>
             </li>
             <li class="dropdown-item item-icon">
               <span>
                 <img class="icon" src="{{ asset('images/settings2-dark.ico') }}" alt="">
               </span>
-              <a class="nav-link" href="/pages/user-profile.html">Settings</a>
+              <a class="nav-link" href="{{ asset('pages/user_profile.html') }}">Settings</a>
             </li>
             <li><hr class="dropdown-divider"></li>
             <li class="dropdown-item item-icon">
