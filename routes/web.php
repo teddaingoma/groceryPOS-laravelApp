@@ -4,6 +4,7 @@ use App\Http\Controllers\CommoditiesController;
 use App\Http\Controllers\CommodityAttributesController;
 use App\Http\Controllers\CommodityTypesController;
 use App\Http\Controllers\TransactionsController;
+use App\Http\Controllers\Auth\SignupController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -185,3 +186,11 @@ Route::get(
     '/sales/purchases_report',
     [TransactionsController::class, 'viewPurchaseReport']
 )->name('purchases_report');
+
+/**
+ * User Authentication and Authorization routes
+ */
+Route::get(
+    '/auth/signup',
+    [SignupController::class, 'signup']
+)->name('signup');

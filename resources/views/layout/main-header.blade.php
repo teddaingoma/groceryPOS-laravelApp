@@ -64,7 +64,7 @@
                               <span>
                                 <img class="icon" src="{{ asset('images/register-dark.ico') }}" alt="">
                               </span>
-                              <a class="nav-link" href="{{ asset('pages/register.html') }}">register</a>
+                              <a class="nav-link" href="{{ route('signup') }}">signup</a>
                             </li>
                             <li class="dropdown-item item-icon">
                               <span>
