@@ -35,8 +35,8 @@
     </div>
 
     <div class="register--body">
-      <form class="register needs-validation" action="" novalidate>
-
+      <form class="register needs-validation" action="{{ route('signup') }}" method="POST" novalidate>
+        @csrf
         <div class="form--control-group" id="personal-details">
 
           <div class="form--control-lead">
@@ -47,24 +47,51 @@
             <div class="d-flex flex-column align-items-center names row g-3">
               <div class="col-sm-6 form--input-line">
                 <label for="firstName" class="form-label">name:</label>
-                <input type="text" class="form-control" name="name" id="firstName" placeholder="full name" value="" required>
+                <input type="text" class="form-control @error('name') border-danger @enderror" name="name" id="firstName" placeholder="full name" value="{{ old('name') }}" required>
                 <div class="invalid-feedback">
-                  Enter your Full Name, Please.
+                    Enter your Full Name, Please.
                 </div>
+                @error('name')
+                    <div class="text-danger m-0 p-1">
+                        {{ $message }}
+                    </div>
+                @enderror
+              </div>
+              <div class="col-sm-6 form--input-line">
+                <label for="username" class="form-label">choose a username:</label>
+                <input type="text" class="form-control @error('username') border-danger @enderror" name="username" id="username" placeholder="username@gpos.com" value="{{ old('username') }}" required>
+                <div class="invalid-feedback">
+                  Choose a username, Please.
+                </div>
+                @error('username')
+                    <div class="text-danger m-0 p-1">
+                        {{ $message }}
+                    </div>
+                @enderror
               </div>
               <div class="col-sm-6 form--input-line">
                 <label for="email" class="form-label">email:</label>
-                <input type="email" class="form-control"  name="email" id="email" placeholder="email" value="" required>
+                <input type="email" class="form-control  @error('email') border-danger @enderror"  name="email" id="email" placeholder="email" value="{{ old('email') }}" required>
                 <div class="invalid-feedback">
                   Enter your email, Please.
                 </div>
+                @error('email')
+                    <div class="text-danger m-0 p-1">
+                        {{ $message }}
+                    </div>
+                @enderror
               </div>
               <div class="col-sm-6 form--input-line">
                 <label for="password" class="form-label">password:</label>
-                <input type="password" class="form-control"  name="password" id="password" placeholder="choose a password" value="" required>
+                <input type="password" class="form-control @error('password') border-danger @enderror"  name="password" id="password" placeholder="choose a password" value="" required>
                 <div class="invalid-feedback">
                   Choose a password, Please.
                 </div>
+                @error('password')
+                    <div class="text-danger m-0 p-1">
+                        {{ $message }}
+                    </div>
+                @enderror
               </div>
               <div class="col-sm-6 form--input-line">
                 <label for="password_confirmation" class="form-label">repeat password:</label>
@@ -100,11 +127,11 @@
   </div>
 
 
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="{{ asset('js/jquery.min.js') }}" ></script>
-  <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('js/custom.js') }}"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{{ asset('js/jquery.min.js') }}" ></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
 
 </body>
 </html>

@@ -20,35 +20,48 @@
                     </span>
                     <a class="nav-link" href="{{ route('home.index') }}">Home</a>
                   </li>
-                  <li class="nav-item item-icon">
-                    <span class="icon--circle">
-                      <img class="icon" src="{{ asset('images/add-cus-dark.ico') }}" alt="">
-                    </span>
-                    <a class="nav-link" href="{{ asset('pages/add-customer.html') }}">Add Customer</a>
-                  </li>
+                  @auth
 
-                  <li class="nav-item item-icon">
-                    <span class="icon--circle">
-                      <img class="icon" src="{{ asset('images/add-commodity-dark.ico') }}" alt="">
-                    </span>
-                    <a class="nav-link" href="{{ route('home.create') }}">Add Commodity</a>
-                  </li>
+                    <li class="nav-item item-icon">
+                        <span class="icon--circle">
+                        <img class="icon" src="{{ asset('images/add-cus-dark.ico') }}" alt="">
+                        </span>
+                        <a class="nav-link" href="{{ asset('pages/add-customer.html') }}">Add Customer</a>
+                    </li>
 
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdowna" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdowna">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                  </li>
+                    <li class="nav-item item-icon">
+                        <span class="icon--circle">
+                        <img class="icon" src="{{ asset('images/add-commodity-dark.ico') }}" alt="">
+                        </span>
+                        <a class="nav-link" href="{{ route('home.create') }}">Add Commodity</a>
+                    </li>
 
-                  <li class="nav-item item-icon">
-                    <span class="icon--circle">
-                      <img class="icon" src="{{ asset('images/sell-dark.ico') }}" alt="">
-                    </span>
-                    <a class="nav-link" href="{{ route('available_commodities') }}">Sell</a>
-                  </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdowna" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdowna">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item item-icon">
+                        <span class="icon--circle">
+                        <img class="icon" src="{{ asset('images/sell-dark.ico') }}" alt="">
+                        </span>
+                        <a class="nav-link" href="{{ route('available_commodities') }}">Sell</a>
+                    </li>
+
+                  @endauth
+                  @guest
+                    <li class="nav-item item-icon">
+                        <a class="nav-link" href="{{ route('login') }}">login</a>
+                    </li>
+                    <li class="nav-item item-icon">
+                        <a class="nav-link" href="{{ route('signup') }}">create an account</a>
+                    </li>
+                  @endguest
+
                 </ul>
                 <div class="user">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -60,23 +73,49 @@
                             </span>
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="profile">
-                            <li class="dropdown-item item-icon">
-                              <span>
-                                <img class="icon" src="{{ asset('images/register-dark.ico') }}" alt="">
-                              </span>
-                              <a class="nav-link" href="{{ route('signup') }}">signup</a>
-                            </li>
-                            <li class="dropdown-item item-icon">
-                              <span>
-                                <img class="icon" src="{{ asset('images/logout-dark.ico') }}" alt="">
-                              </span>
-                              <a class="nav-link" href="/pages/login.html">logout</a>
-                            </li>
-                          </ul>
+                            @auth
+                                <li class="dropdown-item item-icon">
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn--primary btn--icon">
+                                            <span class="icon-container icon--small">
+                                                <img class="icon" src="{{ asset('images/logout-dark.ico') }}" alt="">
+                                            </span>
+                                            <span class="btn__text">logout</span>
+                                        </button>
+                                    </form>
+                                </li>
+
+                            @endauth
+                            @guest
+                                <li class="dropdown-item item-icon">
+                                    <span>
+                                        <img class="icon" src="{{ asset('images/register-dark.ico') }}" alt="">
+                                    </span>
+                                    <a class="nav-link" href="{{ route('signup') }}">signup</a>
+                                </li>
+                                <li class="dropdown-item item-icon">
+                                    <span>
+                                        <img class="icon" src="{{ asset('images/logout-dark.ico') }}" alt="">
+                                    </span>
+                                    <a class="nav-link" href="{{ route('login') }}">login</a>
+                                </li>
+
+                            @endguest
+                           </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ asset('pages/user_profile.html') }}" class="nav-link">username</a>
-                        </li>
+                        @auth
+                            <li class="nav-item">
+                                <a href="{{ asset('pages/user_profile.html') }}" class="nav-link">{{ auth()->user()->name }}</a>
+                            </li>
+
+                        @endauth
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">login</a>
+                            </li>
+
+                        @endguest
                     </ul>
                 </div>
               </div>

@@ -20,6 +20,12 @@ use App\Models\TypeBudgetedSale;
 
 class TransactionsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
+
     /**
      * Show the form for adding or creating a commodity sell invoice.
      *

@@ -20,6 +20,11 @@ use App\Models\SoldTypeItem;
 class CommodityAttributesController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
+
    /**
     * Assign Commodity Attributes
      */

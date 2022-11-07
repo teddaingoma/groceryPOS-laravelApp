@@ -181,7 +181,7 @@
 
                             <div class="form--btn-group">
                                 <button class="btn btn--primary" type="reset">Clear</button>
-                                <button class="btn btn--primary" type="submit">Add Commodity</button>
+                                <button class="btn btn--primary" type="submit">Update</button>
                             </div>
                         </form>
                     </div>

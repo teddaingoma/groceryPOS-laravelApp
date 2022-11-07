@@ -5,6 +5,8 @@ use App\Http\Controllers\CommodityAttributesController;
 use App\Http\Controllers\CommodityTypesController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\Auth\SignupController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -190,7 +192,26 @@ Route::get(
 /**
  * User Authentication and Authorization routes
  */
+//signup
 Route::get(
     '/auth/signup',
     [SignupController::class, 'signup']
 )->name('signup');
+Route::post(
+    '/auth/signup',
+    [SignupController::class, 'add_account']
+);
+//login
+Route::get(
+    '/auth/login',
+    [LoginController::class, 'login']
+)->name('login');
+Route::post(
+    '/auth/login',
+    [LoginController::class, 'login_account']
+);
+//Logout
+Route::post(
+    '/auth/logout',
+    [LogoutController::class, 'logout']
+)->name('logout');

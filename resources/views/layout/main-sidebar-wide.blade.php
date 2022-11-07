@@ -86,10 +86,15 @@
             </li>
             <li><hr class="dropdown-divider"></li>
             <li class="dropdown-item item-icon">
-              <span>
-                <img class="icon" src="{{ asset('images/logout-dark.ico') }}" alt="">
-              </span>
-              <a class="nav-link" href="/pages/login.html">logout</a>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn--primary btn--icon">
+                        <span class="icon-container icon--small">
+                            <img class="icon" src="{{ asset('images/logout-dark.ico') }}" alt="">
+                        </span>
+                        <span class="btn__text">logout</span>
+                    </button>
+                </form>
             </li>
           </ul>
         </div>
