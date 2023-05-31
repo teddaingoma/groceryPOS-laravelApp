@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommoditiesController;
+use App\Http\Controllers\UserCommodityController;
 use App\Http\Controllers\CommodityAttributesController;
 use App\Http\Controllers\CommodityTypesController;
 use App\Http\Controllers\TransactionsController;
@@ -24,9 +25,15 @@ use Illuminate\Support\Facades\Route;
 //commodities resource route
 Route::resource('/home', CommoditiesController::class);
 
+//show commodities belonging to a user (grocery owner)
+Route::get(
+    '/commodities/show/{commodity:id}',
+    [UserCommodityController::class, 'showUserCommodity']
+)->name('show_user_commodities');
+
 //assign commodity attributes route
 Route::get(
-    '/commodity/{id}/add_commodity_attributes',
+    '/commodity/{commodity:id}/add_commodity_attributes',
     [CommodityAttributesController::class, 'assignCommodityAttributes']
 )->name('assign_commodity_attributes');
 

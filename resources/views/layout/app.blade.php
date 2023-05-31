@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Grocery Portable Point-Of-Sales system for small-scale grocery businesses">
     <meta name="author" content="teddai Ngoma">
-    <title>Grocery POS system - Welcome</title>
+    <title>Grocery POS system - Welcome @auth {{ auth()->user()->name }} @endauth</title>
     <meta name="description" content="Portable POS system">
     <meta property="og:title" content="Portable POS system">
     <meta property="og:description" content="Portable POS system">

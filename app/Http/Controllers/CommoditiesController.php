@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Commodity;
+use App\Models\User;
 use App\Models\CommodityPrice;
 use App\Models\CommodityQuantity;
 use App\Models\CommodityUnit;
@@ -15,8 +16,6 @@ use App\Models\SoldCommodityItem;
 use App\Models\TypePurchase;
 use App\Models\TypeBudgetedSale;
 use App\Models\SoldTypeItem;
-
-use NunoMaduro\Collision\Adapters\Phpunit\Printer;
 
 class CommoditiesController extends Controller
 {
@@ -33,7 +32,9 @@ class CommoditiesController extends Controller
      */
     public function index()
     {
-        $commodities = Commodity::all();
+        // display commodities only of the currently authenticated user
+        $commodities = Commodity::all()->where('user_id', auth()->user()->id);
+        //dd($commodities);
 
         return view('commodities.view_commodities', compact(
             'commodities',
@@ -69,7 +70,9 @@ class CommoditiesController extends Controller
             $request->commodity_image->move(public_path('commodity_images'), $Commodity_image);
         }
 
-        $commodity = Commodity::create([
+        // create a commodity through a user. a user has many commodities
+
+        $commodity = $request->user()->commodities()->create([
             'name' => $request->input('commodity_name'),
             'description' => $request->input('commodity_description'),
             'image_path' => $Commodity_image,
@@ -77,17 +80,17 @@ class CommoditiesController extends Controller
 
         if ($commodity == true)
         {
-            $message = "Added $request->commodity_name successfully.";
+            $message = "Added $commodity->name successfully.";
 
-            $commodity_id = $commodity -> id;
+            $commodity_id = $commodity->id;
 
-            $SoldCommodityItem = SoldCommodityItem::create([
+            SoldCommodityItem::create([
                 'commodity_id' => $commodity_id,
                 'sold_quantity' => '0',
                 'selling_price' => '00.00',
             ]);
 
-            return redirect()->route('assign_commodity_attributes', ['id' => $commodity_id])->with('status', $message);
+            return redirect()->route('assign_commodity_attributes', [$commodity])->with('status', $message);
         }
         else
         {
@@ -105,6 +108,9 @@ class CommoditiesController extends Controller
     public function show($id)
     {
         $commodity = Commodity::find($id);
+        if  ($commodity->user_id !== auth()->user()->id) {
+            return redirect()->route('home.index');
+        }
         return view('commodities.show_commodity', compact(
             'commodity'
         ));
@@ -119,6 +125,11 @@ class CommoditiesController extends Controller
     public function edit($id)
     {
         $commodity = Commodity::find($id);
+
+        if  ($commodity->user_id !== auth()->user()->id) {
+            return redirect()->route('home.index');
+        }
+
         $categories = Category::all();
 
        return view('commodities.edit_commodity',compact(
@@ -137,6 +148,10 @@ class CommoditiesController extends Controller
     public function update(Request $request, $id)
     {
         $commodity = Commodity::find($id);
+
+        if  ($commodity->user_id !== auth()->user()->id) {
+            return redirect()->route('home.index');
+        }
 
         if ($request->commodity_name !== NULL)
         {
@@ -175,7 +190,7 @@ class CommoditiesController extends Controller
             $Commodity_image = $commodity->image_path;
         }
 
-        $update_commodity = Commodity::where('id', $id)->update([
+        Commodity::where('id', $id)->update([
             'name' => $name,
             'description' => $description,
             'image_path' => $Commodity_image,

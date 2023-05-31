@@ -75,7 +75,7 @@
           <section class="footer__brand">
               <img src="{{ asset('images/logo-light.ico') }}" alt="">
               <p class="footer__copyright">
-                  Copyright 2022 Grocery POS system
+                  Copyright 2022 Grocery POS system @auth {{ auth()->user()->name }} @endauth
               </p>
           </section>
       </div>

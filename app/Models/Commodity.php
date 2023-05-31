@@ -16,9 +16,9 @@ class Commodity extends Model
 
     protected $timestamp = true;
 
-    protected $fillable = ['name', 'description', 'image_path'];
+    protected $fillable = ['name', 'description', 'image_path', 'user_id'];
 
-    protected $visible = ['id', 'name', 'description', 'image_path'];
+    protected $visible = ['id', 'name', 'description', 'image_path', 'user_id'];
 
     //protected $dateFormat = 'h:m:s';
 
@@ -26,6 +26,12 @@ class Commodity extends Model
     public function Categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    //every single instance of a user belongs to a user
+    public function User()
+    {
+        return $this->belongsTo(User::class);
     }
 
     // Only one Commodity has one or many types: hasMany relationship

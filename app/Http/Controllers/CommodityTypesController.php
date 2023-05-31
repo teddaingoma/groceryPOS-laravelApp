@@ -207,11 +207,11 @@ class CommodityTypesController extends Controller
      */
     public function showCommodityType($commodity, $type)
     {
-        $Commodity = Commodity::find($commodity);
+        $commodity = Commodity::find($commodity);
         $commodity_type_id = $type;
 
         return view('commodities.types.show_commodity_type', compact(
-            'Commodity',
+            'commodity',
             'commodity_type_id',
         ));
 

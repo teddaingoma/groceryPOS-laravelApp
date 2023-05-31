@@ -28,10 +28,14 @@ class CommodityAttributesController extends Controller
    /**
     * Assign Commodity Attributes
      */
-   public  function assignCommodityAttributes($id)
+   public  function assignCommodityAttributes(Commodity $commodity)
    {
-        $commodity = Commodity::find($id);
+        //$commodity = Commodity::find($id);
         $categories = Category::all();
+
+        if ($commodity->user_id !== auth()->user()->id){
+            return redirect()->route('home.index');
+        }
 
         return view("commodities.add_commodity_attributes", compact(
             'commodity',
@@ -54,6 +58,7 @@ class CommodityAttributesController extends Controller
         $commodity_quantity = $request->commodity_quantity;
         $commodity_unit = $request->commodity_unit;
         $acquisition_date = $request->acquisition_date;
+
 
         $commodityCategory = CommodityCategory::create([
             'commodity_id' => $commodity_id,
@@ -142,6 +147,9 @@ class CommodityAttributesController extends Controller
     {
         $commodity = Commodity::find($id);
 
+        if  ($commodity->user_id !== auth()->user()->id) {
+            return redirect()->route('home.index');
+        }
 
         return view('commodities.add_commodity_type', compact(
             'commodity',
@@ -157,7 +165,6 @@ class CommodityAttributesController extends Controller
         $commodity_id = $request->commodity_id;
         $commodity = Commodity::find($commodity_id);
         $commodity_type = $request->commodity_type;
-
 
         if ($request->commodity_type_image !== NULL)
         {
@@ -180,8 +187,13 @@ class CommodityAttributesController extends Controller
             $type_description = $commodity->description;
         }
 
-        $commodityType = CommodityType::create([
-            'commodity_id' => $commodity_id,
+        // dd($commodity->Types()->create([
+        //     'type_name' => $commodity_type,
+        //     'description' => $type_description,
+        //     'image_path' => $Commodity_type_image,
+        // ]));
+
+        $commodityType = $commodity->Types()->create([
             'type_name' => $commodity_type,
             'description' => $type_description,
             'image_path' => $Commodity_type_image,
@@ -221,6 +233,11 @@ class CommodityAttributesController extends Controller
     public function addCommodityCategory($id)
     {
         $commodity = Commodity::find($id);
+
+        if  ($commodity->user_id !== auth()->user()->id) {
+            return redirect()->route('home.index');
+        }
+
         $categories = Category::all();
         $commodityPrice = CommodityPrice::all();
         $commodityQuantity = CommodityQuantity::all();
@@ -267,6 +284,11 @@ class CommodityAttributesController extends Controller
     public function addCommodityPrice($id)
     {
         $commodity = Commodity::find($id);
+
+        if  ($commodity->user_id !== auth()->user()->id) {
+            return redirect()->route('home.index');
+        }
+
         $categories = Category::all();
         $commodityPrice = CommodityPrice::all();
         $commodityQuantity = CommodityQuantity::all();
@@ -323,6 +345,10 @@ class CommodityAttributesController extends Controller
     {
         $commodity = Commodity::find($id);
 
+        if  ($commodity->user_id !== auth()->user()->id) {
+            return redirect()->route('home.index');
+        }
+
         return view('commodities.add_commodity_unit', compact(
             'commodity'
         ));
@@ -357,6 +383,11 @@ class CommodityAttributesController extends Controller
     public function addCommodityAquisitionDate($id)
     {
         $commodity = Commodity::find($id);
+
+        if  ($commodity->user_id !== auth()->user()->id) {
+            return redirect()->route('home.index');
+        }
+
         return view('commodities.add_commodity_acq-date', compact(
             'commodity'
         ));
@@ -391,6 +422,11 @@ class CommodityAttributesController extends Controller
     public function addCommodityQuantity($id)
     {
         $commodity = Commodity::find($id);
+
+        if  ($commodity->user_id !== auth()->user()->id) {
+            return redirect()->route('home.index');
+        }
+
         return view('commodities.add_commodity_quantity', compact(
             'commodity'
         ));
@@ -429,6 +465,11 @@ class CommodityAttributesController extends Controller
     public function addCommoditySupply($id)
     {
         $commodity = Commodity::find($id);
+
+        if  ($commodity->user_id !== auth()->user()->id) {
+            return redirect()->route('home.index');
+        }
+
         return view('commodities.commodity_supplier_purchase', compact(
             'commodity'
         ));

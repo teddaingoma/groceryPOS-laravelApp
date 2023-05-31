@@ -31,7 +31,7 @@
 
         <div class="container-fluid px-0 pps-content">
 
-            <div class="pps-aside">
+            {{--  <div class="pps-aside">
 
                 <aside class="pps-sidebar-icon">
                     <div class="d-flex flex-column flex-shrink-0 pps-sidebar__nav-icon">
@@ -52,7 +52,7 @@
                     </div>
                 </aside>
 
-            </div>
+            </div>  --}}
 
             <main class="pps-main-content">
                 <div class="add-commodity-form scrollable-list">

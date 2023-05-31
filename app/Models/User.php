@@ -42,4 +42,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * a user has many commodities
+     * User: id, Commodity: user_id
+     */
+    public function commodities()
+    {
+        return $this->hasMany(Commodity::class);
+    }
+
+    /*
+    public function soldCommodities()
+    {
+        return $this->hasManyThrough(Commodity::class, SoldCommodityItem::class);
+    }
+    */
 }

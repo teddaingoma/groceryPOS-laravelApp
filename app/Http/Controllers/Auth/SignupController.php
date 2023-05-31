@@ -21,6 +21,7 @@ class SignupController extends Controller
     {
         return view('auth.signup');
     }
+
     public function add_account(Request $request)
     {
         $this->validate($request, [

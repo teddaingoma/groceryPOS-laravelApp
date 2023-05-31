@@ -25,17 +25,14 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        $name = $request->name;
-        $username = $request->username;
-        $email = $request->email;
-        $password = $request->password;
-
         if (!auth()->attempt($request->only('username', 'password'), $request->remember))
         {
             $message = "Invalid Login Details";
             return back()->with('status', $message);
         }
 
-        return redirect()->route('home.index');
+        $message = "Welcome ".auth()->user()->name;
+
+        return redirect()->route('home.index')->with('status', $message);
     }
 }
