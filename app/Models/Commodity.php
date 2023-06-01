@@ -112,4 +112,10 @@ class Commodity extends Model
         );
     }
 
+    //
+    public function CommodityCategory()
+    {
+        return $this->hasMany(CommodityCategory::class);
+    }
+
 }

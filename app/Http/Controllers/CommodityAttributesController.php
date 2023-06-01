@@ -233,9 +233,15 @@ class CommodityAttributesController extends Controller
     public function addCommodityCategory($id)
     {
         $commodity = Commodity::find($id);
+        $user = auth()->user();
 
-        if  ($commodity->user_id !== auth()->user()->id) {
+        if  ($commodity->user_id !== $user->id) {
             return redirect()->route('home.index');
+        }
+
+        if (!$user->categories->count()) {
+            $message = "$user->name, you ain't got no category, create one, please";
+            return redirect()->route('category.create')->with('status', $message);
         }
 
         $categories = Category::all();

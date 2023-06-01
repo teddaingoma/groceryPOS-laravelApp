@@ -12,12 +12,18 @@ class Category extends Model
     protected $table = 'categories';
     protected $primary = 'id';
     protected $timestamp = true;
-    protected $fillable = ['name'];
-    protected $visible = ['name'];
+    protected $fillable = ['name', 'user_id'];
+    protected $visible = ['name', 'user_id'];
 
     //One or more categories have or contains one or many commodities
     public function Commodities()
     {
         return $this->belongsToMany(Commodity::class);
+    }
+
+    //
+    public function User()
+    {
+        return $this->belongsTo(User::class);
     }
 }

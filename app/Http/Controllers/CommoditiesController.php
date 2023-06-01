@@ -4,18 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Commodity;
-use App\Models\User;
-use App\Models\CommodityPrice;
-use App\Models\CommodityQuantity;
-use App\Models\CommodityUnit;
-use App\Models\CommodityAquisitionDate;
 use App\Models\Category;
-use App\Models\CommodityBudgetedSale;
-use App\Models\CommodityPurchase;
 use App\Models\SoldCommodityItem;
-use App\Models\TypePurchase;
-use App\Models\TypeBudgetedSale;
-use App\Models\SoldTypeItem;
 
 class CommoditiesController extends Controller
 {
@@ -49,7 +39,17 @@ class CommoditiesController extends Controller
      */
     public function create()
     {
+        $user = auth()->user();
+
+        //user should have at least a category before creating a commodity
+
+        if (!$user->categories->count()) {
+            $message = "$user->name, you ain't got no category, create one, please";
+            return redirect()->route('category.create')->with('status', $message);
+        }
+
         return view("commodities.add_commodity");
+
     }
 
     /**

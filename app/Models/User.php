@@ -52,6 +52,15 @@ class User extends Authenticatable
         return $this->hasMany(Commodity::class);
     }
 
+    /**
+     * a user links commodities to many categories
+     * User: id, Category: user_id
+     */
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
     /*
     public function soldCommodities()
     {

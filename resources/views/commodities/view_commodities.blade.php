@@ -30,26 +30,14 @@
                     <x-commodity :commodity="$commodity" />
                 @empty
                     <div class="commodity">
-                        <div class="card">
-                            <header class="card__header">
+                        <p> {{ auth()->user()->name }}, your inventory list is empty </p>
 
-                                <span class="commodity__description">Our commodity's list is empty</span>
-
-                            </header>
-                            <div class="card__body">
-                                Our commodity's list is empty
-                            </div>
-                            <footer class="card__footer">
-                                <small class="text-muted">
-                                    <button class="btn btn--primary btn--icon btn--outline">
-                                        <span class="icon-container icon--small">
-                                            <img class="icon" src="images/play.ico" alt="">
-                                        </span>
-                                        <span class="btn__text">view</span>
-                                    </button>
-                                </small>
-                            </footer>
-                        </div>
+                        <button class="btn btn--primary btn--icon btn--outline">
+                            <img class="icon" src="{{ asset('images/add-commodity-dark.ico') }}" alt="">
+                            <span class="btn__text">
+                                <a class="nav-link" href="{{ route('home.create') }}">Add</a>
+                            </span>
+                        </button>
                     </div>
                 @endforelse
 
@@ -61,17 +49,5 @@
 
     </div>
   </div>
-
-  <footer class="pps-main-content-footer">
-
-    <div class="commodity">
-        <div class="card">
-            <div class="card__body">
-
-            </div>
-        </div>
-    </div>
-
-  </footer>
 
 @endsection

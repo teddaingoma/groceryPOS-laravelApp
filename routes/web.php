@@ -8,6 +8,7 @@ use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -222,3 +223,6 @@ Route::post(
     '/auth/logout',
     [LogoutController::class, 'logout']
 )->name('logout');
+
+//category resource route
+Route::resource('/category', CategoryController::class);
