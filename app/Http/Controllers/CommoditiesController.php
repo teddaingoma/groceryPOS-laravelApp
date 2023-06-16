@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Commodity;
 use App\Models\Category;
 use App\Models\SoldCommodityItem;
-
 class CommoditiesController extends Controller
 {
 
@@ -206,8 +205,22 @@ class CommoditiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $commodity = Commodity::find($id);
+        // find out if the owner has types for this commodity before deleting
+        // if this commodity has types, prompt for comfirmation first
+        if ($commodity->Types()->count()) {
+            $message = $commodity->name." has ".$commodity->Types()->count().", type(s). Kindly delete individually";
+            return redirect()->route('home.show', $id)->with('status', $message);
+        }
+
+        $request->user()->commodities()->where('id', $id)->delete();
+
+        $message = "Successfully deleted ".$commodity->name." from your inventory";
+
+        return redirect()->route('home.index')->with('status', $message);
+
+        // return back();
     }
 }
