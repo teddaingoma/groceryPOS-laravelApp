@@ -193,9 +193,13 @@ class CommodityTypesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(                $id)
     {
-        //
+        $type = CommodityType::find($id);
+
+        $type->delete();
+
+        return redirect()->route("home.index");
     }
 
     /**
@@ -241,14 +245,13 @@ class CommodityTypesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeTypeAttributes(Request $request, $commodity, $type_name)
+    public function storeTypeAttributes(Request $request, $commodity)
     {
         $commodity_id = $commodity;
-        $commodity_type_name = $type_name;
-
         $commodity_type_id = $request->commodity_type_id;
 
         $commodityType = CommodityType::find($commodity_type_id);
+        $commodity_type_name = $commodityType->type_name;
 
         $type_aquisition_date = $request->type_acquisition_date;
         $type_quantity = $request->type_quantity;
@@ -289,19 +292,16 @@ class CommodityTypesController extends Controller
             'selling_price' => $type_selling_price,
         ]);
 
-
-        if ($commodityType->SoldTypeItem == NULL)
-        {
-            $soldTypeItem = SoldTypeItem::create([
-                'commodity_id' => $commodity_id,
-                'commodity_type_id' => $commodity_type_id,
-                'sold_quantity' => '0',
+        if ($commodityType->SoldTypeItem()->count()) {
+            $soldTypeItem = SoldTypeItem::where('commodity_type_id', $commodity_type_id)->update([
                 'selling_price' => $type_selling_price,
             ]);
         }
-        if ($commodityType->SoldTypeItem !== NULL)
-        {
-            $soldTypeItem = SoldTypeItem::where('commodity_type_id', $commodity_type_id)->update([
+        elseif (!$commodityType->SoldTypeItem()->count()) {
+             $soldTypeItem = SoldTypeItem::create([
+                'commodity_id' => $commodity_id,
+                'commodity_type_id' => $commodity_type_id,
+                'sold_quantity' => '0',
                 'selling_price' => $type_selling_price,
             ]);
         }

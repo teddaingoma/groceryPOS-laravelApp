@@ -1,28 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Grocery Portable Point-Of-Sales system for small-scale grocery businesses">
-        <meta name="author" content="teddai Ngoma">
         <title>Add Commodity Attributes</title>
-        <meta name="description" content="Portable POS system">
-        <meta property="og:title" content="Portable POS system">
-        <meta property="og:description" content="Portable POS system">
-        <meta property="og:type" content="website">
-        <meta property="og:image" content="http://">
-        <meta property="og:url" content="https://grocerypos.netlify.app">
+        @include('layout.head-tags')
 
-        <!-- Bootstrap core CSS -->
-        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-
-        <!-- Custom styles for this template -->
-        <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-
-
-        <!-- grocery portable pos icon -->
-        <link rel="icon" href="{{ asset('images/logo-dark.ico') }}">
     </head>
 
     <body class="add-commodity-body">
@@ -79,22 +60,29 @@
                                 </div>
                                 <input class="no-view" name="commodity_id" type="text" class="form-control" id="firstName" value="{{ $commodity -> id }}" readonly>
                                 <div class="row g-3">
-                                    <div class="names row g-3">
+                                    <div class="names row">
 
                                         <div class="col-sm-6 form--input-line">
                                             <label for="category" class="form-label">Commodity Category:</label>
                                             <select id="category" name="category_id" class="form-select" aria-label="Select Commodity Category" required>
-                                                <option selected>include {{ $commodity->name }} in a category</option>
-                                                @forelse ($categories as $category)
-                                                    <option value="{{ $category -> id }}">{{ $category -> name }}</option>
-                                                @empty
+                                                <option></option>
+                                                @if(auth()->user()->categories()->count())
+                                                    @foreach (auth()->user()->categories as $category)
+                                                        <option value="{{ $category -> id }}">{{ $category -> name }}</option>
+                                                    @endforeach
+                                                @else
                                                     No Categories Yet
-                                                @endforelse
+                                                @endif
                                             </select>
                                             <div class="invalid-feedback">
                                                 In what category does it belong?
                                             </div>
                                         </div>
+                                        <span class="col-sm-6 badge d-flex">
+                                            <a href="{{ route('category.create') }}" role="button" class="btn btn--icon">
+                                                <img class="icon" src="{{ asset('images/add-dark.ico') }}" alt="">
+                                            </a>
+                                        </span>
 
                                     </div>
 

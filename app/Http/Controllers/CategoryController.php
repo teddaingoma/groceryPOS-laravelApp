@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -34,11 +39,25 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = $request->user()->categories()->create([
+        // see if the owner has categories, if not go ahead and create one.
+        if ($request->user()->categories()->count())
+        {
+            foreach ($request->user()->categories as $category)
+            {
+                // if they have, go through them and see if the category being created already exixsts.
+                // no redanduncy
+                if (strtolower($category->name) === strtolower($request->category_name)) {
+                    $message = "a category with name $request->category_name already exists";
+                    return redirect()->back()->with('status', $message);
+                }
+            }
+        }
+
+        $request->user()->categories()->create([
             'name' => $request->category_name
         ]);
 
-        $message = "added category $category->name successfully. you can now assign commodities to this category";
+        $message = "added category $request->category_name successfully. you can now assign commodities to this category";
 
         return redirect()->route('home.index')->with('status', $message);
     }

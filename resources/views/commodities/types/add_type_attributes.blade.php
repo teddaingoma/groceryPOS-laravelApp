@@ -43,7 +43,7 @@
                                         <div class="add-commodity-form">
 
                                             <div class="add-commodity--body scrollable-list">
-                                                <form class="add-commodity needs-validation" action="{{ route('store_type_attributes', ['commodity' => $Commodity->id, 'type_name' => $Type->type_name]) }}" method="POST" enctype="multipart/form-data" novalidate>
+                                                <form class="add-commodity needs-validation" action="{{ route('store_type_attributes', ['commodity' => $Commodity->id]) }}" method="POST" enctype="multipart/form-data" novalidate>
                                                     @csrf
                                                     <div class="form--control-group">
 
@@ -115,61 +115,6 @@
                                         </div>
 
                                     </div>
-                                    <footer class="card__footer">
-                                        <div class="btn--group">
-                                        <a href="/home/{{ $Commodity -> id }}/edit" class="btn btn--edit btn--icon">
-                                            <span class="icon-container icon--small">
-                                                <img class="icon" src="{{ URL("images/edit-filled.ico") }}" alt="">
-                                            </span>
-                                            <span class="btn__text">edit</span>
-                                        </a>
-                                        <a href="{{ route('add_commodity_type', ['id' => $Commodity->id]) }}" class="btn btn--category btn--icon">
-                                            <span class="icon-container icon--small">
-                                                <img class="icon" src="{{ URL("images/category-dark.ico") }}" alt="">
-                                            </span>
-                                            <span class="btn__text">type</span>
-                                        </a>
-                                        </div>
-                                        <div class="card__divider"></div>
-                                        <div class="btn--group">
-                                            <button class="btn btn--delete btn--icon btn--outline" data-bs-toggle="modal" data-bs-target="#commodityDeleteModal">
-                                                <span class="icon-container icon--small">
-                                                    <img class="icon" src="{{ URL("images/del-dark.ico") }}" alt="">
-                                                </span>
-                                                <span class="btn__text">delete</span>
-                                            </button>
-
-                                            <div class="modal fade" id="commodityDeleteModal" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="WarningToDelete" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Delete {{ $Commodity -> name }}</h5>
-                                                        <span class="btn icon-container" data-bs-dismiss="modal" aria-label="Close">
-                                                            <img class="icon" src="{{ URL("images/close-dark.ico") }}" alt="">
-                                                        </span>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h5 class="text-danger warning--text">
-                                                            <span class="icon-container">
-                                                            <img class="icon" src="{{ URL("images/danger-filled.ico") }}" alt="">
-                                                            </span>
-                                                            Are You Sure?
-                                                        </h5>
-                                                        <div class="container-fluid">
-                                                            You are about to delete {{ $Commodity -> name }} and all its related content from your inventory!
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                        <form action="" method="">
-                                                            <button role="button" type="submit" class="btn">Delete</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                    </footer>
                                 </div>
                             </div>
                         </div>

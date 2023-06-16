@@ -49,7 +49,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ asset('pages/add-customer.html') }}" class="nav-link link-dark">
+            <a href="{{ route('view_customers') }}" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
                     <img class="icon" src="{{ asset('images/customers.ico') }}" alt="">
                 </span>

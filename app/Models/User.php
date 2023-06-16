@@ -67,4 +67,12 @@ class User extends Authenticatable
         return $this->hasManyThrough(Commodity::class, SoldCommodityItem::class);
     }
     */
+
+    /**
+     * a user or owner has many customers
+     */
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
 }

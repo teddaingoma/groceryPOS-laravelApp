@@ -94,18 +94,18 @@
             </div>
             <div class="card__divider"></div>
             <div class="btn--group">
-                <button class="btn btn--delete btn--icon btn--outline" data-bs-toggle="modal" data-bs-target="#commodityDeleteModal">
+                <button class="btn btn--delete btn--icon btn--outline" data-bs-toggle="modal" data-bs-target="#DeleteTypeModal">
                     <span class="icon-container icon--small">
                         <img class="icon" src="{{ URL("images/del-dark.ico") }}" alt="">
                     </span>
                     <span class="btn__text">delete</span>
                 </button>
 
-                <div class="modal fade" id="commodityDeleteModal" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="WarningToDelete" aria-hidden="true">
+                <div class="modal fade" id="DeleteTypeModal" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="WarningToDelete" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Delete {{ $commodity -> name }}</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Delete {{ $type -> type_name }}</h5>
                             <span class="btn icon-container" data-bs-dismiss="modal" aria-label="Close">
                                 <img class="icon" src="{{ URL("images/close-dark.ico") }}" alt="">
                             </span>
@@ -118,12 +118,15 @@
                                 Are You Sure?
                             </h5>
                             <div class="container-fluid">
-                                You are about to delete {{ $commodity -> name }} and all its related content from your inventory!
+                                You are about to delete {{ $type -> type_name }} and all its related content from your inventory!
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <form action="" method="">
+                            <form action="{{ route('type.destroy', ['type' => $type->id] ) }}" method="post">
+                                @csrf
+                                {{--  method spoofing  --}}
+                                @method('DELETE')
                                 <button role="button" type="submit" class="btn">Delete</button>
                             </form>
                         </div>

@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Pivot class for defining a Many-to-Many relationship for Commodity and Category
+ */
 class CommodityCategory extends Model
 {
     use HasFactory;

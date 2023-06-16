@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -117,7 +119,7 @@ Route::get(
     [CommodityTypesController::class, 'addTypeAttributes']
 )->name('assign_type_attributes');
 Route::post(
-    '/commodities/types/{commodity}/{type_name}/add_type_attributes',
+    '/commodities/types/{commodity}/add_type_attributes',
     [CommodityTypesController::class, 'storeTypeAttributes']
 )->name('store_type_attributes');
 
@@ -226,3 +228,24 @@ Route::post(
 
 //category resource route
 Route::resource('/category', CategoryController::class);
+
+//commodity type's resource route
+Route::resource('/commodity/type', CommodityTypesController::class);
+
+/**  user customer route's */
+
+// view all customers
+Route::get(
+    '/customer/view_customers',
+    [CustomerController::class, 'view_customers']
+)->name('view_customers');
+
+// add customer
+Route::get(
+    '/customer/add_customer',
+    [CustomerController::class, 'add_customer']
+)->name('add_customer');
+Route::post(
+    '/customer/add_customer',
+    [CustomerController::class, 'store_customer']
+);

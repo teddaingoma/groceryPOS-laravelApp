@@ -26,7 +26,7 @@
                         <span class="icon--circle">
                         <img class="icon" src="{{ asset('images/add-cus-dark.ico') }}" alt="">
                         </span>
-                        <a class="nav-link" href="{{ asset('pages/add-customer.html') }}">Add Customer</a>
+                        <a class="nav-link" href="{{ route('add_customer') }}">Add Customer</a>
                     </li>
 
                     <li class="nav-item item-icon">
