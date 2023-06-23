@@ -75,4 +75,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Customer::class);
     }
+
+    /**
+     * a user can sell a commodity many times
+     */
+    public function sold_commodities()
+    {
+        return $this->hasMany(SoldCommodityItem::class);
+    }
 }

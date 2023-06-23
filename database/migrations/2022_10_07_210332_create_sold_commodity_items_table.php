@@ -18,12 +18,18 @@ class CreateSoldCommodityItemsTable extends Migration
             $table->unsignedInteger('commodity_id');
             $table->unsignedInteger('sold_quantity');
             $table->float('selling_price');
+            $table->integer("user_id")->unsigned();
             $table->timestamps();
 
             $table->foreign('commodity_id')
                     ->references('id')
                     ->on('commodities')
                     ->onDelete('cascade');
+
+            $table->foreign("user_id")
+                    ->references("id")
+                    ->on("users")
+                    ->onDelete("cascade");
         });
     }
 

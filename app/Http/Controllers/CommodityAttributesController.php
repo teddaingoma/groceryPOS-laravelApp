@@ -65,69 +65,83 @@ class CommodityAttributesController extends Controller
             'category_id' => $category_id,
         ]);
 
-        $commodityCostPrice = CommodityCostPrice::create([
-            'commodity_id' => $commodity_id,
+        $Commodity->CostPrice()->create([
             'cost_price' => $cost_price
         ]);
 
-        $commodityPrice = CommodityPrice::create([
-            'commodity_id' => $commodity_id,
+        $Commodity->Price()->create([
             'price' => $selling_price,
         ]);
 
-        $commodityQuantity = CommodityQuantity::create([
-            'commodity_id' => $commodity_id,
+        $Commodity->Quantity()->create([
             'quantity' => $commodity_quantity,
         ]);
 
-        $commodityUnit = CommodityUnit::create([
-            'commodity_id' => $commodity_id,
+        $Commodity->Unit()->create([
             'unit' => $commodity_unit,
         ]);
 
-        $commodityAquisitionDate = CommodityAquisitionDate::create([
-            'commodity_id' => $commodity_id,
+        $Commodity->AquisitionDate()->create([
             'aquisition_date' => $acquisition_date,
         ]);
 
-        $commodityPurchase = CommodityPurchase::create([
-            'commodity_id' => $commodity_id,
+        $Commodity->CommodityPurchases()->create([
             'quantity' => $commodity_quantity,
             'cost_price' => $cost_price
         ]);
 
-        $commodityBudgetedSale = CommodityBudgetedSale::create([
-            'commodity_id' => $commodity_id,
+        $Commodity->CommodityBudgetedSales()->create([
             'quantity' => $commodity_quantity,
             'selling_price' => $selling_price
         ]);
 
-        if ($Commodity->SoldCommodityItem == null)
+        $request->user()->sold_commodities()->create([
+            'commodity_id' => $commodity_id,
+            'sold_quantity' => '0',
+            'selling_price' => '00.00',
+        ]);
+
+        if ($request->user()->sold_commodities()->count())
         {
-            $soldCommodityItem = SoldCommodityItem::create([
+           $request->user()->sold_commodities()->create([
                 'commodity_id' => $commodity_id,
                 'sold_quantity' => '0',
                 'selling_price' => $selling_price,
             ]);
         }
 
-        if ($Commodity->SoldCommodityItem !== null)
+        if (!$request->user()->sold_commodities()->count())
         {
-            $soldCommodityItem = SoldCommodityItem::where('commodity_id', $commodity_id)->update([
+            $request->user()->sold_commodities()->where('commodity_id', $commodity_id)->update([
                 'selling_price' => $selling_price,
             ]);
         }
 
+        // if ($Commodity->SoldCommodityItem == null)
+        // {
+        //     $soldCommodityItem = SoldCommodityItem::create([
+        //         'commodity_id' => $commodity_id,
+        //         'sold_quantity' => '0',
+        //         'selling_price' => $selling_price,
+        //     ]);
+        // }
+
+        // if ($Commodity->SoldCommodityItem !== null)
+        // {
+        //     $soldCommodityItem = SoldCommodityItem::where('commodity_id', $commodity_id)->update([
+        //         'selling_price' => $selling_price,
+        //     ]);
+        // }
+        // && $commodityCostPrice == true &&
+        // $commodityPrice == true &&
+        // $commodityQuantity == true &&
+        // $commodityUnit == true &&
+        // $commodityAquisitionDate == true &&
+        // $commodityPurchase == true &&
+        // $commodityBudgetedSale == true
+
         if (
-            $commodityCategory == true &&
-            $commodityCostPrice == true &&
-            $commodityPrice == true &&
-            $commodityQuantity == true &&
-            $commodityUnit == true &&
-            $commodityAquisitionDate == true &&
-            $commodityPurchase == true &&
-            $commodityBudgetedSale == true &&
-            $soldCommodityItem == true
+            $commodityCategory == true
         )
         {
             $message = "Successfully Added";
