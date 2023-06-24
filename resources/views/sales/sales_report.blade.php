@@ -12,220 +12,274 @@
     <h2 class="pps-main-content-title">Sales Reports</h2>
   </div>
 
-  <div class="pps-main-content-body">
-    <nav class="pps-body-nav">
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Budgeted Sales</button>
-          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Actual</button>
+    <div class="pps-main-content-body">
+        <nav class="pps-body-nav">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
 
-        </div>
-      </nav>
-    <div class="tab-content pps-body-content" id="nav-tabContent">
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Budgeted Sales</button>
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Actual</button>
 
-      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            </div>
+        </nav>
+        <div class="tab-content pps-body-content" id="nav-tabContent">
 
-        <div class="scrollable-list">
-            <table class="table pps-table">
-                <thead>
-                    <tr>
-                        <th scope="col" class="text-wrap">Name</th>
-                        <th scope="col" class="text-wrap">Budgeted Sales (K)</th>
-                        <th scope="col" class="text-wrap">Cost (K)</th>
-                        <th scope="col" class="text-wrap">Expected Gross Profit (K)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($commodityBudgetedSales as $budgetedSales)
-                        @forelse ($commodityPurchases as $Purchases)
-                            @if($budgetedSales->commodity_id == $Purchases->commodity_id)
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                @if ( auth()->user()->commodityBudgetedSales->count() )
+
+                    {{ auth()->user()->commodityBudgetedSales->count() }}
+
+                @else
+
+                    <div class="card">
+                        <div class="card__body">
+
+                            <span class="commodity__quantity">
+                                <span class="badge quantity-value">
+                                    {{ auth()->user()->name }}, sales report will show as you make transactions
+                                </span>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                {{--  @forelse (auth()->user()->commodityBudgetedSales as $budgetedSales)
+
+                    <div class="scrollable-list">
+                        <table class="table pps-table">
+                            <thead>
                                 <tr>
-                                    <th scope="row">{{ $Purchases->CommodityPurchase->name }}</th>
-                                    <td>
-                                        <span class="data-name">Budgeted Sales (K):</span>
-                                        {{ $budgetedSales->quantity * $budgetedSales->selling_price }}
-                                    </td>
-                                    <td>
-                                        <span class="data-name">Cost (K):</span>
-                                        {{ $Purchases->quantity * $Purchases->cost_price }}
-                                    </td>
-                                    <td>
-                                        <span class="data-name">Budgeted Gross Profit (K):</span>
-                                        {{
-                                            ($budgetedSales->quantity * $budgetedSales->selling_price) - ($Purchases->quantity * $Purchases->cost_price)
-                                        }}
-                                    </td>
+                                    <th scope="col" class="text-wrap">Name</th>
+                                    <th scope="col" class="text-wrap">Budgeted Sales (K)</th>
+                                    <th scope="col" class="text-wrap">Cost (K)</th>
+                                    <th scope="col" class="text-wrap">Expected Gross Profit (K)</th>
                                 </tr>
-                            @endif
-                        @empty
-                            No sales and Purchases
-                        @endforelse
-                    @empty
-                        if ($commodityPurchases == NULL)
-                        {
-                            No Sales and Purchases
-                        }
-                    @endforelse
+                            </thead>
+                            <tbody>
+                                @forelse ($commodityBudgetedSales as $budgetedSales)
+                                    @forelse ($commodityPurchases as $Purchases)
+                                        @if($budgetedSales->commodity_id == $Purchases->commodity_id)
+                                            <tr>
+                                                <th scope="row">{{ $Purchases->CommodityPurchase->name }}</th>
+                                                <td>
+                                                    <span class="data-name">Budgeted Sales (K):</span>
+                                                    {{ $budgetedSales->quantity * $budgetedSales->selling_price }}
+                                                </td>
+                                                <td>
+                                                    <span class="data-name">Cost (K):</span>
+                                                    {{ $Purchases->quantity * $Purchases->cost_price }}
+                                                </td>
+                                                <td>
+                                                    <span class="data-name">Budgeted Gross Profit (K):</span>
+                                                    {{
+                                                        ($budgetedSales->quantity * $budgetedSales->selling_price) - ($Purchases->quantity * $Purchases->cost_price)
+                                                    }}
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @empty
+                                        No sales and Purchases
+                                    @endforelse
+                                @empty
+                                    @if ($commodityPurchases == NULL)
+                                        No Sales and Purchases
+                                    @endif
 
-                    @foreach ($typeBudgetedSales as $typeSale)
+                                @endforelse
 
-                        @foreach ($typePurchases as $typePurchase)
-                            @if($typeSale->commodity_type_id == $typePurchase->commodity_type_id)
-                                <tr>
-                                    <th scope="row">{{ $typePurchase->CommodityType->type_name }}</th>
-                                    <td>
-                                        <span class="data-name">Budgeted Sales (K):</span>
-                                        {{ $typeSale->selling_price * $typeSale->quantity }}
-                                    </td>
-                                    <td>
-                                        <span class="data-name">Cost (K):</span>
-                                        {{ $typePurchase->cost_price * $typePurchase->quantity }}
-                                    </td>
-                                    <td>
-                                        <span class="data-name">Budgeted Gross Profit (K):</span>
-                                        {{  ( $typeSale->selling_price * $typeSale->quantity ) - ( $typePurchase->cost_price * $typePurchase->quantity ) }}
-                                    </td>
-                                </tr>
-                            @endif
-                        @endforeach
+                                @foreach ($typeBudgetedSales as $typeSale)
 
-                    @endforeach
+                                    @foreach ($typePurchases as $typePurchase)
+                                        @if($typeSale->commodity_type_id == $typePurchase->commodity_type_id)
+                                            <tr>
+                                                <th scope="row">{{ $typePurchase->CommodityType->type_name }}</th>
+                                                <td>
+                                                    <span class="data-name">Budgeted Sales (K):</span>
+                                                    {{ $typeSale->selling_price * $typeSale->quantity }}
+                                                </td>
+                                                <td>
+                                                    <span class="data-name">Cost (K):</span>
+                                                    {{ $typePurchase->cost_price * $typePurchase->quantity }}
+                                                </td>
+                                                <td>
+                                                    <span class="data-name">Budgeted Gross Profit (K):</span>
+                                                    {{  ( $typeSale->selling_price * $typeSale->quantity ) - ( $typePurchase->cost_price * $typePurchase->quantity ) }}
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
 
-                </tbody>
-            </table>
-        </div>
+                                @endforeach
 
-        <div class="card">
-            <div class="card__body">
+                            </tbody>
+                        </table>
+                    </div>
 
-                <span class="commodity__quantity">
-                    <span class="quantity-text">Total Budgeted Gross Profit</span>
-                    <span class="badge quantity-value">
-                        {{ $totalGrossProfit }}
-                    </span>
-                </span>
+                    <div class="card">
+                        <div class="card__body">
+
+                            <span class="commodity__quantity">
+                                <span class="quantity-text">Total Budgeted Gross Profit</span>
+                                <span class="badge quantity-value">
+                                    {{ $totalGrossProfit }}
+                                </span>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                @empty
+
+                    <div class="card">
+                        <div class="card__body">
+
+                            <span class="commodity__quantity">
+                                <span class="badge quantity-value">
+                                    {{ auth()->user()->name }}, sales report will show as you make transactions
+                                </span>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                @endforelse  --}}
 
             </div>
 
-        </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-      </div>
+                @if (auth()->user()->soldCommodityItems->count())
+                    {{ auth()->user()->soldCommodityItems->count() }}
+                @else
 
-      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="card">
+                        <div class="card__body">
 
-        <div class="scrollable-list">
-            <table class="table pps-table">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Budgeted Sales (K)</th>
-                        <th scope="col">Actual Sales (K)</th>
-                        <th scope="col">Cost (K)</th>
-                        <th scope="col">Gross Profit (K)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($soldCommodityItem as $soldCommodity)
-                        @forelse ($commodityBudgetedSales as $budgetedSales)
-                            @forelse ($commodityPurchases as $Purchases)
-                                @if($budgetedSales->commodity_id == $Purchases->commodity_id)
-                                    @if($soldCommodity->commodity_id == $Purchases->commodity_id)
-                                        <tr>
-                                            <th scope="row">{{ $soldCommodity->SoldCommodity->name }}</th>
-                                            <td>
-                                                <span class="data-name">Budgeted Sales (K):</span>
-                                                {{ $budgetedSales->quantity * $budgetedSales->selling_price }}
-                                            </td>
-                                            <td>
-                                                <span class="data-name">Actual Sales (K):</span>
-                                                {{ $soldCommodity->sold_quantity * $soldCommodity->selling_price }}
-                                            </td>
-                                            <td>
-                                                <span class="data-name">Cost (K):</span>
-                                                {{ $Purchases->quantity * $Purchases->cost_price }}
-                                            </td>
-                                            <td>
-                                                <span class="data-name">Gross Profit (K):</span>
-                                                {{
-                                                    ($soldCommodity->sold_quantity * $soldCommodity->selling_price) - ($Purchases->quantity * $Purchases->cost_price)
-                                                 }}
-                                            </td>
-                                        </tr>
-                                    @endif
-                                @endif
+                            <span class="commodity__quantity">
+                                <span class="badge quantity-value">
+                                    {{ auth()->user()->name }}, sales report will show as you make transactions
+                                </span>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                {{--  <div class="scrollable-list">
+                    <table class="table pps-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Budgeted Sales (K)</th>
+                                <th scope="col">Actual Sales (K)</th>
+                                <th scope="col">Cost (K)</th>
+                                <th scope="col">Gross Profit (K)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($soldCommodityItem as $soldCommodity)
+                                @forelse ($commodityBudgetedSales as $budgetedSales)
+                                    @forelse ($commodityPurchases as $Purchases)
+                                        @if($budgetedSales->commodity_id == $Purchases->commodity_id)
+                                            @if($soldCommodity->commodity_id == $Purchases->commodity_id)
+                                                <tr>
+                                                    <th scope="row">{{ $soldCommodity->SoldCommodity->name }}</th>
+                                                    <td>
+                                                        <span class="data-name">Budgeted Sales (K):</span>
+                                                        {{ $budgetedSales->quantity * $budgetedSales->selling_price }}
+                                                    </td>
+                                                    <td>
+                                                        <span class="data-name">Actual Sales (K):</span>
+                                                        {{ $soldCommodity->sold_quantity * $soldCommodity->selling_price }}
+                                                    </td>
+                                                    <td>
+                                                        <span class="data-name">Cost (K):</span>
+                                                        {{ $Purchases->quantity * $Purchases->cost_price }}
+                                                    </td>
+                                                    <td>
+                                                        <span class="data-name">Gross Profit (K):</span>
+                                                        {{
+                                                            ($soldCommodity->sold_quantity * $soldCommodity->selling_price) - ($Purchases->quantity * $Purchases->cost_price)
+                                                        }}
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endif
+                                    @empty
+                                    @endforelse
+                                @empty
+                                @endforelse
+
                             @empty
+                                No sales
                             @endforelse
-                        @empty
-                        @endforelse
 
-                    @empty
-                        No sales
-                    @endforelse
+                            @foreach ($soldTypeItems as $soldType)
+                                @foreach ($typeBudgetedSales as $typeSale)
 
-                    @foreach ($soldTypeItems as $soldType)
-                        @foreach ($typeBudgetedSales as $typeSale)
+                                    @foreach ($typePurchases as $typePurchase)
+                                        @if($typeSale->commodity_type_id == $typePurchase->commodity_type_id)
+                                            @if($soldType->commodity_type_id == $typePurchase->commodity_type_id)
 
-                            @foreach ($typePurchases as $typePurchase)
-                                @if($typeSale->commodity_type_id == $typePurchase->commodity_type_id)
-                                    @if($soldType->commodity_type_id == $typePurchase->commodity_type_id)
+                                                <tr>
+                                                    <th scope="row">{{ $soldType->SoldType->type_name }}</th>
+                                                    <td>
+                                                        <span class="data-name">Budgeted Sales (K):</span>
+                                                        {{ $typeSale->selling_price * $typeSale->quantity }}
+                                                    </td>
+                                                    <td>
+                                                        <span class="data-name">Actual Sales (K):</span>
+                                                        {{ $soldType->selling_price * $soldType->sold_quantity }}
+                                                    </td>
+                                                    <td>
+                                                        <span class="data-name">Cost (K):</span>
+                                                        {{ $typePurchase->cost_price * $typePurchase->quantity }}
+                                                    </td>
+                                                    <td>
+                                                        <span class="data-name">Gross Profit (K):</span>
+                                                        {{
+                                                            ($soldType->selling_price * $soldType->sold_quantity) - ($typePurchase->cost_price * $typePurchase->quantity)
+                                                        }}
+                                                    </td>
+                                                </tr>
 
-                                        <tr>
-                                            <th scope="row">{{ $soldType->SoldType->type_name }}</th>
-                                            <td>
-                                                <span class="data-name">Budgeted Sales (K):</span>
-                                                {{ $typeSale->selling_price * $typeSale->quantity }}
-                                            </td>
-                                            <td>
-                                                <span class="data-name">Actual Sales (K):</span>
-                                                {{ $soldType->selling_price * $soldType->sold_quantity }}
-                                            </td>
-                                            <td>
-                                                <span class="data-name">Cost (K):</span>
-                                                {{ $typePurchase->cost_price * $typePurchase->quantity }}
-                                            </td>
-                                            <td>
-                                                <span class="data-name">Gross Profit (K):</span>
-                                                {{
-                                                    ($soldType->selling_price * $soldType->sold_quantity) - ($typePurchase->cost_price * $typePurchase->quantity)
-                                                }}
-                                            </td>
-                                        </tr>
+                                            @endif
 
-                                    @endif
+                                        @endif
+                                    @endforeach
+                                @endforeach
 
-                                @endif
                             @endforeach
-                        @endforeach
-
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                        </tbody>
+                    </table>
+                </div>
 
 
-        <div class="card">
-            <div class="card__body">
+                <div class="card">
+                    <div class="card__body">
 
-                <span class="commodity__quantity">
-                    <span class="quantity-text">Total Actual Sales</span>
-                    <span class="badge quantity-value">
-                        {{ $totalActualSales }}
-                    </span>
-                </span>
+                        <span class="commodity__quantity">
+                            <span class="quantity-text">Total Actual Sales</span>
+                            <span class="badge quantity-value">
+                                {{ $totalActualSales }}
+                            </span>
+                        </span>
+
+                    </div>
+
+                </div>  --}}
 
             </div>
 
         </div>
-
-      </div>
-
-      <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-
-
-
-      </div>
-
     </div>
-  </div>
 
   <footer class="pps-main-content-footer">
 
