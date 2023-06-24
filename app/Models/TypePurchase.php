@@ -13,8 +13,8 @@ class TypePurchase extends Model
     protected $primary = 'id';
     public $timestamps = true;
     protected $timestamp = true;
-    protected $fillable = ['commodity_id', 'commodity_type_id', 'quantity', 'cost_price'];
-    protected $visible = ['commodity_id', 'commodity_type_id', 'quantity', 'cost_price'];
+    protected $fillable = ['commodity_id', 'commodity_type_id', 'quantity', 'cost_price', 'user_id'];
+    protected $visible = ['commodity_id', 'commodity_type_id', 'quantity', 'cost_price', 'user_id'];
 
     // A commodity type has many purchase counts
     public function CommodityType()

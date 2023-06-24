@@ -84,7 +84,8 @@ class CommoditiesController extends Controller
             $commodity_id = $commodity->id;
 
             // save default sales values for the commodity. used for analytics
-            $request->user()->sold_commodities()->create([
+            // a user records sale counts of a commodity
+            $request->user()->soldCommodityItem()->create([
                 'commodity_id' => $commodity_id,
                 'sold_quantity' => '0',
                 'selling_price' => '00.00',

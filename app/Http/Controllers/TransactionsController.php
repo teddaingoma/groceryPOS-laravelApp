@@ -259,24 +259,7 @@ class TransactionsController extends Controller
      */
     public function AvailableCommodities()
     {
-        $commodities = Commodity::all();
-
-        // foreach ($commodities as $commodity) {
-
-        //     if ($commodity->Quantity !== null) {
-        //         if ($commodity->Quantity->quantity > 10) {
-        //             print($commodity->name);
-        //             print("...");
-        //             print($commodity->Quantity->quantity);
-        //             print(" ------ ");
-        //         }
-        //     }
-        // }
-
-        return view('sales.available_commodities', compact(
-            'commodities',
-
-        ));
+        return view('sales.available_commodities');
     }
 
     /**

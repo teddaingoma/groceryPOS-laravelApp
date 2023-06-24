@@ -87,58 +87,34 @@ class CommodityAttributesController extends Controller
 
         $Commodity->CommodityPurchases()->create([
             'quantity' => $commodity_quantity,
-            'cost_price' => $cost_price
+            'cost_price' => $cost_price,
+            'user_id' => auth()->user()->id,
         ]);
 
         $Commodity->CommodityBudgetedSales()->create([
             'quantity' => $commodity_quantity,
-            'selling_price' => $selling_price
+            'selling_price' => $selling_price,
+            'user_id' => auth()->user()->id,
         ]);
 
-        $request->user()->sold_commodities()->create([
-            'commodity_id' => $commodity_id,
-            'sold_quantity' => '0',
-            'selling_price' => '00.00',
-        ]);
-
-        if ($request->user()->sold_commodities()->count())
+        if (
+            !$request->user()->soldCommodityItem()->count() ||
+            !$request->user()->soldCommodityItem()->where('commodity_id', $commodity_id)
+        )
         {
-           $request->user()->sold_commodities()->create([
+           $request->user()->soldCommodityItem()->create([
                 'commodity_id' => $commodity_id,
                 'sold_quantity' => '0',
                 'selling_price' => $selling_price,
             ]);
         }
 
-        if (!$request->user()->sold_commodities()->count())
+        elseif ($request->user()->soldCommodityItem()->count())
         {
-            $request->user()->sold_commodities()->where('commodity_id', $commodity_id)->update([
+            $request->user()->soldCommodityItem()->where('commodity_id', $commodity_id)->update([
                 'selling_price' => $selling_price,
             ]);
         }
-
-        // if ($Commodity->SoldCommodityItem == null)
-        // {
-        //     $soldCommodityItem = SoldCommodityItem::create([
-        //         'commodity_id' => $commodity_id,
-        //         'sold_quantity' => '0',
-        //         'selling_price' => $selling_price,
-        //     ]);
-        // }
-
-        // if ($Commodity->SoldCommodityItem !== null)
-        // {
-        //     $soldCommodityItem = SoldCommodityItem::where('commodity_id', $commodity_id)->update([
-        //         'selling_price' => $selling_price,
-        //     ]);
-        // }
-        // && $commodityCostPrice == true &&
-        // $commodityPrice == true &&
-        // $commodityQuantity == true &&
-        // $commodityUnit == true &&
-        // $commodityAquisitionDate == true &&
-        // $commodityPurchase == true &&
-        // $commodityBudgetedSale == true
 
         if (
             $commodityCategory == true
@@ -201,12 +177,6 @@ class CommodityAttributesController extends Controller
             $type_description = $commodity->description;
         }
 
-        // dd($commodity->Types()->create([
-        //     'type_name' => $commodity_type,
-        //     'description' => $type_description,
-        //     'image_path' => $Commodity_type_image,
-        // ]));
-
         $commodityType = $commodity->Types()->create([
             'type_name' => $commodity_type,
             'description' => $type_description,
@@ -218,7 +188,7 @@ class CommodityAttributesController extends Controller
         {
             $commodity_type_id = $commodityType->id;
 
-            $soldTypeItem = SoldTypeItem::create([
+            $request->user()->soldTypeItem()->create([
                 'commodity_id' => $commodity_id,
                 'commodity_type_id' => $commodity_type_id,
                 'sold_quantity' => '0',

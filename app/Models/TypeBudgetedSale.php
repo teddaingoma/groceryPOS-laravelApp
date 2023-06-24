@@ -13,8 +13,8 @@ class TypeBudgetedSale extends Model
     protected $primary = 'id';
     public $timestamps = true;
     protected $timestamp = true;
-    protected $fillable = ['commodity_id', 'commodity_type_id', 'quantity', 'selling_price'];
-    protected $visible = ['commodity_id', 'commodity_type_id', 'quantity', 'selling_price'];
+    protected $fillable = ['commodity_id', 'commodity_type_id', 'quantity', 'selling_price', 'user_id'];
+    protected $visible = ['commodity_id', 'commodity_type_id', 'quantity', 'selling_price', 'user_id'];
 
     // A commodity type has a budgeted sale with many counts
     public function CommodityType()

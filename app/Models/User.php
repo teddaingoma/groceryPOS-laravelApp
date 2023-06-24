@@ -77,10 +77,39 @@ class User extends Authenticatable
     }
 
     /**
-     * a user can sell a commodity many times
+     * a user has commodity and type budgeted sales transactions
      */
-    public function sold_commodities()
+    public function commodityBudgetedSales()
+    {
+        return $this->hasMany(CommodityBudgetedSale::class);
+    }
+    public function typeBudgetedSales()
+    {
+        return $this->hasMany(TypeBudgetedSale::class);
+    }
+
+    /**
+     * a user records many sale counts from a single commodity item
+     */
+    public function soldCommodityItem()
     {
         return $this->hasMany(SoldCommodityItem::class);
     }
+    public function soldTypeItem()
+    {
+        return $this->hasMany(SoldTypeItem::class);
+    }
+
+    /**
+     * a user purchases commodities or types from suppliers or somewhere
+     */
+    public function commodityPurchases()
+    {
+        return $this->hasMany(CommodityPurchase::class);
+    }
+    public function typePurchases()
+    {
+        return $this->hasMany(TypePurchase::class);
+    }
+
 }

@@ -292,16 +292,21 @@ class CommodityTypesController extends Controller
             'selling_price' => $type_selling_price,
         ]);
 
-        if ($commodityType->SoldTypeItem()->count()) {
-            $soldTypeItem = SoldTypeItem::where('commodity_type_id', $commodity_type_id)->update([
-                'selling_price' => $type_selling_price,
-            ]);
-        }
-        elseif (!$commodityType->SoldTypeItem()->count()) {
-             $soldTypeItem = SoldTypeItem::create([
+        // $request->user()->soldTypeItem()->create
+
+        if (
+            !$commodityType->SoldTypeItem()->count() ||
+            !$request->user()->soldTypeItem()->where('commodity_type_id', $commodity_type_id)
+        ) {
+             $request->user()->soldTypeItem()->create([
                 'commodity_id' => $commodity_id,
                 'commodity_type_id' => $commodity_type_id,
                 'sold_quantity' => '0',
+                'selling_price' => $type_selling_price,
+            ]);
+        }
+        elseif ($commodityType->SoldTypeItem()->count()) {
+            $request->user()->soldTypeItem()->where('commodity_type_id', $commodity_type_id)->update([
                 'selling_price' => $type_selling_price,
             ]);
         }
@@ -313,8 +318,7 @@ class CommodityTypesController extends Controller
             $TypePrice == true &&
             $TypeQuantity == true &&
             $TypePurchase == true &&
-            $TypeBudgetedSale == true &&
-            $soldTypeItem == true
+            $TypeBudgetedSale == true
         )
         {
             $message = "Successfully Added Attributes of $commodity_type_name";

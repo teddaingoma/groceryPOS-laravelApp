@@ -12,8 +12,8 @@ class SoldTypeItem extends Model
     protected $table = 'sold_type_items';
     protected $primary = 'id';
     public $timestamps = true;
-    protected $fillable = ['commodity_id', 'commodity_type_id', 'sold_quantity','selling_price'];
-    protected $visible = ['commodity_id', 'commodity_type_id', 'sold_quantity','selling_price'];
+    protected $fillable = ['commodity_id', 'commodity_type_id', 'sold_quantity','selling_price', 'user_id'];
+    protected $visible = ['commodity_id', 'commodity_type_id', 'sold_quantity','selling_price', 'user_id'];
 
     // A commodity Type has a sells with many counts
     public function SoldType()

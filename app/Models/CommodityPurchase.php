@@ -13,8 +13,8 @@ class CommodityPurchase extends Model
     protected $primary = 'id';
     public $timestamps = true;
     protected $timestamp = true;
-    protected $fillable = ['commodity_id', 'quantity', 'cost_price', 'purchace_date'];
-    protected $visible = ['commodity_id', 'quantity', 'cost_price', 'purchace_date'];
+    protected $fillable = ['commodity_id', 'quantity', 'cost_price', 'purchace_date', 'user_id'];
+    protected $visible = ['commodity_id', 'quantity', 'cost_price', 'purchace_date', 'user_id'];
 
     //A commodity can be purchased (acquired, bought, or increased) once or many times
     public function CommodityPurchase()

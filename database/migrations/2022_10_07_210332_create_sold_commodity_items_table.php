@@ -17,7 +17,6 @@ class CreateSoldCommodityItemsTable extends Migration
             $table->increments('id')->onDelete('cascade');
             $table->unsignedInteger('commodity_id');
             $table->unsignedInteger('sold_quantity');
-            $table->float('selling_price');
             $table->integer("user_id")->unsigned();
             $table->timestamps();
 
