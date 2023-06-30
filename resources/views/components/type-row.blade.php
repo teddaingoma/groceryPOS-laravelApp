@@ -1,28 +1,28 @@
-@props(['Type' => $Type])
+@props(['type' => $type, 'commodity' => $commodity])
 
 <tr>
-    <th scope="row">{{ $commodity -> name }}</th>
+    <th scope="row">{{ $type -> type_name }}</th>
     <td>
         <span class="data-name">Price (K):</span>
-        @if ($commodity->Price == '')
+        @if ($type->TypePrice == '')
             00.00
         @else
-            {{ $commodity->Price->price }}
+            {{ $type->TypePrice->type_price }}
         @endif
         /
         @if ($commodity->Unit == '')
-            unit
+            Unit
         @else
             {{ $commodity->Unit -> unit }}
         @endif
     </td>
     <td>
         <span class="data-name">Quantity:</span>
-        {{ $commodity->Quantity -> quantity }}
+        {{ $type->TypeQuantity->type_quantity }}
     </td>
     <td>
         <span class="data-name">Sell:</span>
-        <a href="{{ route('sell_commodity', ['commodity' => $commodity->id]) }}" class="btn btn--category btn--icon">
+        <a href="{{ route('sell_type', ['commodity' => $commodity->id, 'type' => $type->id]) }}" class="btn btn--category btn--icon">
             <span class="icon-container icon--small">
                 <img class="icon" src="{{ URL("images/sell-dark.ico") }}" alt="">
             </span>

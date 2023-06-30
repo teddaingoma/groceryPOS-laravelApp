@@ -85,6 +85,7 @@ class CommodityAttributesController extends Controller
             'aquisition_date' => $acquisition_date,
         ]);
 
+        // was supposed to save through a user
         $Commodity->CommodityPurchases()->create([
             'quantity' => $commodity_quantity,
             'cost_price' => $cost_price,
@@ -104,17 +105,16 @@ class CommodityAttributesController extends Controller
         {
            $request->user()->soldCommodityItem()->create([
                 'commodity_id' => $commodity_id,
-                'sold_quantity' => '0',
-                'selling_price' => $selling_price,
+                'sold_quantity' => '0'
             ]);
         }
 
-        elseif ($request->user()->soldCommodityItem()->count())
-        {
-            $request->user()->soldCommodityItem()->where('commodity_id', $commodity_id)->update([
-                'selling_price' => $selling_price,
-            ]);
-        }
+        // elseif ($request->user()->soldCommodityItem()->count())
+        // {
+        //     $request->user()->soldCommodityItem()->where('commodity_id', $commodity_id)->update([
+        //         'selling_price' => $selling_price,
+        //     ]);
+        // }
 
         if (
             $commodityCategory == true

@@ -13,8 +13,8 @@ class CommoditySellInvoice extends Model
     protected $primary = 'id';
     public $timestamps = true;
     protected $timestamp = true;
-    protected $fillable = ['commodity_id', 'sell_quantity', 'selling_price', 'total_cost', 'payment', 'change', 'owner_id', 'customer_id'];
-    protected $visible = ['commodity_id', 'sell_quantity', 'selling_price', 'total_cost', 'payment', 'change', 'owner_id', 'customer_id'];
+    protected $fillable = ['commodity_id', 'sell_quantity', 'selling_price', 'total_cost', 'payment', 'change', 'user_id', 'customer_id'];
+    protected $visible = ['commodity_id', 'sell_quantity', 'selling_price', 'total_cost', 'payment', 'change', 'user_id', 'customer_id'];
 
     // A commodity can be included in many purchase or sell invoices
     public function Commodity()

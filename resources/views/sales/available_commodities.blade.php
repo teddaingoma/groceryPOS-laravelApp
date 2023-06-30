@@ -25,74 +25,26 @@
 
         <div class="pps-commodities">
 
-            <div class="flex flex-col--wrap scrollable-list">
-                @if (auth()->user()->commodities()->count())
+            @if(auth()->user()->commodities !== null)
+
+                <div class="flex flex-col--wrap scrollable-list">
+
                     @foreach (auth()->user()->commodities as $commodity)
 
                         @if($commodity->Quantity !== null && $commodity->Quantity->quantity > 0)
                             <x-available-commodity :commodity="$commodity" />
 
-                            @foreach($commodity->Types as $Type)
-
-                                @if ($Type->TypeQuantity !== null && $Type->TypeQuantity->type_quantity > 0)
-                                    <x-available-type :Type="$Type" />
+                            @foreach($commodity->Types as $type)
+                                @if ($type->TypeQuantity !== null && $type->TypeQuantity->type_quantity > 0)
+                                    <x-available-type :type="$type" :commodity="$commodity" />
                                 @endif
                             @endforeach
                         @endif
 
                     @endforeach
-                @else
-                    <div class="commodity">
-                        <p> {{ auth()->user()->name }}, your inventory list is empty </p>
 
-                        <button class="btn btn--primary btn--icon btn--outline">
-                            <img class="icon" src="{{ asset('images/add-commodity-dark.ico') }}" alt="">
-                            <span class="btn__text">
-                                <a class="nav-link" href="{{ route('home.create') }}">Add</a>
-                            </span>
-                        </button>
-                    </div>
-                @endif
+                </div>
 
-            </div>
-
-        </div>
-
-      </div>
-
-      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-
-        <div class="scrollable-list">
-            @if (auth()->user()->commodities()->count())
-                <table class="table pps-table">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="text-wrap">Name</th>
-                            <th scope="col" class="text-wrap">Price (K)</th>
-                            <th scope="col" class="text-wrap">Quantity</th>
-                            <th scope="col" class="text-wrap">Sell</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (auth()->user()->commodities as $commodity)
-                            @if($commodity->Quantity->count() && $commodity->Quantity->quantity > 0)
-
-                                <x-commodity-row :commodity="$commodity" />
-
-                                @foreach($commodity->Types as $Type)
-                                    @foreach($commodity->Types as $Type)
-                                        @if ($Type->TypeQuantity !== null && $Type->TypeQuantity->type_quantity > 0)
-
-                                            <x-type-row :Type="$Type" />
-
-                                        @endif
-                                    @endforeach
-                                @endforeach
-                            @endif
-                        @endforeach
-
-                    </tbody>
-                </table>
             @else
                 <div class="commodity">
                     <p> {{ auth()->user()->name }}, your inventory list is empty </p>
@@ -105,7 +57,60 @@
                     </button>
                 </div>
             @endif
+
         </div>
+
+      </div>
+
+      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+        @if(auth()->user()->commodities !== null)
+
+            <div class="scrollable-list">
+                <table class="table pps-table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-wrap">Name</th>
+                            <th scope="col" class="text-wrap">Price (K)</th>
+                            <th scope="col" class="text-wrap">Quantity</th>
+                            <th scope="col" class="text-wrap">Sell</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (auth()->user()->commodities as $commodity)
+                            @if($commodity->Quantity !== null && $commodity->Quantity->quantity > 0)
+
+                                <x-commodity-row :commodity="$commodity" />
+
+                                @foreach($commodity->Types as $type)
+                                    @if ($type->TypeQuantity !== null && $type->TypeQuantity->type_quantity > 0)
+
+                                        <x-type-row :type="$type" :commodity="$commodity" />
+
+                                    @endif
+                                @endforeach
+                            @endif
+                        @endforeach
+
+                    </tbody>
+                </table>
+            </div>
+        @else
+
+            <div class="commodity">
+                <p> {{ auth()->user()->name }}, your inventory list is empty </p>
+
+                <button class="btn btn--primary btn--icon btn--outline">
+                    <img class="icon" src="{{ asset('images/add-commodity-dark.ico') }}" alt="">
+                    <span class="btn__text">
+                        <a class="nav-link" href="{{ route('home.create') }}">Add</a>
+                    </span>
+                </button>
+            </div>
+
+        @endif
+
 
       </div>
 

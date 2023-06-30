@@ -278,21 +278,19 @@ class CommodityTypesController extends Controller
             'commodity_type_id' => $commodity_type_id
         ]);
 
-        $TypePurchase = TypePurchase::create([
+        $request->user()->typePurchases()->create([
             'commodity_id' => $commodity_id,
             'commodity_type_id' => $commodity_type_id,
             'quantity' => $type_quantity,
             'cost_price' => $type_cost_price,
         ]);
 
-        $TypeBudgetedSale = TypeBudgetedSale::create([
+        $request->user()->typeBudgetedSales()->create([
             'commodity_id' => $commodity_id,
             'commodity_type_id' => $commodity_type_id,
             'quantity' => $type_quantity,
             'selling_price' => $type_selling_price,
         ]);
-
-        // $request->user()->soldTypeItem()->create
 
         if (
             !$commodityType->SoldTypeItem()->count() ||
@@ -311,14 +309,11 @@ class CommodityTypesController extends Controller
             ]);
         }
 
-
         if (
             $TypeAquisitionDate == true &&
             $TypeCostPrice == true &&
             $TypePrice == true &&
-            $TypeQuantity == true &&
-            $TypePurchase == true &&
-            $TypeBudgetedSale == true
+            $TypeQuantity == true
         )
         {
             $message = "Successfully Added Attributes of $commodity_type_name";

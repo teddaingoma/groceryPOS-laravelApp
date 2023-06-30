@@ -1,23 +1,23 @@
-@props(['Type' => $Type])
+@props(['type' => $type, 'commodity' => $commodity])
 
 <div class="commodity">
     <div class="card">
         <header class="card__header">
             <div class="commodity__icon">
-                <h3 class="commodity__name">{{ $Type -> type_name }}</h3>
+                <h3 class="commodity__name">{{ $type -> type_name }}</h3>
             </div>
             <div class="commodity__tags">
                 <span class="commodity__price">
                     <span class="commodity__currency">MWK</span>
                     <span class="commodity__amount">
-                        @if ($Type->TypePrice == '')
+                        @if ($type->TypePrice == '')
                             @if ($commodity->Price == '')
                                 00.00
                             @else
                                 {{ $commodity->Price->price }}
                             @endif
                         @else
-                            {{ $Type->TypePrice->type_price }}
+                            {{ $type->TypePrice->type_price }}
                         @endif
 
                     </span>
@@ -37,10 +37,10 @@
             <span class="commodity__quantity">
                 <span class="quantity-text">Available Quantity</span>
                 <span class="badge quantity-value">
-                    @if ($Type->TypeQuantity == '')
+                    @if ($type->TypeQuantity == '')
                         out of stock
                     @else
-                        {{ $Type->TypeQuantity->type_quantity }}
+                        {{ $type->TypeQuantity->type_quantity }}
                     @endif
                 </span>
                 <span class="commodity__unit">
@@ -54,7 +54,7 @@
 
         </div>
         <div class="card__btn">
-            <a href="{{ route('sell_type', ['commodity' => $commodity->id, 'type' => $Type->id]) }}" class="btn btn--category btn--icon">
+            <a href="{{ route('sell_type', ['commodity' => $commodity->id, 'type' => $type->id]) }}" class="btn btn--category btn--icon">
                 <span class="icon-container icon--small">
                     <img class="icon" src="{{ URL("images/sell-dark.ico") }}" alt="">
                 </span>

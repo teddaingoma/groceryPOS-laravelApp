@@ -1,28 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Grocery Portable Point-Of-Sales system for small-scale grocery businesses">
-        <meta name="author" content="teddai Ngoma">
+        @include('layout.head-tags')
         <title>{{ $Commodity -> name }} | Sell</title>
-        <meta name="description" content="Portable POS system">
-        <meta property="og:title" content="Portable POS system">
-        <meta property="og:description" content="Portable POS system">
-        <meta property="og:type" content="website">
-        <meta property="og:image" content="http://">
-        <meta property="og:url" content="https://grocerypos.netlify.app">
 
-        <!-- Bootstrap core CSS -->
-        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-
-        <!-- Custom styles for this template -->
-        <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-
-
-        <!-- grocery portable pos icon -->
-        <link rel="icon" href="{{ asset('images/logo-dark.ico') }}">
     </head>
 
     <body class="add-commodity-body">
@@ -148,6 +129,20 @@
                                             </span>
                                         </span>
 
+                                        <div class="col-sm-6 form--input-line">
+                                            <label for="customer" class="form-label">Customer <span class="text-muted">(Optional)</span>:</label>
+                                            <select id="customer" name="customer_id" class="form-select" aria-label="Select Commodity Category">
+                                                <option></option>
+                                                @if(auth()->user()->customers()->count())
+                                                    @foreach (auth()->user()->customers as $customer)
+                                                        <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                                    @endforeach
+                                                @else
+                                                    You don't' have any saved customers
+                                                @endif
+                                            </select>
+                                        </div>
+
                                     </div>
 
                                     <div class="form--btn-group">
@@ -212,11 +207,7 @@
         @include('layout.main-footer')
 
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="{{ asset('js/jquery.min.js') }}" ></script>
-        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('js/custom.js') }}"></script>
+        @include('layout.script-tags')
 
     </body>
 </html>

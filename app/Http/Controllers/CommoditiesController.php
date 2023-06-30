@@ -87,8 +87,7 @@ class CommoditiesController extends Controller
             // a user records sale counts of a commodity
             $request->user()->soldCommodityItem()->create([
                 'commodity_id' => $commodity_id,
-                'sold_quantity' => '0',
-                'selling_price' => '00.00',
+                'sold_quantity' => '0'
             ]);
 
             return redirect()->route('assign_commodity_attributes', [$commodity])->with('status', $message);

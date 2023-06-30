@@ -97,9 +97,9 @@
                                     <div class="form--input-line">
                                     <label for="lastName" class="form-label">Description <span class="text-muted">(Optional)</span>:</label>
                                     </div>
-                                    <textarea name="commodity_description" class="form-control" id="lastName" placeholder="describe your commodity item in a few words..." value="" aria-label="textarea"></textarea>
+                                    <textarea name="commodity_description" class="form-control" id="lastName" placeholder="describe your commodity item in a few words..." value="" aria-label="textarea" required></textarea>
                                     <div class="invalid-feedback">
-                                    Enter your Last Name, Please.
+                                        describe your commodity item in a few words...
                                     </div>
                                 </div>
 

@@ -22,7 +22,7 @@ class CreateTypeSellInvoivesTable extends Migration
             $table->float('total_cost')->unsigned()->nullable();
             $table->float('payment')->unsigned();
             $table->float('change')->unsigned()->nullable();
-            $table->unsignedInteger('owner_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('customer_id')->nullable();
             $table->timestamp('date_time');
             $table->timestamps();
