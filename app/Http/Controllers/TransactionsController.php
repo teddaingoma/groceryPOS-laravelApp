@@ -351,87 +351,15 @@ class TransactionsController extends Controller
     public function viewFinancialStatements()
     {
         $commodities = Commodity::all();
-        $commodityBudgetedSales = CommodityBudgetedSale::all();
-        $commodityPurchases = CommodityPurchase::all();
         $soldCommodityItem = SoldCommodityItem::all();
         $typePurchases = TypePurchase::all();
         $typeBudgetedSales = TypeBudgetedSale::all();
         $soldTypeItems = SoldTypeItem::all();
 
-        /*
-            foreach ($soldCommodityItem as $soldCommodity)
-            {
-                foreach ($soldCommodity->SoldCommodity->Types as $Type);
-                {
-                    print($Type->type_name);
-                }
-            }
-            dd("test");
-        */
-        /*
-            foreach ($typePurchases as $typePurchase)
-            {
-                print($typePurchase->CommodityType->TypeQuantity->type_quantity);
-            }
-            dd("Test");
-        */
-        /*
-            foreach ($typeBudgetedSales as $typeSale)
-            {
-                print($typeSale->CommodityType->TypeQuantity->type_quantity);
-            }
-            dd("Test");
-        */
-        /*
-            foreach ($soldTypeItems as $soldType)
-            {
-                print($soldType->SoldType->TypeQuantity->type_quantity);
-            }
-            dd("Test");
-        */
-
 
         $totalGrossProfit = 0.0;
         $totalActualSales = 0.0;
         $totalPurchaseCosts = 0.0;
-
-        foreach ($commodityBudgetedSales as $Sales)
-        {
-            foreach ($commodityPurchases as $Purchases)
-            {
-                if ($Sales->commodity_id == $Purchases->commodity_id)
-                {
-                    /*
-                        print("------Budgeted Sales-----");
-                        print($Sales->CommodityBudgetedSale->name);
-                        print("-");
-                        Print($Sales->quantity);
-                        print("-");
-                        print($Sales->selling_price);
-                        print("-");
-                        print($Sales->quantity * $Sales->selling_price);
-                        print("-Budgeted");
-                        print("------Purchases-----");
-                        print("-");
-                        print($Purchases->CommodityPurchase->name);
-                        print("-");
-                        print($Purchases->quantity);
-                        print("-");
-                        print($Purchases->cost_price);
-                        print("-Cost of sales");
-                        print($Purchases->quantity * $Purchases->cost_price);
-                        print("****************");
-                    */
-                    $itemBudgetedSales = $Sales->quantity * $Sales->selling_price;
-                    $itemPurchases = $Purchases->quantity * $Purchases->cost_price;
-                    $totalPurchaseCosts += $itemPurchases;
-                    $itemGrossProfit = $itemBudgetedSales - $itemPurchases;
-                    $totalGrossProfit = $totalGrossProfit + $itemGrossProfit;
-                }
-            }
-
-        }
-
 
         foreach ($typeBudgetedSales as $typeSale)
         {
@@ -441,36 +369,65 @@ class TransactionsController extends Controller
                 {
                     $type_budgeted_sales = $typeSale->quantity * $typeSale->selling_price;
                     $type_purchase = $typePurchase->quantity * $typePurchase->cost_price;
-                    $totalPurchaseCosts += $type_purchase;
                     $type_gross_profit = $type_budgeted_sales - $type_purchase;
                     $totalGrossProfit = $totalGrossProfit + $type_gross_profit;
                 }
             }
         }
 
-        foreach ($soldCommodityItem as $soldCommodity)
+        /**
+         * Eloquence
+         */
+
+        // actual commodity sales
+        foreach (auth()->user()->soldCommodityItem as $soldCommodity )
         {
-            $itemSales = $soldCommodity->sold_quantity * $soldCommodity->selling_price;
+            /**
+             * item sales = total sold amount * item's selling price
+             */
+            $itemSales = $soldCommodity->sold_quantity * $soldCommodity->SoldCommodity->Price->price;
             $totalActualSales = $totalActualSales + $itemSales;
         }
 
-        foreach ($soldTypeItems as $soldType)
+        // actual type sales
+        foreach (auth()->user()->soldTypeItem as $soldType )
         {
-            $itemSales = $soldType->selling_price * $soldType->sold_quantity;
+            /**
+             * item sales = total sold amount * item's selling price
+             */
+            $itemSales = $soldType->sold_quantity * $soldType->SoldType->TypePrice->type_price;
             $totalActualSales = $totalActualSales + $itemSales;
         }
+
+        // commodity cost of sales / purchase costs
+        foreach(auth()->user()->commodityPurchases as $Purchases)
+        {
+            // total cost of purchasing inventory items
+            $itemPurchases = $Purchases->quantity * $Purchases->CommodityPurchase->CostPrice->cost_price;
+            $totalPurchaseCosts = $totalPurchaseCosts + $itemPurchases;
+        }
+
+        // commodity cost of sales / purchase costs
+        foreach (auth()->user()->typePurchases as $typePurchase)
+        {
+            $itemPurchases = $typePurchase->quantity *  $typePurchase->CommodityType->TypeCostPrice->type_cost_price;
+            $totalPurchaseCosts = $totalPurchaseCosts + $itemPurchases;
+        }
+
+        /** */
 
         return view('sales.financial_statements', compact(
+            'totalActualSales',
+            'totalPurchaseCosts',
+
             'commodities',
             'commodityBudgetedSales',
             'commodityPurchases',
             'soldCommodityItem',
             'totalGrossProfit',
-            'totalActualSales',
             'typePurchases',
             'typeBudgetedSales',
             'soldTypeItems',
-            'totalPurchaseCosts'
         ));
     }
 
