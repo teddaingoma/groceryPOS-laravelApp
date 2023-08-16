@@ -52,7 +52,11 @@
 
                                 {{--  <x-type-row2 :typeSale="$typeSale" />  --}}
                                 <tr>
-                                    <th scope="row">{{ $typeSale->CommodityType->type_name }}</th>
+                                    <th scope="row">
+                                        <a href="{{ route('show_commodity_type', ['commodity' => $typeSale->commodity_id, 'type' => $typeSale->commodity_type_id]) }}">
+                                            {{ $typeSale->CommodityType->type_name }}
+                                        </a>
+                                    </th>
                                     <td>
                                         <span class="data-name">Budgeted Sales (K):</span>
                                         {{ $typeSale->CommodityType->TypePrice->type_price * $typeSale->quantity }}

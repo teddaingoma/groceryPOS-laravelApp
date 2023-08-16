@@ -1,7 +1,11 @@
 @props(['budgetedSales' => $budgetedSales])
 
 <tr>
-    <th scope="row">{{ $budgetedSales->CommodityBudgetedSale->name }}</th>
+    <th scope="row">
+        <a href="{{ route('home.show', $budgetedSales->commodity_id) }}">
+            {{ $budgetedSales->CommodityBudgetedSale->name }}
+        </a>`
+    </th>
     <td>
         <span class="data-name">Budgeted Sales (K):</span>
         {{ $budgetedSales->quantity * $budgetedSales->CommodityBudgetedSale->Price->price }}
