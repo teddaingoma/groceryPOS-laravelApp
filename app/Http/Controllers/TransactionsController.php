@@ -421,8 +421,6 @@ class TransactionsController extends Controller
             'totalPurchaseCosts',
 
             'commodities',
-            'commodityBudgetedSales',
-            'commodityPurchases',
             'soldCommodityItem',
             'totalGrossProfit',
             'typePurchases',

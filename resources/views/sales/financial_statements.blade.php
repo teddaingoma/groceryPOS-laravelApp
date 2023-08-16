@@ -95,7 +95,7 @@
                 <header class="card__header">
                     <div class="commodity__icon">
                         <img class="icon" src="{{ asset('images/item-light.ico') }}" alt="">
-                        <h3 class="commodity__name">Statement of Financial Position of [Business_Name] as at [DD/MM/YYYY]</h3>
+                        <h3 class="commodity__name">Statement of Financial Position of {{ auth()->user()->name }} as at {{ date('Y-m-d') }}</h3>
                     </div>
                 </header>
                 <div class="card__body collapsible">
@@ -114,44 +114,28 @@
                   </span>
                   <div class="inventories collapsible__content">
                     <div class="scrollable-list">
-                        @forelse ($soldCommodityItem as $soldCommodity)
-                            @forelse ($commodityBudgetedSales as $budgetedSales)
-                                @forelse ($commodityPurchases as $Purchases)
-                                    @if($budgetedSales->commodity_id == $Purchases->commodity_id)
-                                        @if($soldCommodity->commodity_id == $Purchases->commodity_id)
-                                            <span class="commodity__acquisition-date statement--body asset">
-                                                <span class="acquisition-text">{{ $soldCommodity->SoldCommodity->name }}</span>
-                                                <span class="badge acquisition-date">{{ $Purchases->quantity * $Purchases->cost_price }}</span>
-                                                <span class="badge acquisition-date">{{ $Purchases->quantity * $Purchases->cost_price }}</span>
-                                            </span>
-                                        @endif
-                                    @endif
-                                @empty
-                                @endforelse
-                            @empty
-                            @endforelse
-                        @empty
-                            No Purchases Made
-                        @endforelse
 
-                        @foreach ($soldTypeItems as $soldType)
-                            @foreach ($typeBudgetedSales as $typeSale)
-
-                                @foreach ($typePurchases as $typePurchase)
-                                    @if($typeSale->commodity_type_id == $typePurchase->commodity_type_id)
-                                        @if($soldType->commodity_type_id == $typePurchase->commodity_type_id)
-                                            <span class="commodity__acquisition-date statement--body asset">
-                                                <span class="acquisition-text">{{ $soldType->SoldType->type_name }}</span>
-                                                <span class="badge acquisition-date">{{ $typePurchase->cost_price * $typePurchase->quantity }}</span>
-                                                <span class="badge acquisition-date">{{ $typePurchase->cost_price * $typePurchase->quantity }}</span>
-                                            </span>
-                                        @endif
-
-                                    @endif
-                                @endforeach
+                        {{--  use eloquent relationships  --}}
+                        @if(auth()->user()->commodityPurchases !== null)
+                            @foreach(auth()->user()->commodityPurchases as $Purchases)
+                                <span class="commodity__acquisition-date statement--body asset">
+                                    <span class="acquisition-text">{{ $Purchases->CommodityPurchase->name }}</span>
+                                    <span class="badge acquisition-date">{{ $Purchases->quantity * $Purchases->CommodityPurchase->CostPrice->cost_price }}</span>
+                                    <span class="badge acquisition-date">{{ $Purchases->quantity * $Purchases->CommodityPurchase->CostPrice->cost_price }}</span>
+                                </span>
                             @endforeach
+                        @else
+                            No Purchases made
+                        @endif
 
+                        @foreach (auth()->user()->typePurchases as $typePurchase)
+                            <span class="commodity__acquisition-date statement--body asset">
+                                <span class="acquisition-text">{{ $typePurchase->CommodityType->type_name }}</span>
+                                <span class="badge acquisition-date">{{ $typePurchase->quantity *  $typePurchase->CommodityType->TypeCostPrice->type_cost_price }}</span>
+                                <span class="badge acquisition-date">{{ $typePurchase->quantity *  $typePurchase->CommodityType->TypeCostPrice->type_cost_price }}</span>
+                            </span>
                         @endforeach
+
                     </div>
                     <span class="commodity__acquisition-date statement--body asset subtotal">
                       <span class="acquisition-text">Subtotal</span>
@@ -187,7 +171,7 @@
 
       <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 
-        <div class="scrollable-list">
+        {{--  <div class="scrollable-list">
             <table class="table pps-table">
                 <thead>
                     <tr>
@@ -278,7 +262,7 @@
                     @endforeach
                 </tbody>
             </table>
-        </div>
+        </div>  --}}
 
 
         <div class="card">
