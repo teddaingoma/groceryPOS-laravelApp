@@ -29,7 +29,7 @@
                 <header class="card__header">
                     <div class="commodity__icon">
                         <img class="icon" src="{{ asset('images/item-light.ico') }}" alt="">
-                        <h3 class="commodity__name">Statement of Profit or Loss of [Business_Name] as at {{ date('Y') }}</h3>
+                        <h3 class="commodity__name">Statement of Profit or Loss of {{ auth()->user()->name }} as at {{ date('Y-m-d') }}</h3>
                     </div>
                 </header>
                 <div class="card__body collapsible">
@@ -171,7 +171,7 @@
 
       <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 
-        {{--  <div class="scrollable-list">
+        <div class="scrollable-list">
             <table class="table pps-table">
                 <thead>
                     <tr>
@@ -182,47 +182,65 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($soldCommodityItem as $soldCommodity)
-                        @forelse ($commodityBudgetedSales as $budgetedSales)
-                            @forelse ($commodityPurchases as $Purchases)
-                                @if($budgetedSales->commodity_id == $Purchases->commodity_id)
-                                    @if($soldCommodity->commodity_id == $Purchases->commodity_id)
-                                        <tr>
-                                            <th scope="row">{{ $soldCommodity->SoldCommodity->name }}</th>
 
-                                            <td>
-                                                <span class="data-name">Cash Inflows (Sales) (K):</span>
-                                                {{ $soldCommodity->sold_quantity * $soldCommodity->selling_price }}
-                                            </td>
-                                            <td>
-                                                <span class="data-name">Cash Outflows (Purchases) (K):</span>
-                                                {{ $Purchases->quantity * $Purchases->cost_price }}
-                                            </td>
-                                            <td>
-                                                <span class="data-name">Net Cashflows (K):</span>
-                                                @if( (($soldCommodity->sold_quantity * $soldCommodity->selling_price) - ($Purchases->quantity * $Purchases->cost_price)) < 0 )
-                                                ({{
-                                                    (($soldCommodity->sold_quantity * $soldCommodity->selling_price) - ($Purchases->quantity * $Purchases->cost_price)) * -1
-                                                }})
-                                                @elseif( (($soldCommodity->sold_quantity * $soldCommodity->selling_price) - ($Purchases->quantity * $Purchases->cost_price)) > 0 )
-                                                {{
-                                                    ($soldCommodity->sold_quantity * $soldCommodity->selling_price) - ($Purchases->quantity * $Purchases->cost_price)
-                                                }}
-                                                @endif
-                                            </td>
-                                        </tr>
+                    {{--  use eloquent relationships  --}}
+                    @if (auth()->user()->soldCommodityItem !== null)
+
+                        @foreach (auth()->user()->soldCommodityItem as $soldCommodity)
+                            <tr>
+                                <th scope="row">{{ $soldCommodity->SoldCommodity->name }}</th>
+                                {{--  {{ dd($soldCommodity->SoldCommodity->CommodityPurchases->quantity * $soldCommodity->SoldCommodity->CostPrice->cost_price) }}  --}}
+
+                                <td>
+                                    <span class="data-name">Cash Inflows (Sales) (K):</span>
+                                    {{ $soldCommodity->sold_quantity * $soldCommodity->SoldCommodity->Price->price }}
+                                </td>
+                                <td>
+                                    <span class="data-name">Cash Outflows (Purchases) (K):</span>
+                                    {{ $soldCommodity->SoldCommodity->CommodityPurchases->quantity * $soldCommodity->SoldCommodity->CostPrice->cost_price }}
+                                </td>
+                                <td>
+                                    <span class="data-name">Net Cashflows (K):</span>
+                                    @if(  ( ($soldCommodity->sold_quantity * $soldCommodity->SoldCommodity->Price->price) - ($soldCommodity->SoldCommodity->CommodityPurchases->quantity * $soldCommodity->SoldCommodity->CostPrice->cost_price)  )   < 0   )
+                                        ( {{( ($soldCommodity->sold_quantity * $soldCommodity->SoldCommodity->Price->price) - ($soldCommodity->SoldCommodity->CommodityPurchases->quantity * $soldCommodity->SoldCommodity->CostPrice->cost_price) ) * -1 }} )
+                                    @else
+                                        {{
+                                            ($soldCommodity->sold_quantity * $soldCommodity->SoldCommodity->Price->price) - ($soldCommodity->SoldCommodity->CommodityPurchases->quantity * $soldCommodity->SoldCommodity->CostPrice->cost_price)
+                                        }}
                                     @endif
-                                @endif
-                            @empty
-                            @endforelse
-                        @empty
-                        @endforelse
+                                </td>
+                            </tr>
+                        @endforeach
 
-                    @empty
-                        No sales
-                    @endforelse
+                        @foreach (auth()->user()->soldTypeItem as $soldType )
 
-                    @foreach ($soldTypeItems as $soldType)
+                            <tr>
+                                <th scope="row">{{ $soldType->SoldType->type_name }}</th>
+                                <td>
+                                    <span class="data-name">Cash Inflows (Sales) (K):</span>
+                                    {{ $soldType->sold_quantity * $soldType->SoldType->TypePrice->type_price }}
+                                </td>
+                                <td>
+                                    <span class="data-name">Cash Outflows (Purchases) (K):</span>
+                                    {{ $soldType->SoldType->TypePurchase->quantity * $soldType->SoldType->TypeCostPrice->type_cost_price }}
+                                </td>
+                                <td>
+                                    <span class="data-name">Net Cashflows (K):</span>
+                                    @if(  ( ($soldType->sold_quantity * $soldType->SoldType->TypePrice->type_price) - ($soldType->SoldType->TypePurchase->quantity * $soldType->SoldType->TypeCostPrice->type_cost_price) ) < 0   )
+                                        ( {{ ( ($soldType->sold_quantity * $soldType->SoldType->TypePrice->type_price) - ($soldType->SoldType->TypePurchase->quantity * $soldType->SoldType->TypeCostPrice->type_cost_price) ) * -1 }} )
+                                    @else
+                                        {{ ($soldType->sold_quantity * $soldType->SoldType->TypePrice->type_price) - ($soldType->SoldType->TypePurchase->quantity * $soldType->SoldType->TypeCostPrice->type_cost_price) }}
+                                    @endif
+                                </td>
+                            </tr>
+
+                        @endforeach
+                    @else
+
+                    @endif
+
+
+                    {{--  @foreach ($soldTypeItems as $soldType)
                         @foreach ($typeBudgetedSales as $typeSale)
 
                             @foreach ($typePurchases as $typePurchase)
@@ -259,10 +277,10 @@
                             @endforeach
                         @endforeach
 
-                    @endforeach
+                    @endforeach  --}}
                 </tbody>
             </table>
-        </div>  --}}
+        </div>
 
 
         <div class="card">

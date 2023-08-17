@@ -350,30 +350,9 @@ class TransactionsController extends Controller
      */
     public function viewFinancialStatements()
     {
-        $commodities = Commodity::all();
-        $soldCommodityItem = SoldCommodityItem::all();
-        $typePurchases = TypePurchase::all();
-        $typeBudgetedSales = TypeBudgetedSale::all();
-        $soldTypeItems = SoldTypeItem::all();
-
-
         $totalGrossProfit = 0.0;
         $totalActualSales = 0.0;
         $totalPurchaseCosts = 0.0;
-
-        foreach ($typeBudgetedSales as $typeSale)
-        {
-            foreach ($typePurchases as $typePurchase)
-            {
-                if($typeSale->type_id == $typePurchase->type_id)
-                {
-                    $type_budgeted_sales = $typeSale->quantity * $typeSale->selling_price;
-                    $type_purchase = $typePurchase->quantity * $typePurchase->cost_price;
-                    $type_gross_profit = $type_budgeted_sales - $type_purchase;
-                    $totalGrossProfit = $totalGrossProfit + $type_gross_profit;
-                }
-            }
-        }
 
         /**
          * Eloquence
@@ -419,13 +398,6 @@ class TransactionsController extends Controller
         return view('sales.financial_statements', compact(
             'totalActualSales',
             'totalPurchaseCosts',
-
-            'commodities',
-            'soldCommodityItem',
-            'totalGrossProfit',
-            'typePurchases',
-            'typeBudgetedSales',
-            'soldTypeItems',
         ));
     }
 
