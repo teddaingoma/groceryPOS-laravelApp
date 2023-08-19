@@ -19,7 +19,7 @@ class SoldTypeItem extends Model
     public function SoldType()
     {
         return $this->belongsTo(
-            CommodityType::class,
+            CommodityTType::class,
             'commodity_type_id',
         );
     }

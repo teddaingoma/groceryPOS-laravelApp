@@ -5,17 +5,11 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Models\Commodity;
-use App\Models\SoldCommodityItem;
-use App\Models\CommodityQuantity;
 use App\Models\CommoditySellInvoice;
 use App\Models\CommodityType;
 use App\Models\SoldTypeItem;
 use App\Models\TypeQuantity;
 use App\Models\TypeSellInvoive;
-use App\Models\CommodityBudgetedSale;
-use App\Models\CommodityPurchase;
-use App\Models\TypePurchase;
-use App\Models\TypeBudgetedSale;
 
 class TransactionsController extends Controller
 {
@@ -158,6 +152,10 @@ class TransactionsController extends Controller
     public function sellType($commodity, $type)
     {
         $Commodity = Commodity::find($commodity);
+
+        if  ($Commodity->user_id !== auth()->user()->id) {
+            return redirect()->route('home.index');
+        }
         $commodity_type_id = $type;
 
         return view('sales.types.sell_type', compact(
@@ -240,6 +238,13 @@ class TransactionsController extends Controller
 
                         $change = $payment - $TotalCost;
 
+                        if ($request->customer_id == null)
+                            $customer_id = 0;
+                        else if ($request->customer_id !== null)
+                            $customer_id = $request->customer_id;
+
+                        $user_id = $request->user()->id;
+
                         $TypeSellInvoive = TypeSellInvoive::create([
                             'commodity_id' => $commodity_id,
                             'commodity_type_id' => $type,
@@ -248,8 +253,8 @@ class TransactionsController extends Controller
                             'total_cost' => $TotalCost,
                             'payment' => $payment,
                             'change' => $change,
-                            'owner_id' => 0,
-                            'customer_id' => 0,
+                            'user_id' => $user_id,
+                            'customer_id' => $customer_id,
                         ]);
 
                         $message = "Successfully sold $sell_quantity item (s) of $commodityType->type_name!";

@@ -133,7 +133,7 @@
                                             <label for="customer" class="form-label">Customer <span class="text-muted">(Optional)</span>:</label>
                                             <select id="customer" name="customer_id" class="form-select" aria-label="Select Commodity Category">
                                                 <option></option>
-                                                @if(auth()->user()->customers()->count())
+                                                @if(auth()->user()->customers() !== null)
                                                     @foreach (auth()->user()->customers as $customer)
                                                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                                     @endforeach
