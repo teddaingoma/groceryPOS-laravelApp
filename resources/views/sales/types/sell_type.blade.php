@@ -107,6 +107,20 @@
                                                         </span>
                                                     </span>
 
+                                                    <div class="col-sm-6 form--input-line">
+                                                        <label for="customer" class="form-label">Customer <span class="text-muted">(Optional)</span>:</label>
+                                                        <select id="customer" name="customer_id" class="form-select" aria-label="Select Commodity Category">
+                                                            <option></option>
+                                                            @if(auth()->user()->customers() !== null)
+                                                                @foreach (auth()->user()->customers as $customer)
+                                                                    <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                                                @endforeach
+                                                            @else
+                                                                You don't' have any saved customers
+                                                            @endif
+                                                        </select>
+                                                    </div>
+
 
                                                 </div>
 
