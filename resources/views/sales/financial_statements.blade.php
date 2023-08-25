@@ -239,45 +239,6 @@
 
                     @endif
 
-
-                    {{--  @foreach ($soldTypeItems as $soldType)
-                        @foreach ($typeBudgetedSales as $typeSale)
-
-                            @foreach ($typePurchases as $typePurchase)
-                                @if($typeSale->commodity_type_id == $typePurchase->commodity_type_id)
-                                    @if($soldType->commodity_type_id == $typePurchase->commodity_type_id)
-
-                                        <tr>
-                                            <th scope="row">{{ $soldType->SoldType->type_name }}</th>
-                                            <td>
-                                                <span class="data-name">Cash Inflows (Sales) (K):</span>
-                                                {{ $soldType->selling_price * $soldType->sold_quantity }}
-                                            </td>
-                                            <td>
-                                                <span class="data-name">Cash Outflows (Purchases) (K):</span>
-                                                {{ $typePurchase->cost_price * $typePurchase->quantity }}
-                                            </td>
-                                            <td>
-                                                <span class="data-name">Net Cashflows (K):</span>
-                                                @if( (($soldType->selling_price * $soldType->sold_quantity) - ($typePurchase->cost_price * $typePurchase->quantity)) < 0 )
-                                                ({{
-                                                    (($soldType->selling_price * $soldType->sold_quantity) - ($typePurchase->cost_price * $typePurchase->quantity)) * -1
-                                                 }})
-                                                @elseif( (($soldType->selling_price * $soldType->sold_quantity) - ($typePurchase->cost_price * $typePurchase->quantity)) > 0 )
-                                                {{
-                                                    ($soldType->selling_price * $soldType->sold_quantity) - ($typePurchase->cost_price * $typePurchase->quantity)
-                                                }}
-                                                @endif
-                                            </td>
-                                        </tr>
-
-                                    @endif
-
-                                @endif
-                            @endforeach
-                        @endforeach
-
-                    @endforeach  --}}
                 </tbody>
             </table>
         </div>

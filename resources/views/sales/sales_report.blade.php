@@ -1,6 +1,20 @@
-@extends('layout.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Grocery POS system - Welcome @auth {{ auth()->user()->name }} @endauth</title>
+    @include('layout.head-tags')
+</head>
+<body>
+    @include('layout.main-header')
 
-@section('content')
+    @include('layout.menu-bar-toggler')
+
+    <div class="container-fluid px-0 pps-content">
+        <div class="pps-aside">
+            @include('layout.main-sidebar')
+            @include('layout.main-sidebar-wide')
+            @include('layout.main-icon-sidebar')
+        </div>
 
   <div class="pps-main-content-header">
     @if (session('status'))
@@ -226,10 +240,54 @@
         <div class="card">
             <div class="card__body">
                 View Sales Reports
+
+            </div>
+        </div>
+    </div>
+    <div class="commodity">
+        <div class="card">
+            <div class="card__body">
+                <div style="width: 600px; margin: auto;">
+                    <canvas id="myChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
 
   </footer>
+
+  {{--  <script src="{{ asset('js/app.js') }}"></script>  --}}
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  {{--  <script src="path/to/chartjs/dist/chart.umd.js"></script>  --}}
+
+    <script type="text/javascript">
+
+        var labels =  {{ Js::from($totalGrossProfit) }};
+        var users =  {{ Js::from($totalActualSales) }};
+
+        const data = {
+        labels: labels,
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: users,
+        }]
+        };
+
+        const config = {
+        type: 'bar',
+        data: data,
+        options: {}
+        };
+
+        const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+        );
+
+    </script>
 
 @endsection

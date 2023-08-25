@@ -288,6 +288,8 @@ class TransactionsController extends Controller
         $totalGrossProfit = 0.0;
         $totalActualSales = 0.0;
         $totalPurchaseCosts = 0.0;
+        $commodity_gross_profit = 0;
+        $itemSales = 0;
 
         // commodity budgeted sales
         foreach (auth()->user()->commodityBudgetedSales as $budgetedSales)
