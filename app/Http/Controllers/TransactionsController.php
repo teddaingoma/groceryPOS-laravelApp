@@ -257,6 +257,7 @@ class TransactionsController extends Controller
                             'customer_id' => $customer_id,
                         ]);
 
+                        // {{ Str::plural('like', $post->likes->count()) }}
                         $message = "Successfully sold $sell_quantity item (s) of $commodityType->type_name!";
                         return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);
                     }
@@ -290,6 +291,12 @@ class TransactionsController extends Controller
         $totalPurchaseCosts = 0.0;
         $commodity_gross_profit = 0;
         $itemSales = 0;
+
+        // foreach(auth()->user()->commoditySellInvoices as $commoditySellInvoice)
+        // {
+        //     dd($commoditySellInvoice->Customer->name );
+
+        // }
 
         // commodity budgeted sales
         foreach (auth()->user()->commodityBudgetedSales as $budgetedSales)
@@ -415,6 +422,7 @@ class TransactionsController extends Controller
      */
     public function viewPurchaseReport()
     {
+
         $totalPurchaseCosts = 0.0;
 
         foreach(auth()->user()->commodityPurchases as $Purchases)

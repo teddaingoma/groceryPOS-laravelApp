@@ -104,7 +104,7 @@ class Commodity extends Model
         );
     }
 
-    // A commodity is included in many purchase or sell invoices
+    // A commodity is included in many sell invoices
     public function CommoditySellInvoices()
     {
         return $this->belongsTo(

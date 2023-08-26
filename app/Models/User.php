@@ -112,4 +112,15 @@ class User extends Authenticatable
         return $this->hasMany(TypePurchase::class);
     }
 
+    /**
+     * a user records sell transactions of commodities or types
+     */
+    public function commoditySellInvoices()
+    {
+        return $this->hasMany(
+            CommoditySellInvoice::class,
+            'user_id',
+        );
+    }
+
 }

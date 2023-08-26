@@ -129,33 +129,33 @@
                 </button>
 
                 <div class="modal fade" id="commodityDeleteModal" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="WarningToDelete" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Delete {{ $commodity -> name }}</h5>
-                            <span class="btn icon-container" data-bs-dismiss="modal" aria-label="Close">
-                                <img class="icon" src="{{ asset('images/close-dark.ico') }}" alt="">
-                            </span>
-                        </div>
-                        <div class="modal-body">
-                            <h5 class="text-danger warning--text">
-                                <span class="icon-container">
-                                <img class="icon" src="{{ asset('images/danger-filled.ico') }}" alt="">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete {{ $commodity -> name }}</h5>
+                                <span class="btn icon-container" data-bs-dismiss="modal" aria-label="Close">
+                                    <img class="icon" src="{{ asset('images/close-dark.ico') }}" alt="">
                                 </span>
-                                Are You Sure?
-                            </h5>
-                            <div class="container-fluid">
-                                You are about to delete {{ $commodity -> name }} and all its related content from your inventory!
+                            </div>
+                            <div class="modal-body">
+                                <h5 class="text-danger warning--text">
+                                    <span class="icon-container">
+                                    <img class="icon" src="{{ asset('images/danger-filled.ico') }}" alt="">
+                                    </span>
+                                    Are You Sure?
+                                </h5>
+                                <div class="container-fluid">
+                                    You are about to delete {{ $commodity -> name }} and all its related content from your inventory!
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <form action="" method="">
+                                    <button role="button" type="submit" class="btn">Delete</button>
+                                </form>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <form action="" method="">
-                                <button role="button" type="submit" class="btn">Delete</button>
-                            </form>
-                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </footer>
