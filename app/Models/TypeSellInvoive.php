@@ -19,9 +19,18 @@ class TypeSellInvoive extends Model
     // A commodity type can be included in many purchase or sell invoices
     public function CommodityType()
     {
-        return $this->hasMany(
+        return $this->belongsTo(
             CommodityType::class,
             'commodity_type_id',
+        );
+    }
+
+    // A customer can be included in a sell invoice
+    public function Customer()
+    {
+        return $this->belongsTo(
+            Customer::class,
+            'customer_id',
         );
     }
 }

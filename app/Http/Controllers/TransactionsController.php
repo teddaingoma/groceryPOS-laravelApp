@@ -286,17 +286,20 @@ class TransactionsController extends Controller
      */
     public function viewSalesReport()
     {
+        // if (auth()->user()->typeSellInvoices == null)
+        // {
+        //     dd("No type sell invoices");
+        // }
+        // foreach (auth()->user()->typeSellInvoices as $typeSellInvoice)
+        // {
+        //     dd($typeSellInvoice->CommodityType->type_name);
+        // }
         $totalGrossProfit = 0.0;
         $totalActualSales = 0.0;
         $totalPurchaseCosts = 0.0;
         $commodity_gross_profit = 0;
         $itemSales = 0;
 
-        // foreach(auth()->user()->commoditySellInvoices as $commoditySellInvoice)
-        // {
-        //     dd($commoditySellInvoice->Customer->name );
-
-        // }
 
         // commodity budgeted sales
         foreach (auth()->user()->commodityBudgetedSales as $budgetedSales)

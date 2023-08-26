@@ -237,7 +237,7 @@
 
                                 @foreach(auth()->user()->commoditySellInvoices as $commoditySellInvoice)
 
-                                    @if ($commoditySellInvoice->Commodity->name !== null )
+                                    @if ($commoditySellInvoice->Commodity !== null )
 
                                         <tr>
                                             <th scope="row">
@@ -248,7 +248,7 @@
                                             </th>
 
                                             <td>
-                                                <span class="data-name">Purchase Count:</span>
+                                                <span class="data-name">Quantity sold:</span>
                                                 {{ $commoditySellInvoice->sell_quantity }}
                                             </td>
                                             <td>
@@ -272,6 +272,7 @@
 
                                 @endforeach
 
+                                {{--  to populate item transaction details in individual modals  --}}
                                 @foreach(auth()->user()->commoditySellInvoices as $commoditySellInvoice)
 
                                     @if ($commoditySellInvoice->Commodity->name !== null )
@@ -390,35 +391,161 @@
 
                                 @endforeach
 
-                                {{--  @foreach (auth()->user()->typePurchases as $typePurchase)
+                                @foreach (auth()->user()->typeSellInvoices as $typeSellInvoice)
 
-                                    <tr>
-                                        <th scope="row">
-                                            <a href="{{ route('show_commodity_type', ['commodity' => $typePurchase->commodity_id, 'type' => $typePurchase->commodity_type_id]) }}">
-                                                {{ $typePurchase->CommodityType->type_name }}
-                                            </a>
-                                        </th>
-                                        <td>
-                                            <span class="data-name">Purchase Count:</span>
-                                            {{ $typePurchase->quantity }}
-                                        </td>
-                                        <td>
-                                            <span class="data-name">Cost Price (K):</span>
-                                            {{ $typePurchase->CommodityType->TypeCostPrice->type_cost_price }}
-                                        </td>
-                                        <td>
-                                            <span class="data-name">Purchase (K):</span>
-                                            {{
-                                                $typePurchase->quantity *  $typePurchase->CommodityType->TypeCostPrice->type_cost_price
-                                            }}
-                                        </td>
-                                        <td>
-                                            <span class="data-name">Date:</span>
-                                            {{ date('d-m-Y', strtotime($typePurchase->purchase_date)) }}
-                                        </td>
-                                    </tr>
+                                    @if ($typeSellInvoice->CommodityType !== null )
 
-                                @endforeach  --}}
+                                        <tr>
+                                            <th scope="row">
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#itemSellInvoice_{{ $typeSellInvoice->id }}">
+                                                    {{ $typeSellInvoice->CommodityType->type_name }}
+                                                </a>
+                                            </th>
+
+                                            <td>
+                                                <span class="data-name">Quantity sold:</span>
+                                                {{ $typeSellInvoice->sell_quantity }}
+                                            </td>
+                                            <td>
+                                                <span class="data-name">Selling Price (K):</span>
+                                                {{ $typeSellInvoice->selling_price }}
+                                            </td>
+                                            <td>
+                                                <span class="data-name">Cost (K):</span>
+                                                {{
+                                                    $typeSellInvoice->sell_quantity * $typeSellInvoice->selling_price
+                                                }}
+                                            </td>
+                                            <td>
+                                                <span class="data-name">Date:</span>
+                                                {{--  {{ $commoditySellInvoice->created_at->diffForHumans() }}  --}}
+                                                {{ date('d-m-Y', strtotime($typeSellInvoice->date_time)) }}
+                                            </td>
+
+                                        </tr>
+
+                                    @endif
+
+                                @endforeach
+
+                                {{--  to populate item transaction details in individual modals  --}}
+                                @foreach(auth()->user()->typeSellInvoices as $typeSellInvoice)
+
+                                    @if ($commoditySellInvoice->Commodity->name !== null )
+
+                                        {{--  Display Full details of a sale transaction using a modal  --}}
+                                        <div class="modal fade" id="itemSellInvoice_{{ $typeSellInvoice->id }}" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="ViewItemSellInvoice" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+
+                                                <div class="modal-content">
+
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Sell Transaction</h5>
+                                                        <span class="btn icon-container" data-bs-dismiss="modal" aria-label="Close">
+                                                            <img class="icon" src="{{ asset('images/close-dark.ico') }}" alt="">
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <div class="commodity">
+                                                            <div class="card">
+                                                                <header class="card__header">
+                                                                    <div class="commodity__icon">
+                                                                        <img class="icon" src="{{ asset('commodity_images/' . $typeSellInvoice->CommodityType->image_path) }}" alt="">
+                                                                        <h3 class="commodity__name">{{ $typeSellInvoice->CommodityType->type_name }}</h3>
+                                                                    </div>
+                                                                </header>
+                                                                <div class="card__body">
+
+                                                                    <span class="commodity__quantity">
+                                                                        <span class="quantity-text">Item Name</span>
+                                                                        <span class="commodity__unit">
+                                                                            {{ $typeSellInvoice->CommodityType->type_name }}
+
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="commodity__quantity">
+                                                                        <span class="quantity-text">Price</span>
+                                                                        <span class="commodity__unit">
+                                                                            {{ $typeSellInvoice->selling_price }}
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="commodity__quantity">
+                                                                        <span class="quantity-text">Quantity</span>
+                                                                        <span class="commodity__unit">
+                                                                            {{ $typeSellInvoice->sell_quantity }}
+
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="commodity__quantity">
+                                                                        <span class="quantity-text">Cost</span>
+                                                                        <span class="commodity__unit">
+                                                                            {{
+                                                                                $typeSellInvoice->sell_quantity * $typeSellInvoice->selling_price
+                                                                            }}
+
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="commodity__quantity">
+                                                                        <span class="quantity-text">Amount Paid</span>
+                                                                        <span class="commodity__unit">
+                                                                            {{ $typeSellInvoice->payment }}
+
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="commodity__quantity">
+                                                                        <span class="quantity-text">Change</span>
+                                                                        <span class="commodity__unit">
+                                                                            {{
+                                                                                ($typeSellInvoice->payment) - ($typeSellInvoice->sell_quantity * $typeSellInvoice->selling_price)
+                                                                             }}
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="commodity__quantity">
+                                                                        <span class="quantity-text">Time</span>
+                                                                        <span class="commodity__unit">
+                                                                            {{ date('h:i:s', strtotime($typeSellInvoice->date_time)) }}
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="commodity__quantity">
+                                                                        <span class="quantity-text">Date</span>
+                                                                        <span class="commodity__unit">
+                                                                            {{ date('d-m-Y', strtotime($typeSellInvoice->date_time)) }}
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="commodity__quantity">
+                                                                        <span class="quantity-text">Seller</span>
+                                                                        <span class="commodity__unit">
+                                                                            {{ auth()->user()->name }}
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="commodity__quantity">
+                                                                        <span class="quantity-text">Buyer</span>
+                                                                        <span class="commodity__unit">
+                                                                            @if ($typeSellInvoice->customer_id !== 0)
+                                                                                {{ $typeSellInvoice->Customer->name }}
+                                                                            @else
+
+                                                                            @endif
+                                                                        </span>
+                                                                    </span>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        Footer
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                @endforeach
 
                             </tbody>
                         </table>

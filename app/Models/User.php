@@ -122,5 +122,12 @@ class User extends Authenticatable
             'user_id',
         );
     }
+    public function typeSellInvoices()
+    {
+        return $this->hasMany(
+            TypeSellInvoive::class,
+            'user_id',
+        );
+    }
 
 }
