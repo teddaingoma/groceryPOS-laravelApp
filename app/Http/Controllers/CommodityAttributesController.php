@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Commodity;
 use App\Models\Category;
 use App\Models\CommodityCategory;
-use App\Models\CommodityType;
 use App\Models\CommodityCostPrice;
 use App\Models\CommodityPrice;
 use App\Models\CommodityQuantity;
@@ -14,8 +13,6 @@ use App\Models\CommodityUnit;
 use App\Models\CommodityAquisitionDate;
 use App\Models\CommodityPurchase;
 use App\Models\CommodityBudgetedSale;
-use App\Models\SoldCommodityItem;
-use App\Models\SoldTypeItem;
 
 class CommodityAttributesController extends Controller
 {
@@ -115,6 +112,14 @@ class CommodityAttributesController extends Controller
         //         'selling_price' => $selling_price,
         //     ]);
         // }
+
+        $request->user()->commodityPurchaseInvoices()->create([
+            'commodity_id' => $commodity_id,
+            'quantity' => $commodity_quantity,
+            'cost_price' => $cost_price,
+            'selling_price' => $selling_price,
+            'supplier_id' => '0',
+        ]);
 
         if (
             $commodityCategory == true
@@ -479,20 +484,20 @@ class CommodityAttributesController extends Controller
 
         if ($Commodity->Quantity == null)
         {
-            $commodityQuantity = CommodityQuantity::create([
+            CommodityQuantity::create([
                 'commodity_id' => $commodity_id,
                 'quantity' => $supplier_quantity,
             ]);
 
             if ($Commodity->CommodityPurchases == null && $Commodity->CommodityBudgetedSales == null)
             {
-                $commodityPurchase = CommodityPurchase::create([
+                CommodityPurchase::create([
                     'commodity_id' => $commodity_id,
                     'quantity' => $supplier_quantity,
                     'cost_price' => $cost_price,
                 ]);
 
-                $commodityBudgetedSale = CommodityBudgetedSale::create([
+                CommodityBudgetedSale::create([
                     'commodity_id' => $commodity_id,
                     'quantity' => $supplier_quantity,
                     'selling_price' => $selling_price,
@@ -505,7 +510,7 @@ class CommodityAttributesController extends Controller
         {
             $current_quantity = $Commodity->Quantity->quantity + $supplier_quantity;
 
-            $commodityQuantity = CommodityQuantity::where('commodity_id', $commodity_id)->update([
+            CommodityQuantity::where('commodity_id', $commodity_id)->update([
                 'quantity' => $current_quantity,
             ]);
 
@@ -514,18 +519,31 @@ class CommodityAttributesController extends Controller
                 $current_purchases = $Commodity->CommodityPurchases->quantity + $supplier_quantity;
                 $current_sales = $Commodity->CommodityBudgetedSales->quantity + $supplier_quantity;
 
-                $commodityPurchase = CommodityPurchase::where('commodity_id', $commodity_id)->update([
+                CommodityPurchase::where('commodity_id', $commodity_id)->update([
                     'quantity' => $current_purchases,
                     'cost_price' => $cost_price,
                 ]);
 
-                $commodityBudgetedSale = CommodityBudgetedSale::where('commodity_id', $commodity_id)->update([
+                CommodityBudgetedSale::where('commodity_id', $commodity_id)->update([
                     'quantity' => $current_sales,
                     'selling_price' => $selling_price,
                 ]);
             }
 
         }
+
+        if ($request->supplier_id == null)
+            $supplier_id = 0;
+        else if ($request->supplier_id !== null)
+            $supplier_id = $request->supplier_id;
+
+        $request->user()->commodityPurchaseInvoices()->create([
+            'commodity_id' => $commodity_id,
+            'quantity' => $supplier_quantity,
+            'cost_price' => $cost_price,
+            'selling_price' => $selling_price,
+            'supplier_id' => $supplier_id,
+        ]);
 
         $message = "Successfully Added $supplier_quantity of $Commodity->name (s) in Inventory";
         return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);

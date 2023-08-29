@@ -275,7 +275,7 @@
                                 {{--  to populate item transaction details in individual modals  --}}
                                 @foreach(auth()->user()->commoditySellInvoices as $commoditySellInvoice)
 
-                                    @if ($commoditySellInvoice->Commodity->name !== null )
+                                    @if ($commoditySellInvoice->Commodity !== null )
 
                                         {{--  Display Full details of a sale transaction using a modal  --}}
                                         <div class="modal fade" id="itemSellInvoice_{{ $commoditySellInvoice->id }}" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="ViewItemSellInvoice" aria-hidden="true">
@@ -431,7 +431,7 @@
                                 {{--  to populate item transaction details in individual modals  --}}
                                 @foreach(auth()->user()->typeSellInvoices as $typeSellInvoice)
 
-                                    @if ($commoditySellInvoice->Commodity->name !== null )
+                                    @if ($commoditySellInvoice->Commodity !== null )
 
                                         {{--  Display Full details of a sale transaction using a modal  --}}
                                         <div class="modal fade" id="itemSellInvoice_{{ $typeSellInvoice->id }}" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="ViewItemSellInvoice" aria-hidden="true">

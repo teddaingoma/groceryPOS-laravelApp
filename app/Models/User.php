@@ -130,4 +130,12 @@ class User extends Authenticatable
         );
     }
 
+    /**
+     * a user records purchase transactions of commodities or types
+     */
+    public function commodityPurchaseInvoices()
+    {
+        return $this->hasMany(CommodityPurchaseInvoice::class);
+    }
+
 }

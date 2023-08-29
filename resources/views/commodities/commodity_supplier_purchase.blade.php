@@ -256,6 +256,14 @@
                                             @endif
                                         </div>
 
+                                        <div class="col-sm-6 form--input-line">
+                                            <label for="supplier" class="form-label">Supplier <span class="text-muted">(Optional)</span>:</label>
+                                            <select id="supplier" name="supplier_id" class="form-select" aria-label="Select Commodity Category">
+                                                <option></option>
+                                                    You don't' have any saved suppliers
+                                            </select>
+                                        </div>
+
                                     </div>
 
                                     <span class="commodity__quantity">
