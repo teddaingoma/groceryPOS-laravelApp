@@ -137,5 +137,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(CommodityPurchaseInvoice::class);
     }
+    public function typePurchaseInvoices()
+    {
+        return $this->hasMany(TypePurchaseInvoice::class);
+    }
 
 }

@@ -30,6 +30,8 @@ class CreateCommoditySellInvoicesTable extends Migration
                     ->references('id')
                     ->on('commodities')
                     ->onDelete('cascade');
+
+            // in the future, make the user id a foreign key
         });
     }
 

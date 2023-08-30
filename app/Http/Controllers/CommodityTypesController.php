@@ -13,7 +13,6 @@ use App\Models\TypePrice;
 use App\Models\TypeQuantity;
 use App\Models\TypePurchase;
 use App\Models\TypeBudgetedSale;
-use App\Models\SoldTypeItem;
 
 class CommodityTypesController extends Controller
 {
@@ -159,21 +158,21 @@ class CommodityTypesController extends Controller
             $type_aquisition_date = $request->type_acquisition_date;
         }
 
-        $update_commodity_type = CommodityType::where('id', $type)->update([
+        CommodityType::where('id', $type)->update([
             'type_name' => $type_name,
             'description' => $type_description,
             'image_path' => $Commodity_type_image
         ]);
 
-        $update_type_cost_price = TypeCostPrice::where('commodity_type_id', $type)->update([
+        TypeCostPrice::where('commodity_type_id', $type)->update([
             'type_cost_price' => $type_cost_price,
         ]);
 
-        $update_type_selling_price = TypePrice::where('commodity_type_id', $type)->update([
+        TypePrice::where('commodity_type_id', $type)->update([
             'type_price' => $type_selling_price,
         ]);
 
-        $update_type_aquisition_date = TypeAquisitionDate::where('commodity_type_id', $type)->update([
+        TypeAquisitionDate::where('commodity_type_id', $type)->update([
             'type_aquisition_date' => $type_aquisition_date
         ]);
 
@@ -193,7 +192,7 @@ class CommodityTypesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(                $id)
+    public function destroy($id)
     {
         $type = CommodityType::find($id);
 
@@ -309,6 +308,15 @@ class CommodityTypesController extends Controller
             ]);
         }
 
+        $request->user()->typePurchaseInvoices()->create([
+            'commodity_id' => $commodity_id,
+            'commodity_type_id' => $commodity_type_id,
+            'quantity' => $type_quantity,
+            'cost_price' => $type_cost_price,
+            'selling_price' => $type_selling_price,
+            'supplier_id' => '0',
+        ]);
+
         if (
             $TypeAquisitionDate == true &&
             $TypeCostPrice == true &&
@@ -363,19 +371,19 @@ class CommodityTypesController extends Controller
 
         if ($commodityType->TypeQuantity == null)
         {
-            $TypeQuantity = TypeQuantity::create([
+            TypeQuantity::create([
                 'type_quantity' => $supplier_quantity,
                 'commodity_type_id' => $type,
             ]);
 
-            $TypeBudgetedSale = TypeBudgetedSale::create([
+            TypeBudgetedSale::create([
                 'commodity_id' => $commodity_id,
                 'commodity_type_id' => $type,
                 'quantity' => $supplier_quantity,
                 'selling_price' => $type_selling_price,
             ]);
 
-            $TypePurchase = TypePurchase::create([
+            TypePurchase::create([
                 'commodity_id' => $commodity_id,
                 'commodity_type_id' => $type,
                 'quantity' => $supplier_quantity,
@@ -384,7 +392,7 @@ class CommodityTypesController extends Controller
         }
 
         if($commodityType->TypePrice == null){
-            $TypePrice = TypePrice::create([
+            TypePrice::create([
                 'type_price' => $type_selling_price,
                 'commodity_type_id' => $type,
             ]);
@@ -392,7 +400,7 @@ class CommodityTypesController extends Controller
             if ($commodityType->TypeQuantity == null)
             {
 
-                $TypeBudgetedSale = TypeBudgetedSale::create([
+                TypeBudgetedSale::create([
                     'commodity_id' => $commodity_id,
                     'commodity_type_id' => $type,
                     'quantity' => $supplier_quantity,
@@ -403,14 +411,14 @@ class CommodityTypesController extends Controller
 
         if ($commodityType->TypeCostPrice == null)
         {
-            $TypeCostPrice = TypeCostPrice::create([
+            TypeCostPrice::create([
                 'type_cost_price' => $type_cost_price,
                 'commodity_type_id' => $type,
             ]);
 
             if ($commodityType->TypeQuantity == null)
             {
-                $TypePurchase = TypePurchase::create([
+                TypePurchase::create([
                     'commodity_id' => $commodity_id,
                     'commodity_type_id' => $type,
                     'quantity' => $supplier_quantity,
@@ -431,19 +439,33 @@ class CommodityTypesController extends Controller
             $current_purchases = $commodityType->TypePurchase->quantity + $supplier_quantity;
             $current_budgeted_sales = $commodityType->TypeBudgetedSale->quantity + $supplier_quantity;
 
-            $typeQuantity = TypeQuantity::where('commodity_type_id', $type_id)->update([
+            TypeQuantity::where('commodity_type_id', $type_id)->update([
                 'type_quantity' => $current_quantity,
             ]);
-            $typePurchase = TypePurchase::where('commodity_type_id', $type_id)->update([
+            TypePurchase::where('commodity_type_id', $type_id)->update([
                 'quantity' => $current_purchases,
                 'cost_price' => $type_cost_price,
             ]);
 
-            $typeBudgetedSale = TypeBudgetedSale::where('commodity_type_id', $type_id)->update([
+            TypeBudgetedSale::where('commodity_type_id', $type_id)->update([
                 'quantity' => $current_budgeted_sales,
                 'selling_price' => $type_selling_price,
             ]);
         }
+
+        if ($request->supplier_id == null)
+            $supplier_id = 0;
+        else if ($request->supplier_id !== null)
+            $supplier_id = $request->supplier_id;
+
+        $request->user()->typePurchaseInvoices()->create([
+            'commodity_id' => $commodity_id,
+            'commodity_type_id' => $type_id,
+            'quantity' => $supplier_quantity,
+            'cost_price' => $type_cost_price,
+            'selling_price' => $type_selling_price,
+            'supplier_id' => $supplier_id,
+        ]);
 
         $message = "Successfully Added $supplier_quantity of $commodityType->type_name (s) in Inventory";
         return redirect()->route('home.show', ['home' => $commodity_id])->with('status', $message);

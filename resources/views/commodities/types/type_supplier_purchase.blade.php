@@ -71,18 +71,40 @@
 
                                                         <div class="col-sm-6 form--input-line">
                                                             <label for="lastName" class="form-label">Cost Price <span class="text-muted">MWK</span>:</label>
-                                                            <input name="type_cost_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" required>
-                                                            <div class="invalid-feedback">
-                                                                Enter the cost price, please.
-                                                            </div>
+                                                            @if ($Type->TypeCostPrice == '')
+                                                                <input name="type_cost_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" required>
+                                                                <div class="invalid-feedback">
+                                                                    Enter the cost price, please.
+                                                                </div>
+                                                            @else
+                                                                <input name="type_cost_price" type="number" class="form-control" id="lastName" placeholder="MWK: {{ $Type->TypeCostPrice->type_cost_price }}" value="{{ $Type->TypeCostPrice->type_cost_price }}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Enter the cost price, please.
+                                                                </div>
+                                                            @endif
                                                         </div>
 
                                                         <div class="col-sm-6 form--input-line">
                                                             <label for="lastName" class="form-label">Selling Price <span class="text-muted">MWK</span>:</label>
-                                                            <input name="type_selling_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" required>
-                                                            <div class="invalid-feedback">
-                                                                Enter the cost price, please.
-                                                            </div>
+                                                            @if ($Type->TypePrice == '')
+                                                                <input name="type_selling_price" type="number" class="form-control" id="lastName" placeholder="MWK: 00.00" required>
+                                                                <div class="invalid-feedback">
+                                                                    Enter the cost price, please.
+                                                                </div>
+                                                            @else
+                                                                <input name="type_selling_price" type="number" class="form-control" id="lastName" placeholder="MWK: {{ $Type->TypePrice->type_price }}" value="{{ $Type->TypePrice->type_price }}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Enter the cost price, please.
+                                                                </div>
+                                                            @endif
+                                                        </div>
+
+                                                        <div class="col-sm-6 form--input-line">
+                                                            <label for="supplier" class="form-label">Supplier <span class="text-muted">(Optional)</span>:</label>
+                                                            <select id="supplier" name="supplier_id" class="form-select" aria-label="Select Commodity Category">
+                                                                <option></option>
+                                                                    You don't' have any saved suppliers
+                                                            </select>
                                                         </div>
 
                                                     </div>

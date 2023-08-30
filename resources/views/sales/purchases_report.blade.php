@@ -155,7 +155,7 @@
                                 <tr>
                                     <th scope="row">
                                         {{--  {{ route('home.show', $commodityPurchaseInvoice->commodity_id) }}  --}}
-                                        <a href="" data-bs-toggle="modal" data-bs-target="#itemPurchaseInvoice_{{ $commodityPurchaseInvoice->id }}">
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#commodityPurchaseInvoice_{{ $commodityPurchaseInvoice->id }}">
                                             {{ $commodityPurchaseInvoice->Commodity->name }}
                                         </a>
                                     </th>
@@ -191,7 +191,7 @@
                             @if ($commodityPurchaseInvoice->Commodity !== null )
 
                                 {{--  Display Full details of a sale transaction using a modal  --}}
-                                <div class="modal fade" id="itemPurchaseInvoice_{{ $commodityPurchaseInvoice->id }}" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="ViewItemPurchaseInvoice" aria-hidden="true">
+                                <div class="modal fade" id="commodityPurchaseInvoice_{{ $commodityPurchaseInvoice->id }}" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="ViewItemPurchaseInvoice" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
 
                                         <div class="modal-content">
@@ -289,7 +289,146 @@
 
                         @endforeach
 
+                        @foreach (auth()->user()->typePurchaseInvoices as $typePurchaseInvoice)
 
+                        @if ($typePurchaseInvoice->CommodityType !== null )
+
+                            <tr>
+                                <th scope="row">
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#typePurchaseInvoice_{{ $typePurchaseInvoice->id }}">
+                                        {{ $typePurchaseInvoice->CommodityType->type_name }}
+                                    </a>
+                                </th>
+
+                                <td>
+                                    <span class="data-name">Quantity sold:</span>
+                                    {{ $typePurchaseInvoice->quantity }}
+                                </td>
+                                <td>
+                                    <span class="data-name">Cost Price (K):</span>
+                                    {{ $typePurchaseInvoice->cost_price }}
+                                </td>
+                                <td>
+                                    <span class="data-name">Cost (K):</span>
+                                    {{
+                                        $typePurchaseInvoice->quantity * $typePurchaseInvoice->cost_price
+                                    }}
+                                </td>
+                                <td>
+                                    <span class="data-name">Date:</span>
+                                    {{--  {{ $commoditySellInvoice->created_at->diffForHumans() }}  --}}
+                                    {{ date('d-m-Y', strtotime($typePurchaseInvoice->date_time)) }}
+                                </td>
+
+                            </tr>
+
+                        @endif
+
+                    @endforeach
+
+                    {{--  to populate item transaction details in individual modals  --}}
+                    @foreach(auth()->user()->typePurchaseInvoices as $typePurchaseInvoice)
+
+                        @if ($typePurchaseInvoice->CommodityType !== null )
+
+                            {{--  Display Full details of a sale transaction using a modal  --}}
+                            <div class="modal fade" id="typePurchaseInvoice_{{ $typePurchaseInvoice->id }}" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="ViewItemPurchaseInvoice" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Purchase Transaction</h5>
+                                            <span class="btn icon-container" data-bs-dismiss="modal" aria-label="Close">
+                                                <img class="icon" src="{{ asset('images/close-dark.ico') }}" alt="">
+                                            </span>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <div class="commodity">
+                                                <div class="card">
+                                                    <header class="card__header">
+                                                        <div class="commodity__icon">
+                                                            <img class="icon" src="{{ asset('commodity_images/' . $typePurchaseInvoice->CommodityType->image_path) }}" alt="">
+                                                            <h3 class="commodity__name">{{ $typePurchaseInvoice->CommodityType->type_name }}</h3>
+                                                        </div>
+                                                    </header>
+                                                    <div class="card__body">
+
+                                                        <span class="commodity__quantity">
+                                                            <span class="quantity-text">Item Name</span>
+                                                            <span class="commodity__unit">
+                                                                {{ $typePurchaseInvoice->CommodityType->type_name }}
+
+                                                            </span>
+                                                        </span>
+                                                        <span class="commodity__quantity">
+                                                            <span class="quantity-text">Price</span>
+                                                            <span class="commodity__unit">
+                                                                {{ $typePurchaseInvoice->cost_price }}
+                                                            </span>
+                                                        </span>
+                                                        <span class="commodity__quantity">
+                                                            <span class="quantity-text">Quantity</span>
+                                                            <span class="commodity__unit">
+                                                                {{ $typePurchaseInvoice->quantity }}
+
+                                                            </span>
+                                                        </span>
+                                                        <span class="commodity__quantity">
+                                                            <span class="quantity-text">Cost</span>
+                                                            <span class="commodity__unit">
+                                                                {{
+                                                                    $typePurchaseInvoice->quantity * $typePurchaseInvoice->cost_price
+                                                                }}
+
+                                                            </span>
+                                                        </span>
+                                                        <span class="commodity__quantity">
+                                                            <span class="quantity-text">Time</span>
+                                                            <span class="commodity__unit">
+                                                                {{ date('h:i:s', strtotime($typePurchaseInvoice->date_time)) }}
+                                                            </span>
+                                                        </span>
+                                                        <span class="commodity__quantity">
+                                                            <span class="quantity-text">Date</span>
+                                                            <span class="commodity__unit">
+                                                                {{ date('d-m-Y', strtotime($typePurchaseInvoice->date_time)) }}
+                                                            </span>
+                                                        </span>
+                                                        <span class="commodity__quantity">
+                                                            <span class="quantity-text">Buyer</span>
+                                                            <span class="commodity__unit">
+                                                                {{ auth()->user()->name }}
+                                                            </span>
+                                                        </span>
+                                                        <span class="commodity__quantity">
+                                                            <span class="quantity-text">Supplier</span>
+                                                            <span class="commodity__unit">
+                                                                @if ($typePurchaseInvoice->supplier_id !== 0)
+                                                                    name
+                                                                @else
+
+                                                                @endif
+                                                            </span>
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            Footer
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                    @endforeach
 
                     </tbody>
                 </table>
