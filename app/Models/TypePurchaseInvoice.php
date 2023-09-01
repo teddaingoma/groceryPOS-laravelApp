@@ -33,4 +33,13 @@ class TypePurchaseInvoice extends Model
             'user_id',
         );
     }
+
+    // a supplier is involved in a purchase invoice
+    public function supplier()
+    {
+        return $this->belongsTo(
+            Supplier::class,
+            'supplier_id',
+        );
+    }
 }

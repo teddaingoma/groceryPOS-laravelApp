@@ -265,7 +265,7 @@
                                                                 <span class="quantity-text">Supplier</span>
                                                                 <span class="commodity__unit">
                                                                     @if ($commodityPurchaseInvoice->supplier_id !== 0)
-                                                                        name
+                                                                        {{ $commodityPurchaseInvoice->supplier->name }}
                                                                     @else
 
                                                                     @endif
@@ -406,7 +406,7 @@
                                                             <span class="quantity-text">Supplier</span>
                                                             <span class="commodity__unit">
                                                                 @if ($typePurchaseInvoice->supplier_id !== 0)
-                                                                    name
+                                                                    {{ $typePurchaseInvoice->supplier->name }}
                                                                 @else
 
                                                                 @endif

@@ -103,7 +103,13 @@
                                                             <label for="supplier" class="form-label">Supplier <span class="text-muted">(Optional)</span>:</label>
                                                             <select id="supplier" name="supplier_id" class="form-select" aria-label="Select Commodity Category">
                                                                 <option></option>
+                                                                @if(auth()->user()->suppliers() !== null)
+                                                                    @foreach (auth()->user()->suppliers as $supplier)
+                                                                        <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                                                    @endforeach
+                                                                @else
                                                                     You don't' have any saved suppliers
+                                                                @endif
                                                             </select>
                                                         </div>
 
