@@ -56,6 +56,14 @@
                 Customers
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('view_suppliers') }}" class="nav-link link-dark">
+                <span class="icon--small bi me-2">
+                    <img class="icon" src="{{ asset('images/customers.ico') }}" alt="">
+                </span>
+                Suppliers
+            </a>
+          </li>
         </ul>
         <hr>
         <div class="dropdown">

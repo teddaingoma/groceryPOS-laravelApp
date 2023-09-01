@@ -77,6 +77,14 @@ class User extends Authenticatable
     }
 
     /**
+     * a user has many supplier
+     */
+    public function suppliers()
+    {
+        return $this->hasMany(Supplier::class);
+    }
+
+    /**
      * a user has commodity and type budgeted sales transactions
      */
     public function commodityBudgetedSales()

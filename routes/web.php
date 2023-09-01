@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\SupplierController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -248,4 +249,22 @@ Route::get(
 Route::post(
     '/customer/add_customer',
     [CustomerController::class, 'store_customer']
+);
+
+/** user supplier route's */
+
+// view all suppliers
+Route::get(
+    '/supplier/view_supplier',
+    [SupplierController::class, 'view_suppliers']
+)->name('view_suppliers');
+
+//add supplier
+Route::get(
+    '/supplier/add_supplier',
+    [SupplierController::class, 'add_supplier']
+)->name('add_supplier');
+Route::post(
+    '/supplier/add_supplier',
+    [SupplierController::class, 'store_supplier']
 );
