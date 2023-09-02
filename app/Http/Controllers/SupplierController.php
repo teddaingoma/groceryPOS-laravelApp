@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use app\Models\Supplier;
 class SupplierController extends Controller
 {
     public function __construct()
@@ -68,6 +68,15 @@ class SupplierController extends Controller
         $message = "You have successfully added ".$supplier->name." in your supplier's list";
 
         return redirect()->route('view_suppliers')->with('status', $message);
+    }
+
+    /**
+     * display a form for editing a supplier
+     */
+    public function edit_supplier(Supplier $supplier)
+    {
+        //failed to implement this
+        return view('supplier.edit_supplier');
     }
 
 }

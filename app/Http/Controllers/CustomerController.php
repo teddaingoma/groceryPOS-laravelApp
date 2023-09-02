@@ -70,4 +70,26 @@ class CustomerController extends Controller
         return redirect()->route('view_customers')->with('status', $message);
 
     }
+
+    /**
+     * display a form for editing customer details
+     */
+    public function edit_customer($customer_id)
+    {
+        //failed to implement this
+
+        foreach( auth()->user()->customers as $customer)
+        {
+            if ($customer->id == $customer_id)
+            {
+                if ($customer->user_id !== auth()->user()->id)
+                    return redirect()->route('view_customers');
+
+                return view('customers.edit_customer', [
+                    'customer' => $customer
+                ]);
+            }
+        }
+
+    }
 }

@@ -43,6 +43,7 @@
 
                                 <div class="card__divider"></div>
                                 <div class="btn--group">
+
                                     <button class="btn btn--delete btn--icon btn--outline" data-bs-toggle="modal" data-bs-target="#commodityDeleteModal">
                                         <span class="icon-container icon--small">
                                             <img class="icon" src="{{ asset('images/del-dark.ico') }}" alt="">
@@ -67,7 +68,7 @@
                                                     Are You Sure?
                                                 </h5>
                                                 <div class="container-fluid">
-                                                    You are about to delete  and all its related content from your inventory!
+                                                    You are about to delete {{ $supplier->name }}!
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

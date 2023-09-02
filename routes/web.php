@@ -251,6 +251,13 @@ Route::post(
     [CustomerController::class, 'store_customer']
 );
 
+//edit customer
+Route::get(
+    '/customer/edit_customer/{customer_id}',
+    [CustomerController::class, 'edit_customer']
+)->name('edit_customer');
+
+
 /** user supplier route's */
 
 // view all suppliers
@@ -268,3 +275,9 @@ Route::post(
     '/supplier/add_supplier',
     [SupplierController::class, 'store_supplier']
 );
+
+//edit supplier
+Route::get(
+    '/supplier/edit_supplier/{supplier}',
+    [SupplierController::class, 'edit_supplier']
+)->name('edit_supplier');
