@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Commodity;
 use App\Models\Category;
+use App\Models\SoldCommodityItem;
 class CommoditiesController extends Controller
 {
 

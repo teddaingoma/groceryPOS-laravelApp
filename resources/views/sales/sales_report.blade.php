@@ -242,7 +242,7 @@
                                         <tr>
                                             <th scope="row">
                                                 {{--  {{ route('home.show', $commoditySellInvoice->commodity_id) }}  --}}
-                                                <a href="" data-bs-toggle="modal" data-bs-target="#itemSellInvoice_{{ $commoditySellInvoice->id }}">
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#item.SellInvoice_{{ $commoditySellInvoice->id }}">
                                                     {{ $commoditySellInvoice->Commodity->name }}
                                                 </a>
                                             </th>

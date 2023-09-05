@@ -37,10 +37,10 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdowna" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdowna" data-bs-toggle="dropdown" aria-expanded="false">Manage</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdowna">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="{{ route('view_suppliers') }}">Suppliers</a></li>
+                        <li><a class="dropdown-item" href="{{ route('view_business') }}">Business</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>
@@ -84,6 +84,9 @@
                                             <span class="btn__text">logout</span>
                                         </button>
                                     </form>
+                                </li>
+                                <li class="dropdown-item item-icon">
+                                    <a class="nav-link" href="{{ route('register_business') }}">Register</a>
                                 </li>
 
                             @endauth

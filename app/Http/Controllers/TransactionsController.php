@@ -286,6 +286,7 @@ class TransactionsController extends Controller
      */
     public function viewSalesReport()
     {
+
         $totalGrossProfit = 0.0;
         $totalActualSales = 0.0;
         $totalPurchaseCosts = 0.0;

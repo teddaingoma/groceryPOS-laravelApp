@@ -150,4 +150,12 @@ class User extends Authenticatable
         return $this->hasMany(TypePurchaseInvoice::class);
     }
 
+    /**
+     * a user (grocery_owner) has at least a grocery business
+     */
+    public function businesses()
+    {
+        return $this->hasMany(Business::class);
+    }
+
 }

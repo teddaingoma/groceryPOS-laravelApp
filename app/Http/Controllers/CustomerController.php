@@ -76,7 +76,10 @@ class CustomerController extends Controller
      */
     public function edit_customer($customer_id)
     {
-        //failed to implement this
+        //failed to implement this. mostly because keeps telling strange errors.
+        // when i send a customer model this controller, it keeps saying Costomer model not found
+        // when i send an id instead, and return the edit view, it says parameter not found
+        // if you have a solution be my guest
 
         foreach( auth()->user()->customers as $customer)
         {

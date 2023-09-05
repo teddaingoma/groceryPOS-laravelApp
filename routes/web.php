@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\BusinessController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -253,7 +254,7 @@ Route::post(
 
 //edit customer
 Route::get(
-    '/customer/edit_customer/{customer_id}',
+    '/customer/edit_customer/{customer:name}',
     [CustomerController::class, 'edit_customer']
 )->name('edit_customer');
 
@@ -281,3 +282,20 @@ Route::get(
     '/supplier/edit_supplier/{supplier}',
     [SupplierController::class, 'edit_supplier']
 )->name('edit_supplier');
+
+/** User's grocery business */
+ // register grocery business
+ Route::get(
+    '/business/register_business',
+    [BusinessController::class, 'register_business']
+ )->name('register_business');
+ Route::post(
+    '/business/register_business',
+    [BusinessController::class, 'store_business']
+ );
+
+ // view details about a grocery business
+ Route::get(
+    '/business/view_business',
+    [BusinessController::class, 'view_business']
+ )->name('view_business');

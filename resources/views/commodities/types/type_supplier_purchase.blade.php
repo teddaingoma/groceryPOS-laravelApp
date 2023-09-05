@@ -108,7 +108,7 @@
                                                                         <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                                                                     @endforeach
                                                                 @else
-                                                                    You don't' have any saved suppliers
+                                                                    You244222....................................................l;/1 don't' have any saved suppliers
                                                                 @endif
                                                             </select>
                                                         </div>
