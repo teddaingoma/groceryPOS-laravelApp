@@ -16,7 +16,7 @@
 
             <div class="card__divider"></div>
             <div class="btn--group">
-                <a href="{{ route('edit_customer', $customer->id) }}" class="btn btn--edit btn--icon">
+                <a href="{{ route('edit_customer', $customer) }}" class="btn btn--edit btn--icon">
                     <span class="icon-container icon--small">
                         <img class="icon" src="{{ URL("images/edit-filled.ico") }}" alt="">
                     </span>

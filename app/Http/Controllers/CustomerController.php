@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Customer;
 
 class CustomerController extends Controller
 {
@@ -74,25 +75,19 @@ class CustomerController extends Controller
     /**
      * display a form for editing customer details
      */
-    public function edit_customer($customer_id)
+    public function edit_customer(Customer $customer)
     {
         //failed to implement this. mostly because keeps telling strange errors.
         // when i send a customer model this controller, it keeps saying Costomer model not found
         // when i send an id instead, and return the edit view, it says parameter not found
         // if you have a solution be my guest
 
-        foreach( auth()->user()->customers as $customer)
-        {
-            if ($customer->id == $customer_id)
-            {
-                if ($customer->user_id !== auth()->user()->id)
-                    return redirect()->route('view_customers');
+        // dd($customer);
 
-                return view('customers.edit_customer', [
-                    'customer' => $customer
-                ]);
-            }
-        }
+        $cus = Customer::find($customer->id);
 
+        return view('customers.edit_customer', [
+            'customer' => $cus
+        ]);
     }
 }

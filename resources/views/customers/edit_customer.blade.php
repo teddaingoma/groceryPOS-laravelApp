@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         @include('layout.head-tags')
-        <title> Edit Customer </title>
+        <title> Edit Customer | {{ $customer->name }} </title>
     </head>
 
     <body class="register-body">
