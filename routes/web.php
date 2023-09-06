@@ -299,3 +299,14 @@ Route::get(
     '/business/view_business',
     [BusinessController::class, 'view_business']
  )->name('view_business');
+
+ // select business
+ Route::get(
+    '/business/select_business',
+    [BusinessController::class, 'select_business']
+ )->name('select_business');
+
+ Route::get(
+    '/business/select_registered_business',
+    [BusinessController::class, 'select_registered_business']
+ )->name('select_registered_business');

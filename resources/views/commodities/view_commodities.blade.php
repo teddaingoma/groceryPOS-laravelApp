@@ -9,7 +9,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    <h2 class="pps-main-content-title">Dashboard</h2>
+    <h2 class="pps-main-content-title">Dashboard: {{ $business->name }}</h2>
   </div>
 
   <div class="pps-main-content-body">

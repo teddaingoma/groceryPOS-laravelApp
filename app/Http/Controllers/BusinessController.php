@@ -84,6 +84,19 @@ class BusinessController extends Controller
     }
 
     /**
+     * if a grocery owmner doesn't have a registered business, prompt for options
+     */
+    public function select_business()
+    {
+        return view('business.select_business');
+    }
+
+    public function select_registered_business()
+    {
+        return view('business.select_registered_business');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

@@ -16,12 +16,12 @@
 
             <div class="card__divider"></div>
             <div class="btn--group">
-                <a href="{{ route('edit_customer', $customer) }}" class="btn btn--edit btn--icon">
+                {{--  <a href="{{ route('edit_customer', $customer) }}" class="btn btn--edit btn--icon">
                     <span class="icon-container icon--small">
                         <img class="icon" src="{{ URL("images/edit-filled.ico") }}" alt="">
                     </span>
                     <span class="btn__text">edit</span>
-                </a>
+                </a>  --}}
                 <button class="btn btn--delete btn--icon btn--outline" data-bs-toggle="modal" data-bs-target="#commodityDeleteModal">
                     <span class="icon-container icon--small">
                         <img class="icon" src="{{ asset('images/del-dark.ico') }}" alt="">
