@@ -1,3 +1,7 @@
+{{--
+    for now, this view is not required because a user will only have one business only
+    in a later implementation, which is the original design, a user can register more than one business
+    --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>

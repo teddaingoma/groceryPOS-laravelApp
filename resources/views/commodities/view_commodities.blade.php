@@ -9,7 +9,15 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    <h2 class="pps-main-content-title">Dashboard: {{ $business->name }}</h2>
+    <h2 class="pps-main-content-title">
+        Dashboard
+        @if( auth()->user()->businesses !== null )
+            : {{ auth()->user()->businesses->name }}
+        @else
+            unregistered business
+        @endif
+
+    </h2>
   </div>
 
   <div class="pps-main-content-body">
@@ -26,20 +34,25 @@
         <div class="pps-commodities">
 
             <div class="flex flex-col--wrap scrollable-list">
-                @forelse ($commodities as $commodity)
-                    <x-commodity :commodity="$commodity" />
-                @empty
-                    <div class="commodity">
-                        <p> {{ auth()->user()->name }}, your inventory list is empty </p>
+                @if( auth()->user()->businesses !== null )
+                    @forelse ($commodities as $commodity)
+                        <x-commodity :commodity="$commodity" />
+                    @empty
+                        <div class="commodity">
+                            <p> {{ auth()->user()->name }}, your inventory list is empty </p>
 
-                        <button class="btn btn--primary btn--icon btn--outline">
-                            <img class="icon" src="{{ asset('images/add-commodity-dark.ico') }}" alt="">
-                            <span class="btn__text">
-                                <a class="nav-link" href="{{ route('home.create') }}">Add</a>
-                            </span>
-                        </button>
-                    </div>
-                @endforelse
+                            <button class="btn btn--primary btn--icon btn--outline">
+                                <img class="icon" src="{{ asset('images/add-commodity-dark.ico') }}" alt="">
+                                <span class="btn__text">
+                                    <a class="nav-link" href="{{ route('home.create') }}">Add</a>
+                                </span>
+                            </button>
+                        </div>
+                    @endforelse
+                @else
+                    unregistered business
+                @endif
+
 
             </div>
 

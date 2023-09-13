@@ -40,7 +40,13 @@
                         <a class="nav-link dropdown-toggle" href="#" id="dropdowna" data-bs-toggle="dropdown" aria-expanded="false">Manage</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdowna">
                         <li><a class="dropdown-item" href="{{ route('view_suppliers') }}">Suppliers</a></li>
-                        <li><a class="dropdown-item" href="{{ route('view_business') }}">Business</a></li>
+                        <li>
+                            @if( auth()->user()->businesses !== null )
+                                <a class="dropdown-item" href="{{ route('view_business', auth()->user()->businesses) }}">Business</a>
+                            @else
+                                <span class="dropdown-item" href="">unregistered business</span>
+                            @endif
+                        </li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>

@@ -155,7 +155,7 @@ class User extends Authenticatable
      */
     public function businesses()
     {
-        return $this->hasMany(Business::class);
+        return $this->hasOne(Business::class);
     }
 
 }

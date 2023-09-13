@@ -296,7 +296,7 @@ Route::get(
 
  // view details about a grocery business
  Route::get(
-    '/business/view_business',
+    '/business/view_business/{business:name}',
     [BusinessController::class, 'view_business']
  )->name('view_business');
 
