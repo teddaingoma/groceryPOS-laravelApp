@@ -84,6 +84,22 @@ class BusinessController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function view_business(Business $business)
+    {
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
+
+        return view('business.view_business', compact(
+            'business'
+        ));
+    }
+
+    /**
      * if a grocery owmner doesn't have a registered business, prompt for options
      */
     public function select_business()
@@ -93,6 +109,10 @@ class BusinessController extends Controller
 
     public function select_registered_business()
     {
+        /**
+         * for now, this view is not required because a user will only have one business only
+         * in a later implementation, which is the original design, a user can register more than one business
+         */
         return view('business.select_registered_business');
     }
 
@@ -103,18 +123,10 @@ class BusinessController extends Controller
      */
     public function register_business()
     {
-        return view('business.register_business');
-    }
+        if (auth()->user()->businesses !== null)
+            return redirect()->route('home.index');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function view_business(Business $business)
-    {
-        return view('business.view_business');
+        return view('business.register_business');
     }
 
     /**

@@ -16,9 +16,9 @@ class Commodity extends Model
 
     protected $timestamp = true;
 
-    protected $fillable = ['name', 'description', 'image_path', 'user_id'];
+    protected $fillable = ['name', 'description', 'image_path', 'user_id', 'business_id'];
 
-    protected $visible = ['id', 'name', 'description', 'image_path', 'user_id'];
+    protected $visible = ['id', 'name', 'description', 'image_path', 'user_id', 'business_id'];
 
     //protected $dateFormat = 'h:m:s';
 

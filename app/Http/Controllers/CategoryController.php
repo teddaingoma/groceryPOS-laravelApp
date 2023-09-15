@@ -28,6 +28,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
+
         return view('categories.create_category');
     }
 

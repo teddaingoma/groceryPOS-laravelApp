@@ -9,7 +9,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    <h2 class="pps-main-content-title">{{  }}</h2>
+    <h2 class="pps-main-content-title"></h2>
   </div>
 
   <div class="pps-main-content-body">
@@ -23,7 +23,39 @@
 
             <div class="pps-commodities">
 
+                <div class="commodity">
+                    <div class="card">
+                        <header class="card__header">
+                            <div class="commodity__icon">
 
+                                <h3 class="commodity__name">{{  $business->name }}</h3>
+                            </div>
+                            <div class="commodity__tags">
+                                <span class="commodity__description">{{ $business->description }}</span>
+                            </div>
+                        </header>
+
+                        <div class="card__body">
+                            <span class="commodity__acquisition-date">
+                                <span class="acquisition-text">Registered On</span>
+
+                                    <span class="badge acquisition-date">{{ date('d-m-Y', strtotime($business->created_at)) }}</span>
+
+                            </span>
+                        </div>
+
+                        <footer class="card__footer">
+
+                            <div class="card__divider"></div>
+                            <div class="btn--group">
+
+
+
+
+                            </div>
+                        </footer>
+                    </div>
+                </div>
 
             </div>
 

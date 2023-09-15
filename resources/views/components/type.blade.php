@@ -94,14 +94,14 @@
             </div>
             <div class="card__divider"></div>
             <div class="btn--group">
-                <button class="btn btn--delete btn--icon btn--outline" data-bs-toggle="modal" data-bs-target="#DeleteTypeModal">
+                <button class="btn btn--delete btn--icon btn--outline" data-bs-toggle="modal" data-bs-target="#DeleteTypeModal_{{ $type->id }}">
                     <span class="icon-container icon--small">
                         <img class="icon" src="{{ URL("images/del-dark.ico") }}" alt="">
                     </span>
                     <span class="btn__text">delete</span>
                 </button>
 
-                <div class="modal fade" id="DeleteTypeModal" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="WarningToDelete" aria-hidden="true">
+                <div class="modal fade" id="DeleteTypeModal_{{ $type->id }}" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="WarningToDelete" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

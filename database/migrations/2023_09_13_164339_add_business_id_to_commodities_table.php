@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserIdToCommoditiesTable extends Migration
+class AddBusinessIdToCommoditiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,7 @@ class AddUserIdToCommoditiesTable extends Migration
     public function up()
     {
         Schema::table('commodities', function (Blueprint $table) {
-            $table->integer("user_id")->unsigned();
-
-            $table->foreign("user_id")
-                    ->references("id")
-                    ->on("users")
-                    ->onDelete("cascade");
+            $table->integer("business_id")->unsigned();
         });
     }
 
@@ -31,7 +26,7 @@ class AddUserIdToCommoditiesTable extends Migration
     public function down()
     {
         Schema::table('commodities', function (Blueprint $table) {
-            t
+            $table->dropColumn('business_id');
         });
     }
 }
