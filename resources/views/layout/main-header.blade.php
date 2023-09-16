@@ -24,30 +24,35 @@
 
                     <li class="nav-item item-icon">
                         <span class="icon--circle">
-                        <img class="icon" src="{{ asset('images/add-cus-dark.ico') }}" alt="">
-                        </span>
-                        <a class="nav-link" href="{{ route('add_customer') }}">Add Customer</a>
-                    </li>
-
-                    <li class="nav-item item-icon">
-                        <span class="icon--circle">
                         <img class="icon" src="{{ asset('images/add-commodity-dark.ico') }}" alt="">
                         </span>
                         <a class="nav-link" href="{{ route('home.create') }}">Add Commodity</a>
                     </li>
 
+                    <li class="nav-item item-icon">
+                        <span class="icon--circle">
+                        <img class="icon" src="{{ asset('images/add-cus-dark.ico') }}" alt="">
+                        </span>
+                        <a class="nav-link" href="{{ route('add_customer') }}">Add Customer</a>
+                    </li>
+                    <li class="nav-item item-icon">
+                        <span class="icon--circle">
+                        <img class="icon" src="{{ asset('images/add-cus-dark.ico') }}" alt="">
+                        </span>
+                        <a class="nav-link" href="{{ route('add_supplier') }}">Add Supplier</a>
+                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdowna" data-bs-toggle="dropdown" aria-expanded="false">Manage</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdowna">
-                        <li><a class="dropdown-item" href="{{ route('view_suppliers') }}">Suppliers</a></li>
-                        <li>
-                            @if( auth()->user()->businesses !== null )
-                                <a class="dropdown-item" href="{{ route('view_business', auth()->user()->businesses) }}">Business</a>
-                            @else
-                                <span class="dropdown-item" href="">unregistered business</span>
-                            @endif
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" href="{{ route('view_suppliers') }}">Suppliers</a></li>
+                            <li>
+                                @if( auth()->user()->businesses !== null )
+                                    <a class="dropdown-item" href="{{ route('view_business', auth()->user()->businesses) }}">Business</a>
+                                @else
+                                    <span class="dropdown-item" href="">unregistered business</span>
+                                @endif
+                            </li>
                         </ul>
                     </li>
 
@@ -115,7 +120,7 @@
                         </li>
                         @auth
                             <li class="nav-item">
-                                <a href="{{ asset('pages/user_profile.html') }}" class="nav-link">{{ auth()->user()->name }}</a>
+                                <a href="{{ asset('pages/user_profile.blade') }}" class="nav-link">{{ auth()->user()->name }}</a>
                             </li>
 
                         @endauth

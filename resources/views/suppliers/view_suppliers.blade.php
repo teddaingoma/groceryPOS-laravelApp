@@ -44,14 +44,14 @@
                                 <div class="card__divider"></div>
                                 <div class="btn--group">
 
-                                    <button class="btn btn--delete btn--icon btn--outline" data-bs-toggle="modal" data-bs-target="#commodityDeleteModal">
+                                    <button class="btn btn--delete btn--icon btn--outline" data-bs-toggle="modal" data-bs-target="#deleteSupplier_{{ $supplier->id }}">
                                         <span class="icon-container icon--small">
                                             <img class="icon" src="{{ asset('images/del-dark.ico') }}" alt="">
                                         </span>
                                         <span class="btn__text">delete</span>
                                     </button>
 
-                                    <div class="modal fade" id="commodityDeleteModal" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="WarningToDelete" aria-hidden="true">
+                                    <div class="modal fade" id="deleteSupplier_{{ $supplier->id }}" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="WarningToDelete" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -73,7 +73,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                <form action="" method="post">
+                                                <form action="{{ route('delete_supplier', $supplier) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button role="button" type="submit" class="btn">Delete</button>

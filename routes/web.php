@@ -258,6 +258,12 @@ Route::get(
     [CustomerController::class, 'edit_customer']
 )->name('edit_customer');
 
+// delete customer
+Route::delete(
+    '/customer/delete/{customer}',
+    [CustomerController::class, 'delete_customer']
+)->name('delete_customer');
+
 
 /** user supplier route's */
 
@@ -283,6 +289,12 @@ Route::get(
     [SupplierController::class, 'edit_supplier']
 )->name('edit_supplier');
 
+// delete supplier
+Route::delete(
+    '/supplier/delete/{supplier}',
+    [SupplierController::class, 'delete_supplier']
+)->name('delete_supplier');
+
 /** User's grocery business */
  // register grocery business
  Route::get(
@@ -306,7 +318,9 @@ Route::get(
     [BusinessController::class, 'select_business']
  )->name('select_business');
 
+ // i'll keep this route
  Route::get(
     '/business/select_registered_business',
     [BusinessController::class, 'select_registered_business']
  )->name('select_registered_business');
+

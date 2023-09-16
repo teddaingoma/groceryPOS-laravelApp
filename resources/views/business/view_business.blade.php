@@ -42,16 +42,87 @@
                                     <span class="badge acquisition-date">{{ date('d-m-Y', strtotime($business->created_at)) }}</span>
 
                             </span>
+                            <div class="scrollable-list">
+                                <table class="table pps-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-wrap">Name</th>
+                                            <th scope="col" class="text-wrap">Price (K)</th>
+                                            <th scope="col" class="text-wrap">Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (auth()->user()->commodities as $commodity)
+                                            @if($commodity->Quantity !== null && $commodity->Quantity->quantity > 0)
+
+                                            <tr>
+                                                <th scope="row">{{ $commodity -> name }}</th>
+                                                <td>
+                                                    <span class="data-name">Price (K):</span>
+                                                    @if ($commodity->Price == '')
+                                                        00.00
+                                                    @else
+                                                        {{ $commodity->Price->price }}
+                                                    @endif
+                                                    /
+                                                    @if ($commodity->Unit == '')
+                                                        unit
+                                                    @else
+                                                        {{ $commodity->Unit -> unit }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <span class="data-name">Quantity:</span>
+                                                    {{ $commodity->Quantity -> quantity }}
+                                                </td>
+                                            </tr>
+
+                                                @foreach($commodity->Types as $type)
+                                                    @if ($type->TypeQuantity !== null && $type->TypeQuantity->type_quantity > 0)
+
+                                                    <tr>
+                                                        <th scope="row">{{ $type -> type_name }}</th>
+                                                        <td>
+                                                            <span class="data-name">Price (K):</span>
+                                                            @if ($type->TypePrice == '')
+                                                                00.00
+                                                            @else
+                                                                {{ $type->TypePrice->type_price }}
+                                                            @endif
+                                                            /
+                                                            @if ($commodity->Unit == '')
+                                                                Unit
+                                                            @else
+                                                                {{ $commodity->Unit -> unit }}
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            <span class="data-name">Quantity:</span>
+                                                            {{ $type->TypeQuantity->type_quantity }}
+                                                        </td>
+                                                    </tr>
+
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
 
                         <footer class="card__footer">
 
                             <div class="card__divider"></div>
                             <div class="btn--group">
-
-
-
-
+                                <a href="{{ route('edit_business', $business) }}" class="btn btn--edit btn--icon">
+                                    <span class="icon-container icon--small">
+                                        <img class="icon" src="{{ URL("images/edit-filled.ico") }}" alt="">
+                                    </span>
+                                    <span class="btn__text">edit</span>
+                                </a>
                             </div>
                         </footer>
                     </div>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Models\Supplier;
+use App\Models\Supplier;
 class SupplierController extends Controller
 {
     public function __construct()
@@ -77,6 +77,18 @@ class SupplierController extends Controller
     {
         //failed to implement this
         return view('supplier.edit_supplier');
+    }
+
+    /**
+     *  delete supplier
+     */
+    public function delete_supplier(SUpplier $supplier)
+    {
+        $supplier->delete();
+
+        $message = "$supplier->name has been deleted from your supplier's list";
+
+        return redirect()->route('view_suppliers')->with('status', $message);
     }
 
 }
