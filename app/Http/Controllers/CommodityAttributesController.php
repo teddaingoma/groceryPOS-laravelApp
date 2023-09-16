@@ -34,6 +34,9 @@ class CommodityAttributesController extends Controller
             return redirect()->route('home.index');
         }
 
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
+
         return view("commodities.add_commodity_attributes", compact(
             'commodity',
             'categories'
@@ -146,6 +149,9 @@ class CommodityAttributesController extends Controller
             return redirect()->route('home.index');
         }
 
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
+
         return view('commodities.add_commodity_type', compact(
             'commodity',
         ));
@@ -228,6 +234,9 @@ class CommodityAttributesController extends Controller
             return redirect()->route('home.index');
         }
 
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
+
         if (!$user->categories->count()) {
             $message = "$user->name, you ain't got no category, create one, please";
             return redirect()->route('category.create')->with('status', $message);
@@ -283,6 +292,9 @@ class CommodityAttributesController extends Controller
         if  ($commodity->user_id !== auth()->user()->id) {
             return redirect()->route('home.index');
         }
+
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
 
         $categories = Category::all();
         $commodityPrice = CommodityPrice::all();
@@ -344,6 +356,9 @@ class CommodityAttributesController extends Controller
             return redirect()->route('home.index');
         }
 
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
+
         return view('commodities.add_commodity_unit', compact(
             'commodity'
         ));
@@ -383,6 +398,9 @@ class CommodityAttributesController extends Controller
             return redirect()->route('home.index');
         }
 
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
+
         return view('commodities.add_commodity_acq-date', compact(
             'commodity'
         ));
@@ -421,6 +439,9 @@ class CommodityAttributesController extends Controller
         if  ($commodity->user_id !== auth()->user()->id) {
             return redirect()->route('home.index');
         }
+
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
 
         return view('commodities.add_commodity_quantity', compact(
             'commodity'
@@ -464,6 +485,9 @@ class CommodityAttributesController extends Controller
         if  ($commodity->user_id !== auth()->user()->id) {
             return redirect()->route('home.index');
         }
+
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
 
         return view('commodities.commodity_supplier_purchase', compact(
             'commodity'

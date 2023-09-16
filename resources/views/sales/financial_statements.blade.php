@@ -29,7 +29,7 @@
                 <header class="card__header">
                     <div class="commodity__icon">
                         <img class="icon" src="{{ asset('images/item-light.ico') }}" alt="">
-                        <h3 class="commodity__name">Statement of Profit or Loss of {{ auth()->user()->name }} as at {{ date('Y-m-d') }}</h3>
+                        <h3 class="commodity__name">Statement of Profit or Loss of {{ auth()->user()->businesses->name }} as at {{ date('Y-m-d') }}</h3>
                     </div>
                 </header>
                 <div class="card__body collapsible">
@@ -95,7 +95,7 @@
                 <header class="card__header">
                     <div class="commodity__icon">
                         <img class="icon" src="{{ asset('images/item-light.ico') }}" alt="">
-                        <h3 class="commodity__name">Statement of Financial Position of {{ auth()->user()->name }} as at {{ date('Y-m-d') }}</h3>
+                        <h3 class="commodity__name">Statement of Financial Position of {{ auth()->user()->businesses->name }} as at {{ date('Y-m-d') }}</h3>
                     </div>
                 </header>
                 <div class="card__body collapsible">

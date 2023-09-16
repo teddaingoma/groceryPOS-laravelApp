@@ -34,9 +34,11 @@
         <div class="pps-commodities">
 
             <div class="flex flex-col--wrap scrollable-list">
-                @if( auth()->user()->businesses !== null )
+                @if( auth()->user()->businesses()->count() )
                     @forelse ($commodities as $commodity)
-                        <x-commodity :commodity="$commodity" />
+                        @if ($commodity->business_id == auth()->user()->businesses->id)
+                            <x-commodity :commodity="$commodity" />
+                        @endif
                     @empty
                         <div class="commodity">
                             <p> {{ auth()->user()->name }}, your inventory list is empty </p>

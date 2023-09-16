@@ -30,17 +30,18 @@
                 <div class="flex flex-col--wrap scrollable-list">
 
                     @foreach (auth()->user()->commodities as $commodity)
+                        @if ($commodity->business_id == auth()->user()->businesses->id)
 
-                        @if($commodity->Quantity !== null && $commodity->Quantity->quantity > 0)
-                            <x-available-commodity :commodity="$commodity" />
+                            @if($commodity->Quantity !== null && $commodity->Quantity->quantity > 0)
+                                <x-available-commodity :commodity="$commodity" />
 
-                            @foreach($commodity->Types as $type)
-                                @if ($type->TypeQuantity !== null && $type->TypeQuantity->type_quantity > 0)
-                                    <x-available-type :type="$type" :commodity="$commodity" />
-                                @endif
-                            @endforeach
+                                @foreach($commodity->Types as $type)
+                                    @if ($type->TypeQuantity !== null && $type->TypeQuantity->type_quantity > 0)
+                                        <x-available-type :type="$type" :commodity="$commodity" />
+                                    @endif
+                                @endforeach
+                            @endif
                         @endif
-
                     @endforeach
 
                 </div>

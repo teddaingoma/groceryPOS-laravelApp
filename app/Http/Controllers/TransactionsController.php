@@ -273,6 +273,9 @@ class TransactionsController extends Controller
      */
     public function AvailableCommodities()
     {
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
+
         $commodities = Commodity::all();
         return view('sales.available_commodities', compact(
             'commodities'
@@ -286,6 +289,8 @@ class TransactionsController extends Controller
      */
     public function viewSalesReport()
     {
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
 
         $totalGrossProfit = 0.0;
         $totalActualSales = 0.0;
@@ -360,6 +365,9 @@ class TransactionsController extends Controller
      */
     public function viewFinancialStatements()
     {
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
+
         $totalGrossProfit = 0.0;
         $totalActualSales = 0.0;
         $totalPurchaseCosts = 0.0;
@@ -418,6 +426,8 @@ class TransactionsController extends Controller
      */
     public function viewPurchaseReport()
     {
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
 
         $totalPurchaseCosts = 0.0;
 

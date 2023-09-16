@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Commodity;
 use App\Models\Category;
-use App\Models\SoldCommodityItem;
 class CommoditiesController extends Controller
 {
 
@@ -42,6 +41,9 @@ class CommoditiesController extends Controller
 
         //user should have at least a category before creating a commodity
 
+        if (auth()->user()->businesses == null)
+            return redirect()->route('select_business');
+
         if (!$user->categories->count()) {
             $message = "$user->name, you ain't got no category, create one, please";
             return redirect()->route('category.create')->with('status', $message);
@@ -75,6 +77,7 @@ class CommoditiesController extends Controller
             'name' => $request->input('commodity_name'),
             'description' => $request->input('commodity_description'),
             'image_path' => $Commodity_image,
+            'business_id' => $request->user()->businesses->id,
         ]);
 
         if ($commodity == true)
@@ -111,6 +114,9 @@ class CommoditiesController extends Controller
         if  ($commodity->user_id !== auth()->user()->id) {
             return redirect()->route('home.index');
         }
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
+
         return view('commodities.show_commodity', compact(
             'commodity'
         ));
@@ -129,6 +135,9 @@ class CommoditiesController extends Controller
         if  ($commodity->user_id !== auth()->user()->id) {
             return redirect()->route('home.index');
         }
+
+        if (auth()->user()->businesses == null)
+            return redirect()->route('home.index');
 
         $categories = Category::all();
 
@@ -212,7 +221,7 @@ class CommoditiesController extends Controller
         // find out if the owner has types for this commodity before deleting
         // if this commodity has types, prompt for comfirmation first
         if ($commodity->Types()->count()) {
-            $message = $commodity->name." has ".$commodity->Types()->count().", type(s). Kindly delete individually";
+            $message = $commodity->name." has ".$commodity->Types()->count()." type(s). Kindly delete individually";
             return redirect()->route('home.show', $id)->with('status', $message);
         }
 
