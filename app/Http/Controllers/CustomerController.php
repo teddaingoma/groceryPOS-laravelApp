@@ -96,10 +96,11 @@ class CustomerController extends Controller
      */
     public function delete_customer(Customer $customer)
     {
+
         $customer->delete();
 
         $message = "$customer->name has been deleted from your customer's list";
 
-        return redirect()->route('view_customers')->with('status', $message);
+        return redirect()->route('view_customers')->with('session', $message);
     }
 }

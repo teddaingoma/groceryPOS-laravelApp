@@ -366,7 +366,7 @@
                                                                     <span class="commodity__quantity">
                                                                         <span class="quantity-text">Buyer</span>
                                                                         <span class="commodity__unit">
-                                                                            @if ($commoditySellInvoice->customer_id !== 0)
+                                                                            @if ($commoditySellInvoice->customer_id !== 0 && $commoditySellInvoice->Customer !== null)
                                                                                 {{ $commoditySellInvoice->Customer->name }}
                                                                             @else
 
@@ -522,8 +522,8 @@
                                                                     <span class="commodity__quantity">
                                                                         <span class="quantity-text">Buyer</span>
                                                                         <span class="commodity__unit">
-                                                                            @if ($typeSellInvoice->customer_id !== 0)
-                                                                                {{ $typeSellInvoice->Customer->name }}
+                                                                            @if ($typeSellInvoice->customer_id !== 0 && $typeSellInvoice->Customer)
+                                                                                {{ dd($typeSellInvoice->Customer->name) }}
                                                                             @else
 
                                                                             @endif

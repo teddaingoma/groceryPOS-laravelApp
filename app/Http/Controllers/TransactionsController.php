@@ -289,6 +289,10 @@ class TransactionsController extends Controller
      */
     public function viewSalesReport()
     {
+        foreach(auth()->user()->commoditySellInvoices as $commoditySellInvoice)
+        {
+            ($commoditySellInvoice->Customer);
+        }
         if (auth()->user()->businesses == null)
             return redirect()->route('home.index');
 
