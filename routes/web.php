@@ -12,6 +12,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\User\UserController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -324,3 +325,22 @@ Route::delete(
     [BusinessController::class, 'select_registered_business']
  )->name('select_registered_business');
 
+/**
+ * User routes
+ */
+
+// view user profile
+Route::get(
+    'users/view_user_profile',
+    [UserController::class, 'view_user_profile']
+)->name('view_user_profile');
+
+// edit profile
+Route::get(
+    '/user/edit_user',
+    [UserController::class, 'edit_user']
+)->name('edit_user');
+Route::put(
+    '/user/edit_user',
+    [UserController::class, 'update_user']
+);

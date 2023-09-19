@@ -31,6 +31,17 @@ class SignupController extends Controller
             'password' => 'required|confirmed',
         ]);
 
+        $users = User::all();
+
+        foreach($users as $user)
+        {
+            if(strtolower($user->username) === strtolower($request->username))
+            {
+                $message = "the username $request->username already exists, choose another one";
+                return redirect()->back()->with('status', $message);
+            }
+        }
+
         $name = $request->name;
         $username = $request->username;
         $email = $request->email;

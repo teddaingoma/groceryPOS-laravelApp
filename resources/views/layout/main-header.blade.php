@@ -53,6 +53,7 @@
                                     <span class="dropdown-item" href="">unregistered business</span>
                                 @endif
                             </li>
+                            <li><a class="dropdown-item" href="{{ route('view_user_profile') }}">Profile</a></li>
                         </ul>
                     </li>
 
@@ -120,7 +121,7 @@
                         </li>
                         @auth
                             <li class="nav-item">
-                                <a href="{{ asset('pages/user_profile.blade') }}" class="nav-link">{{ auth()->user()->name }}</a>
+                                <a href="{{ route('view_user_profile') }}" class="nav-link">{{ auth()->user()->name }}</a>
                             </li>
 
                         @endauth
