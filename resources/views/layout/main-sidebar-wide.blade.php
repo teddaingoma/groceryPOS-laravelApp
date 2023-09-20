@@ -78,19 +78,19 @@
               <span class="icon-container icon--circle">
                 <img class="icon" src="{{ asset('images/admin-light.ico') }}" alt="">
               </span>
-              <a class="nav-link" href="{{ asset('pages/user_profile.html') }}">username</a>
+              <a class="nav-link" href="{{ route('view_user_profile') }}">{{ auth()->user()->username }}</a>
             </li>
             <li class="dropdown-item item-icon">
               <span>
                 <img class="icon" src="{{ asset('images/profile-dark.ico') }}" alt="">
               </span>
-              <a class="nav-link" href="{{ asset('pages/user_profile.html') }}">Profile</a>
+              <a class="nav-link" href="{{ route('view_user_profile') }}">Profile</a>
             </li>
             <li class="dropdown-item item-icon">
               <span>
                 <img class="icon" src="{{ asset('images/settings2-dark.ico') }}" alt="">
               </span>
-              <a class="nav-link" href="{{ asset('pages/user_profile.html') }}">Settings</a>
+              <a class="nav-link" href="{{ route('view_user_profile') }}">Settings</a>
             </li>
             <li><hr class="dropdown-divider"></li>
             <li class="dropdown-item item-icon">

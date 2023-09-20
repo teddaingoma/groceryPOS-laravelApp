@@ -1,6 +1,7 @@
 <div class="container-fluid px-0 pps-footer">
     <footer class="block block--dark footer">
       <div class="grid footer__sections">
+        @if (auth()->user()->businesses !== null)
           <section class="collapsible collapsible--expanded footer__section">
               <header class="collapsible__header">
                   <h2 class="collapsible__heading footer__heading">Products</h2>
@@ -19,7 +20,7 @@
               </header>
               <div class="collapsible__content">
                   <ul class="list">
-                      <li><a href="{{ asset('pages/user_profile.html') }}">About</a></li>
+                      <li><a href="{{ route('view_business', auth()->user()->businesses) }}">About</a></li>
                       <li><a href="#">Affiliates</a></li>
                       <li><a href="#">Blog</a></li>
                   </ul>
@@ -32,7 +33,7 @@
               </header>
               <div class="collapsible__content">
                   <ul class="list">
-                      <li><a href="{{ asset('pages/user_profile.html') }}">Contact</a></li>
+                      <li><a href="{{ route('view_business', auth()->user()->businesses) }}">Contact</a></li>
                       <li><a href="#">Knowledge Base</a></li>
                       <li><a href="#">FAQ</a></li>
                   </ul>
@@ -45,25 +46,25 @@
               </header>
               <div class="collapsible__content">
                   <ul class="list list--icon">
-                      <li><a href="{{ asset('pages/user_profile.html') }}">
+                      <li><a href="{{ route('view_business', auth()->user()->businesses) }}">
                         <span class="icon-container icon--small">
                             <img class="icon" src="{{ asset('images/whatsapp.ico') }}" alt="">
                         </span>
                         <span>whatsapp</span>
                       </a></li>
-                      <li><a href="{{ asset('pages/user_profile.html') }}">
+                      <li><a href="{{ route('view_business', auth()->user()->businesses) }}">
                         <span class="icon-container icon--small">
                             <img class="icon" src="{{ asset('images/facebook.ico') }}" alt="">
                         </span>
                         <span>facebook</span>
                       </a></li>
-                      <li><a href="{{ asset('pages/user_profile.html') }}">
+                      <li><a href="{{ route('view_business', auth()->user()->businesses) }}">
                         <span class="icon-container icon--small">
                             <img class="icon" src="{{ asset('images/instagram.ico') }}" alt="">
                         </span>
                         <span>instagram</span>
                       </a></li>
-                      <li><a href="{{ asset('pages/user_profile.html') }}">
+                      <li><a href="{{ route('view_business', auth()->user()->businesses) }}">
                         <span class="icon-container icon--small">
                             <img class="icon" src="{{ asset('images/twitter.ico') }}" alt="">
                         </span>
@@ -72,10 +73,18 @@
                   </ul>
               </div>
           </section>
+          @endif
           <section class="footer__brand">
               <img src="{{ asset('images/logo-light.ico') }}" alt="">
               <p class="footer__copyright">
-                  Copyright 2022 Grocery POS system @auth {{ auth()->user()->name }} @endauth
+                  Copyright 2022 Grocery POS system
+                  @auth
+                    @if (auth()->user()->businesses !== null)
+                        {{ auth()->user()->businesses->name }}
+                    @else
+                        {{ auth()->user()->name }}
+                    @endif
+                  @endauth
               </p>
           </section>
       </div>

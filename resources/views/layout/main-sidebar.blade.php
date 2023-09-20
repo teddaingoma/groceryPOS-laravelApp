@@ -81,7 +81,7 @@
                 <span class="icon-container icon--circle">
                     <img class="icon" src="{{ asset('images/admin-light.ico') }}" alt="">
                 </span>
-                <a class="nav-link" href="{{ asset('pages/user_profile.html') }}">username</a>
+                <a class="nav-link" href="{{ route('view_user_profile') }}">{{ auth()->user()->username }}</a>
                 </li>
                 <li class="dropdown-item item-icon">
                 <span>
