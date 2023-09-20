@@ -72,10 +72,16 @@
               </div>
             </div>
 
+            <div class="card__btn">
+                <a href="{{ route('change_password') }}" class="btn btn--primary btn--img">
+                    <span class="btn__text">Change Password</span>
+                </a>
+            </div>
+
         </div>
 
         <div class="form--btn-group">
-          <button class="btn btn--primary" type="reset">Clear</button>
+
           <button class="btn btn--primary" type="submit">Update</button>
         </div>
       </form>

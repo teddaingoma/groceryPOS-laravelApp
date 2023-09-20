@@ -344,3 +344,13 @@ Route::put(
     '/user/edit_user',
     [UserController::class, 'update_user']
 );
+
+// change password
+Route::get(
+    '/users/change_password',
+    [UserController::class, 'change_password']
+)->name('change_password');
+Route::put(
+    '/users/change_password',
+    [UserController::class, 'store_password']
+);

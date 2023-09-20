@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 
+use Illuminate\Support\Facades\Hash;
+
 class UserController extends Controller
 {
     /**
@@ -64,6 +66,34 @@ class UserController extends Controller
         ]);
 
         $message = "profile updated";
+
+        return redirect()->route('view_user_profile')->with('status', $message);
+    }
+
+    /**
+     * display form to allow user to change password
+     */
+    public function change_password()
+    {
+        return view('users.change_password');
+    }
+
+    /**
+     * update password in database
+     */
+    public function store_password(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|confirmed',
+        ]);
+
+        $password = $request->password;
+
+       $request->user()->update([
+            'password' => Hash::make($password),
+        ]);
+
+        $message = "Password changed successfully";
 
         return redirect()->route('view_user_profile')->with('status', $message);
     }
