@@ -31,7 +31,7 @@ class AddUserIdToCommoditiesTable extends Migration
     public function down()
     {
         Schema::table('commodities', function (Blueprint $table) {
-            t
+            $table->dropColumn('user_id');
         });
     }
 }

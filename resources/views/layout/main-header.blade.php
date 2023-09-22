@@ -46,14 +46,16 @@
                         <a class="nav-link dropdown-toggle" href="#" id="dropdowna" data-bs-toggle="dropdown" aria-expanded="false">Manage</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdowna">
                             <li><a class="dropdown-item" href="{{ route('view_suppliers') }}">Suppliers</a></li>
-                            <li>
-                                @if( auth()->user()->businesses !== null )
+                            @if( auth()->user()->businesses !== null )
+                                <li>
                                     <a class="dropdown-item" href="{{ route('view_business', auth()->user()->businesses) }}">Business</a>
-                                @else
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('category.create') }}">add category</a></li>
+                            @else
+                                <li>
                                     <span class="dropdown-item" href="">unregistered business</span>
-                                @endif
-                            </li>
-                            <li><a class="dropdown-item" href="{{ route('category.create') }}">add category</a></li>
+                                </li>
+                            @endif
                             <li><a class="dropdown-item" href="{{ route('view_user_profile') }}">Profile</a></li>
                         </ul>
                     </li>

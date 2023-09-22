@@ -35,7 +35,7 @@
                         <button class="btn btn--primary btn--icon btn--outline">
                             <img class="icon" src="{{ asset('images/add-cus-dark.ico') }}" alt="">
                             <span class="btn__text">
-                                <a class="nav-link" href="">Add</a>
+                                <a class="nav-link" href="{{ route('add_customer') }}">Add</a>
                             </span>
                         </button>
                     </div>

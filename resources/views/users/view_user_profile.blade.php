@@ -102,36 +102,40 @@
 
                     </div>
 
-                    <div class="content-header">
-                        <h3 class="title">The business you own</h3>
-                    </div>
+                    @if (auth()->user()->businesses !== null)
 
-                    <div class="flex flex-col--wrap scrollable-list">
-                        <div class="commodity">
-                            <div class="card">
-                                <header class="card__header">
-                                    <div class="commodity__icon">
+                        <div class="content-header">
+                            <h3 class="title">The business you own</h3>
+                        </div>
 
-                                        <h3 class="commodity__name">{{  auth()->user()->businesses->name }}</h3>
+                        <div class="flex flex-col--wrap scrollable-list">
+                            <div class="commodity">
+                                <div class="card">
+                                    <header class="card__header">
+                                        <div class="commodity__icon">
+
+                                            <h3 class="commodity__name">{{  auth()->user()->businesses->name }}</h3>
+                                        </div>
+                                        <div class="commodity__tags">
+                                            <span class="commodity__description">{{ auth()->user()->businesses->description }}</span>
+                                        </div>
+                                    </header>
+
+                                    <div class="card__body">
+                                        <span class="commodity__acquisition-date">
+                                            <span class="acquisition-text">Registered On</span>
+
+                                                <span class="badge acquisition-date">{{ date('d-m-Y', strtotime(auth()->user()->businesses->created_at)) }}</span>
+
+                                        </span>
                                     </div>
-                                    <div class="commodity__tags">
-                                        <span class="commodity__description">{{ auth()->user()->businesses->description }}</span>
-                                    </div>
-                                </header>
 
-                                <div class="card__body">
-                                    <span class="commodity__acquisition-date">
-                                        <span class="acquisition-text">Registered On</span>
 
-                                            <span class="badge acquisition-date">{{ date('d-m-Y', strtotime(auth()->user()->businesses->created_at)) }}</span>
-
-                                    </span>
                                 </div>
-
-
                             </div>
                         </div>
-                    </div>
+
+                    @endif
 
                 </div>
 

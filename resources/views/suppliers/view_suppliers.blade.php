@@ -73,7 +73,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                <form action="{{ route('delete_supplier', ) }}" method="post">
+                                                <form action="{{ route('delete_supplier', $supplier) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button role="button" type="submit" class="btn">Delete</button>

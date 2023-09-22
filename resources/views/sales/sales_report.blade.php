@@ -242,7 +242,7 @@
                                         <tr>
                                             <th scope="row">
                                                 {{--  {{ route('home.show', $commoditySellInvoice->commodity_id) }}  --}}
-                                                <a href="" data-bs-toggle="modal" data-bs-target="#item.SellInvoice_{{ $commoditySellInvoice->id }}">
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#itemSellInvoice_{{ $commoditySellInvoice->id }}">
                                                     {{ $commoditySellInvoice->Commodity->name }}
                                                 </a>
                                             </th>
@@ -523,7 +523,7 @@
                                                                         <span class="quantity-text">Buyer</span>
                                                                         <span class="commodity__unit">
                                                                             @if ($typeSellInvoice->customer_id !== 0 && $typeSellInvoice->Customer)
-                                                                                {{ dd($typeSellInvoice->Customer->name) }}
+                                                                                {{ $typeSellInvoice->Customer->name }}
                                                                             @else
 
                                                                             @endif
