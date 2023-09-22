@@ -53,6 +53,7 @@
                                     <span class="dropdown-item" href="">unregistered business</span>
                                 @endif
                             </li>
+                            <li><a class="dropdown-item" href="{{ route('category.create') }}">add category</a></li>
                             <li><a class="dropdown-item" href="{{ route('view_user_profile') }}">Profile</a></li>
                         </ul>
                     </li>
