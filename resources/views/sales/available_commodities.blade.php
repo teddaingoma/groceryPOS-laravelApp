@@ -23,7 +23,7 @@
 
       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
-        <div class="pps-commodities">
+        {{--  <div class="pps-commodities">
 
             @if(auth()->user()->commodities !== null)
 
@@ -59,6 +59,11 @@
                 </div>
             @endif
 
+        </div>  --}}
+
+        <div class="pps-commodities">
+            {{--  {{ dd($months) }}  --}}
+            {{--  {{ dd($monthCount) }}  --}}
         </div>
 
       </div>
@@ -129,5 +134,13 @@
     </div>
 
   </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    var _ydata = JSON.parse('{!! json_encode($months) !!}');
+    var _xdata = JSON.parse('{!! json_encode($monthCount) !!}');
+  </script>
+  <script src="{{ asset('js/bar_chart.js') }}"></script>
+
 
 @endsection

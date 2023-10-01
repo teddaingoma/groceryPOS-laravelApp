@@ -11,6 +11,8 @@ use App\Models\SoldTypeItem;
 use App\Models\TypeQuantity;
 use App\Models\TypeSellInvoive;
 
+use Carbon\Carbon;
+
 class TransactionsController extends Controller
 {
 
@@ -276,9 +278,68 @@ class TransactionsController extends Controller
         if (auth()->user()->businesses == null)
             return redirect()->route('home.index');
 
+        $data = Commodity::select('id', 'created_at')->get()->groupBy(function($data){
+            return Carbon::parse($data->created_at)->format('M');
+        });
+
+        $months = [];
+        $monthCount = [];
+
+        foreach($data as $month => $values)
+        {
+            $months[] = $month;
+            $monthCount[] = count($values);
+        }
+
         $commodities = Commodity::all();
         return view('sales.available_commodities', compact(
-            'commodities'
+            'commodities',
+            'data',
+            'months',
+            'monthCount'
+        ));
+    }
+
+    public function bar_chart()
+    {
+        $month_data = Commodity::select('id', 'created_at')->where('user_id', auth()->user()->id)->get()->groupBy(function($month_data){
+            return Carbon::parse($month_data->created_at)->format('M');
+        });
+
+        $months = [];
+        $monthCount = [];
+
+        foreach($month_data as $month => $values)
+        {
+            $months[] = $month;
+            $monthCount[] = count($values);
+        }
+
+        $commodity_data = auth()->user()->commodities;
+
+        $commodities = [];
+        $commdityQty = [];
+
+        foreach($commodity_data as $commodity)
+        {
+            $commodities[] = $commodity->name;
+            $commodityQty[] = $commodity->Quantity->quantity;
+
+            if ($commodity->Types->count())
+            {
+                foreach ($commodity->Types as $type)
+                {
+                    $commodities[] = $type->type_name;
+                    $commodityQty[] = $type->TypeQuantity->type_quantity;
+                }
+            }
+        }
+
+        return view('charts.bar_chart', compact(
+            'months',
+            'monthCount',
+            'commodities',
+            'commodityQty',
         ));
     }
 

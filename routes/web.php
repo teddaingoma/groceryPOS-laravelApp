@@ -354,3 +354,11 @@ Route::put(
     '/users/change_password',
     [UserController::class, 'store_password']
 );
+
+
+
+////////////////////////
+Route::get(
+    '/chart/bar_chart',
+    [TransactionsController::class, 'bar_chart']
+)->name('bar_chart');

@@ -57,6 +57,7 @@
                                 </li>
                             @endif
                             <li><a class="dropdown-item" href="{{ route('view_user_profile') }}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ route('bar_chart') }}">Charts</a></li>
                         </ul>
                     </li>
 
