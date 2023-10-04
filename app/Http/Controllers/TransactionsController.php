@@ -302,12 +302,24 @@ class TransactionsController extends Controller
 
     public function bar_chart()
     {
+        $months = [];
+        $monthCount = [];
+        $commodities = [];
+        $commdityQty = [];
+        $actualSales = [];
+        $customers = [];
+        $suppliers = [];
+        $cusSellCount = [];
+        $supPurchCount = [];
+
+        ////
+        $commodity_data = auth()->user()->commodities;
+        $customer_data = auth()->user()->customers;
+        $supplier_data = auth()->user()->suppliers;
+
         $month_data = Commodity::select('id', 'created_at')->where('user_id', auth()->user()->id)->get()->groupBy(function($month_data){
             return Carbon::parse($month_data->created_at)->format('M');
         });
-
-        $months = [];
-        $monthCount = [];
 
         foreach($month_data as $month => $values)
         {
@@ -315,15 +327,11 @@ class TransactionsController extends Controller
             $monthCount[] = count($values);
         }
 
-        $commodity_data = auth()->user()->commodities;
-
-        $commodities = [];
-        $commdityQty = [];
-
         foreach($commodity_data as $commodity)
         {
             $commodities[] = $commodity->name;
             $commodityQty[] = $commodity->Quantity->quantity;
+            $actualSales[] = ($commodity->SoldCommodityItem->sold_quantity *$commodity->Price->price);
 
             if ($commodity->Types->count())
             {
@@ -331,8 +339,21 @@ class TransactionsController extends Controller
                 {
                     $commodities[] = $type->type_name;
                     $commodityQty[] = $type->TypeQuantity->type_quantity;
+                    $actualSales[] = ($type->SoldTypeItem->sold_quantity * $type->TypePrice->type_price);
                 }
             }
+        }
+
+        foreach($customer_data as $customer)
+        {
+            $customers[] = $customer->name;
+            $cusSellCount[] = $customer->commoditySellInvoices()->count() + $customer->typeSellInvoices()->count();
+        }
+
+        foreach($supplier_data as $supplier)
+        {
+            $suppliers[] = $supplier->name;
+            $supPurchCount[] = $supplier->commodityPurchaseInvoices()->count() + $supplier->typePurchaseInvoices()->count();
         }
 
         return view('charts.bar_chart', compact(
@@ -340,6 +361,11 @@ class TransactionsController extends Controller
             'monthCount',
             'commodities',
             'commodityQty',
+            'actualSales',
+            'customers',
+            'suppliers',
+            'cusSellCount',
+            'supPurchCount'
         ));
     }
 

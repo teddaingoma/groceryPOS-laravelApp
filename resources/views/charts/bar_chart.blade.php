@@ -50,6 +50,30 @@
 
                             <div class="commodity">
                                 <div class="card">
+                                    <canvas id="barChart3">
+
+                                    </canvas>
+                                </div>
+                            </div>
+
+                            <div class="commodity">
+                                <div class="card">
+                                    <canvas id="barChart4">
+
+                                    </canvas>
+                                </div>
+                            </div>
+
+                            <div class="commodity">
+                                <div class="card">
+                                    <canvas id="barChart5">
+
+                                    </canvas>
+                                </div>
+                            </div>
+
+                            <div class="commodity">
+                                <div class="card">
                                     <canvas id="lineChart1">
 
                                     </canvas>
@@ -98,10 +122,29 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
         <script>
             $(function(){
+
                 var months = <?php echo json_encode($months); ?>;
                 var monthCount = <?php echo json_encode($monthCount); ?>;
-                var barCanvas = $("#barChart1");
-                var barChart = new Chart(barCanvas, {
+                var commodities = <?php echo json_encode($commodities); ?>;
+                var commodityQty = <?php echo json_encode($commodityQty); ?>;
+                var actualSales = <?php echo json_encode($actualSales); ?>;
+                var customers = <?php echo json_encode($customers); ?>;
+                var cusSellCount = <?php echo json_encode($cusSellCount); ?>;
+                var suppliers = <?php echo json_encode($suppliers); ?>;
+                var supPurchCount = <?php echo json_encode($supPurchCount); ?>;
+
+
+                var barChart1 = $("#barChart1");
+                var barChart2 = $("#barChart2");
+                var barChart3 = $("#barChart3");
+                var barChart4 = $("#barChart4");
+                var barChart5 = $("#barChart5");
+                var lineChart1 = $("#lineChart1");
+                var mixedChart1 = $("#mixedChart1");
+                var pieChart1 = $("#pieChart1");
+                var doughnutChart1 = $("#doughnutChart1");
+
+                var barChart1 = new Chart(barChart1, {
                     type: 'bar',
                     data:{
                         labels: months,
@@ -121,13 +164,9 @@
                         }
                     }
                 });
-            });
 
-            $(function(){
-                var commodities = <?php echo json_encode($commodities); ?>;
-                var commodityQty = <?php echo json_encode($commodityQty); ?>;
-                var barCanvas = $("#barChart2");
-                var barChart = new Chart(barCanvas, {
+
+                var barChart2 = new Chart(barChart2, {
                     type: 'bar',
                     data:{
                         labels: commodities,
@@ -149,13 +188,78 @@
                         }
                     }
                 });
-            });
 
-            $(function(){
-                var commodities = <?php echo json_encode($commodities); ?>;
-                var commodityQty = <?php echo json_encode($commodityQty); ?>;
-                var barCanvas = $("#lineChart1");
-                var barChart = new Chart(barCanvas, {
+                var barChart3 = new Chart(barChart3, {
+                    type: 'bar',
+                    data:{
+                        labels: commodities,
+                        datasets:[{
+                            label: "Commodity Sales (MWK)",
+                            data: actualSales,
+                            {{--  background: [],  --}}
+                            borderWidth: 1,
+                            width: 5,
+                        }],
+                    },
+                    options:{
+                        scales:{
+                            y:{
+                                ticks:{
+                                    beginAtZero:true
+                                }
+                            },
+                        }
+                    }
+                });
+
+                var barChart4 = new Chart(barChart4, {
+                    type: 'bar',
+                    data:{
+                        labels: customers,
+                        datasets:[{
+                            label: "Customer Sell Count",
+                            data: cusSellCount,
+                            {{--  background: [],  --}}
+                            borderWidth: 1,
+                            width: 5,
+                        }],
+                    },
+                    options:{
+                        scales:{
+                            y:{
+                                ticks:{
+                                    beginAtZero:true
+                                }
+                            },
+                        }
+                    }
+                });
+
+                var barChart5 = new Chart(barChart5, {
+                    type: 'bar',
+                    data:{
+                        labels: suppliers,
+                        datasets:[{
+                            label: "Supplier Purchase Count",
+                            data: supPurchCount,
+                            {{--  background: [],  --}}
+                            borderWidth: 1,
+                            width: 5,
+                        }],
+                    },
+                    options:{
+                        scales:{
+                            y:{
+                                ticks:{
+                                    beginAtZero:true
+                                }
+                            },
+                        }
+                    }
+                });
+
+
+                var lineChart1 = new Chart(lineChart1, {
                     type: 'line',
                     data:{
                         labels: commodities,
@@ -169,13 +273,8 @@
                     },
 
                 });
-            });
 
-            $(function(){
-                var commodities = <?php echo json_encode($commodities); ?>;
-                var commodityQty = <?php echo json_encode($commodityQty); ?>;
-                var barCanvas = $("#mixedChart1");
-                var barChart = new Chart(barCanvas, {
+                var mixedChart1 = new Chart(mixedChart1, {
                     data:{
                         datasets: [{
                             type: 'bar',
@@ -205,13 +304,8 @@
                         }
                     }
                 });
-            });
 
-            $(function(){
-                var commodities = <?php echo json_encode($commodities); ?>;
-                var commodityQty = <?php echo json_encode($commodityQty); ?>;
-                var barCanvas = $("#pieChart1");
-                var barChart = new Chart(barCanvas, {
+                var pieChart1 = new Chart(pieChart1, {
                     type: 'pie',
                     data:{
                         labels: commodities,
@@ -224,13 +318,8 @@
                     },
 
                 });
-            });
 
-            $(function(){
-                var commodities = <?php echo json_encode($commodities); ?>;
-                var commodityQty = <?php echo json_encode($commodityQty); ?>;
-                var barCanvas = $("#doughnutChart1");
-                var barChart = new Chart(barCanvas, {
+                var doughnutChart1 = new Chart(doughnutChart1, {
                     type: 'doughnut',
                     data:{
                         labels: commodities,
@@ -243,6 +332,35 @@
                     },
 
                 });
+
+
+
+
+
+            });
+
+            $(function(){
+
+            });
+
+            $(function(){
+
+            });
+
+            $(function(){
+
+            });
+
+            $(function(){
+
+            });
+
+            $(function(){
+
+            });
+
+            $(function(){
+
             });
 
         </script>

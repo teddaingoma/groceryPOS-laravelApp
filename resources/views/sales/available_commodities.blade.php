@@ -23,7 +23,7 @@
 
       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
-        {{--  <div class="pps-commodities">
+        <div class="pps-commodities">
 
             @if(auth()->user()->commodities !== null)
 
@@ -59,11 +59,6 @@
                 </div>
             @endif
 
-        </div>  --}}
-
-        <div class="pps-commodities">
-            {{--  {{ dd($months) }}  --}}
-            {{--  {{ dd($monthCount) }}  --}}
         </div>
 
       </div>

@@ -34,4 +34,22 @@ class Customer extends Model
     protected $table = 'customers';
     protected $primary = 'id';
     protected $timestamp = true;
+
+    /**
+     * a customer is included in a sell transactions of commodities or types
+     */
+    public function commoditySellInvoices()
+    {
+        return $this->hasMany(
+            CommoditySellInvoice::class,
+            'customer_id'
+        );
+    }
+    public function typeSellInvoices()
+    {
+        return $this->hasMany(
+            TypeSellInvoive::class,
+            'customer_id',
+        );
+    }
 }
