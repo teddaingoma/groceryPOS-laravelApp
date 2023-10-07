@@ -10,6 +10,7 @@ use App\Models\CommodityType;
 use App\Models\SoldTypeItem;
 use App\Models\TypeQuantity;
 use App\Models\TypeSellInvoive;
+use App\Models\CommodityAquisitionDate;
 
 use Carbon\Carbon;
 
@@ -311,6 +312,13 @@ class TransactionsController extends Controller
         $suppliers = [];
         $cusSellCount = [];
         $supPurchCount = [];
+        $acqDates = [];
+        $datesCount = [];
+        $saleMonths = [];
+        $saleCount = [];
+        $soldCommodities = [];
+        $soldCommCount = [];
+
 
         ////
         $commodity_data = auth()->user()->commodities;
@@ -320,6 +328,20 @@ class TransactionsController extends Controller
         $month_data = Commodity::select('id', 'created_at')->where('user_id', auth()->user()->id)->get()->groupBy(function($month_data){
             return Carbon::parse($month_data->created_at)->format('M');
         });
+
+        $acq_dates_data = CommodityAquisitionDate::select('id', 'commodity_id', 'aquisition_date')->get()->groupBy(function($acq_dates_data){
+            return Carbon::parse($acq_dates_data->aquisition_date)->format('M');
+        });
+
+        $saleMonth_data = CommoditySellInvoice::select('id', 'created_at')->where('user_id', auth()->user()->id)->get()->groupBy(function($saleMonth_data){
+            return Carbon::parse($saleMonth_data->created_at)->format('M');
+        });
+
+        $commSale_data = CommoditySellInvoice::select('id', 'commodity_id')->where('user_id', auth()->user()->id)->get()->groupBy('commodity_id');
+
+        // dd($commSale_data);
+
+        // dd($acq_dates_data->commodity_id);
 
         foreach($month_data as $month => $values)
         {
@@ -356,6 +378,33 @@ class TransactionsController extends Controller
             $supPurchCount[] = $supplier->commodityPurchaseInvoices()->count() + $supplier->typePurchaseInvoices()->count();
         }
 
+        foreach($acq_dates_data as $acq_date => $values)
+        {
+            $acqDates[] = $acq_date;
+            $datesCount[] = count($values);
+        }
+
+        foreach($saleMonth_data as $sale_month => $values)
+        {
+            $saleMonths[] = $sale_month;
+            $saleCount[] = count($values);
+        }
+
+        foreach($commSale_data as $comm_sale => $values)
+        {
+            foreach(auth()->user()->commodities as $commodity)
+            {
+                if($comm_sale == $commodity->id)
+                {
+                    $soldCommodities[] = $commodity->name;
+                    $soldCommCount[] = count($values);
+
+                }
+            }
+        }
+
+        // dd($acqDates, $datesCount);
+
         return view('charts.bar_chart', compact(
             'months',
             'monthCount',
@@ -365,7 +414,13 @@ class TransactionsController extends Controller
             'customers',
             'suppliers',
             'cusSellCount',
-            'supPurchCount'
+            'supPurchCount',
+            'acqDates',
+            'datesCount',
+            'saleMonths',
+            'saleCount',
+            'soldCommodities',
+            'soldCommCount',
         ));
     }
 
