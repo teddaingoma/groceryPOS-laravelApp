@@ -11,6 +11,7 @@ use App\Models\SoldTypeItem;
 use App\Models\TypeQuantity;
 use App\Models\TypeSellInvoive;
 use App\Models\CommodityAquisitionDate;
+use App\Models\TypeAquisitionDate;
 
 use Carbon\Carbon;
 
@@ -316,9 +317,8 @@ class TransactionsController extends Controller
         $datesCount = [];
         $saleMonths = [];
         $saleCount = [];
-        $soldCommodities = [];
-        $soldCommCount = [];
-
+        $soldItems = [];
+        $soldItemCount = [];
 
         ////
         $commodity_data = auth()->user()->commodities;
@@ -329,15 +329,25 @@ class TransactionsController extends Controller
             return Carbon::parse($month_data->created_at)->format('M');
         });
 
-        $acq_dates_data = CommodityAquisitionDate::select('id', 'commodity_id', 'aquisition_date')->get()->groupBy(function($acq_dates_data){
+
+        $acq_dates_data = CommodityAquisitionDate::select('id', 'aquisition_date')->get()->groupBy(function($acq_dates_data){
             return Carbon::parse($acq_dates_data->aquisition_date)->format('M');
+        });
+
+        $acq_dates_data1 = TypeAquisitionDate::select('id', 'type_aquisition_date')->get()->groupBy(function($acq_dates_data1){
+            return Carbon::parse($acq_dates_data1->type_aquisition_date)->format('M');
         });
 
         $saleMonth_data = CommoditySellInvoice::select('id', 'created_at')->where('user_id', auth()->user()->id)->get()->groupBy(function($saleMonth_data){
             return Carbon::parse($saleMonth_data->created_at)->format('M');
         });
 
+        $typeMonth_data = TypeSellInvoive::select('id', 'created_at')->where('user_id', auth()->user()->id)->get()->groupBy(function($typeMonth_data){
+            return Carbon::parse($typeMonth_data->created_at)->format('M');
+        });
+
         $commSale_data = CommoditySellInvoice::select('id', 'commodity_id')->where('user_id', auth()->user()->id)->get()->groupBy('commodity_id');
+        $typeSale_data = TypeSellInvoive::select('id', 'commodity_type_id')->where('user_id', auth()->user()->id)->get()->groupBy('commodity_type_id');
 
         // dd($commSale_data);
 
@@ -353,7 +363,7 @@ class TransactionsController extends Controller
         {
             $commodities[] = $commodity->name;
             $commodityQty[] = $commodity->Quantity->quantity;
-            $actualSales[] = ($commodity->SoldCommodityItem->sold_quantity *$commodity->Price->price);
+            $actualSales[] = ($commodity->SoldCommodityItem->sold_quantity * $commodity->Price->price);
 
             if ($commodity->Types->count())
             {
@@ -384,7 +394,66 @@ class TransactionsController extends Controller
             $datesCount[] = count($values);
         }
 
+        foreach($acq_dates_data1 as $acq_date1 => $values1)
+        {
+            $acqDates[] = $acq_date1;
+            $datesCount[] = count($values1);
+        }
+
+        /*
+            when including type data in the array, firstyl, open the array and the types array
+            then search, if the month already exixst the array, get the index then updae the count
+            else, include the month,
+            unfortunately, it's trippin, so will just append weather or not it's already there
+
+            foreach($acq_dates_data1 as $acq_date1 => $values1)
+            {
+            // before appending types, search if that month has alraedy been included
+            // if so, update the count of month
+                // else, append
+
+                foreach($acqDates as $acqDate)
+                {
+                    if(strtolower($acq_date1) === strtolower($acqDate))
+                    {
+                        $datesCount[array_search($acqDate, $acqDates)] = $datesCount[array_search($acqDate, $acqDates)] + count($values1);
+                        // print $acq_date1." already there. at position ".array_search($acqDate, $acqDates)." and count ".count($values)." ";
+                    }
+                    // else if(strtolower($acq_date1) !== strtolower($acqDate))
+                    // {
+                    //     print " mbola: ";
+                    // }
+                    // break;
+
+                    // print ($acqDate.": ".array_search($acqDate, $acqDates)." ");
+                }
+                // $acqDates[] = $acq_date1;
+                // $datesCount[] =  count($values1);
+            }
+
+            foreach($acq_dates_data1 as $acq_date1 => $values1)
+            {
+                $type_month = strtolower($acq_date1);
+                foreach($acqDates as $acqDate)
+                {
+                    $comm_month = strtolower($acqDate);
+                    if($type_month !== $comm_month)
+                    {
+                        $acqDates[] = $acq_date1;
+                        $datesCount[] =  count($values1);
+                    }
+                }
+            }
+
+        */
+
         foreach($saleMonth_data as $sale_month => $values)
+        {
+            $saleMonths[] = $sale_month;
+            $saleCount[] = count($values);
+        }
+
+        foreach($typeMonth_data as $sale_month => $values)
         {
             $saleMonths[] = $sale_month;
             $saleCount[] = count($values);
@@ -392,15 +461,32 @@ class TransactionsController extends Controller
 
         foreach($commSale_data as $comm_sale => $values)
         {
+
             foreach(auth()->user()->commodities as $commodity)
             {
                 if($comm_sale == $commodity->id)
                 {
-                    $soldCommodities[] = $commodity->name;
-                    $soldCommCount[] = count($values);
-
+                    $soldItems[] = $commodity->name;
                 }
             }
+
+            $soldItemCount[] = count($values);
+        }
+
+        foreach($typeSale_data as $type_sale => $values)
+        {
+            foreach(auth()->user()->commodities as $commodity)
+            {
+                foreach($commodity->Types as $type)
+                {
+                    if($type_sale == $type->id)
+                    {
+                        $soldItems[] = $type->type_name;
+                    }
+                }
+            }
+
+            $soldItemCount[] = count($values);
         }
 
         // dd($acqDates, $datesCount);
@@ -419,8 +505,8 @@ class TransactionsController extends Controller
             'datesCount',
             'saleMonths',
             'saleCount',
-            'soldCommodities',
-            'soldCommCount',
+            'soldItems',
+            'soldItemCount',
         ));
     }
 

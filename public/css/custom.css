@@ -349,6 +349,10 @@ body {
   padding-top: 3.7rem;
 }
 
+body.no-nav {
+  padding-top: 0;
+}
+
 h1, h2, h3, h4 {
   color: var(--color-blue);
 }
@@ -1062,6 +1066,106 @@ form .btn[type=submit]:hover {
   padding-bottom: 2rem;
 }
 
+.select-page .pps-main-content-body {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0.3rem;
+}
+
+.select-page .pps-main-content-body .card {
+  margin: 0.3rem;
+  border-radius: 0;
+  width: auto;
+}
+
+.select-page .pps-main-content-body .card .card__header {
+  background: var(--color-white);
+  color: var(--color-blue);
+}
+
+.select-page .pps-main-content-body .card .commodity__icon {
+  background: var(--color-white);
+}
+
+.select-page .pps-main-content-body .card .commodity__name {
+  color: var(--color-blue);
+}
+
+.select-page .pps-footer,
+.user-profile-page .pps-footer {
+  border-top: 0;
+}
+
+.select-page .block.footer {
+  --padding-vertical: 2rem;
+  background: var(--color-accent-light);
+}
+
+.select-page .footer .footer__copyright {
+  color: var(--color-blue-dark);
+}
+
+.select-page.user-profile-page .pps-main-content-body {
+  justify-content: space-between;
+}
+
+.user-profile-page .pps-main-content-body .card .btn--img::before {
+  content: none;
+}
+
+.user-profile-page .card .btn--group {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.user-profile-page .card .btn {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0;
+  box-shadow: 0px 2px 4px 1px #117446;
+}
+
+.user-profile-page .card .btn:hover {
+  border: solid 1px #08cf08;
+}
+
+@media screen and (min-width: 520px) {
+  .select-page .pps-main-content-body .card {
+    width: 40%;
+  }
+  .select-page .pps-main-content-body .commodity .card {
+    width: auto;
+  }
+}
+@media screen and (min-width: 600px) {
+  .select-page .pps-main-content-body .commodity {
+    width: 48%;
+  }
+}
+@media screen and (min-width: 720px) {
+  .select-page .pps-main-content-body .card {
+    width: 40%;
+  }
+}
+@media screen and (min-width: 920px) {
+  .select-page .pps-main-content-body .commodity {
+    width: 40%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .select-page .pps-main-content-body .card {
+    width: 30%;
+  }
+  .select-page .pps-main-content-body .card {
+    width: 48%;
+  }
+}
+@media screen and (min-width: 1210px) {
+  .select-page .pps-main-content-body .card {
+    width: 24%;
+  }
+}
 @media screen and (min-width: 400px) {
   .login--form {
     max-width: 350px;

@@ -160,9 +160,9 @@
                 var acqDates = <?php echo json_encode($acqDates); ?>;
                 var datesCount = <?php echo json_encode($datesCount); ?>;
                 var saleMonths = <?php echo json_encode($saleMonths); ?>;
-                var soldCommodities = <?php echo json_encode($soldCommodities); ?>;
+                var soldItems = <?php echo json_encode($soldItems); ?>;
                 var saleCount = <?php echo json_encode($saleCount); ?>;
-                var soldCommCount = <?php echo json_encode($soldCommCount); ?>;
+                var soldItemCount = <?php echo json_encode($soldItemCount); ?>;
 
 
                 var barChart1 = $("#barChart1");
@@ -341,10 +341,10 @@
                 var barChart8 = new Chart(barChart8, {
                     type: 'bar',
                     data:{
-                        labels: soldCommodities,
+                        labels: soldItems,
                         datasets:[{
                             label: "Commodity Sale Count per commodity ",
-                            data: soldCommCount,
+                            data: soldItemCount,
                             {{--  background: [],  --}}
                             borderWidth: 1,
                             width: 5,

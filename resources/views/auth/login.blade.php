@@ -24,7 +24,7 @@
     <!-- HypeGames icon -->
     <link rel="icon" href="{{ asset('images/logo-dark.ico') }}">
 </head>
-<body class="login-body">
+<body class="login-body no-nav">
 
     <main class="form-signin login">
         <h1 class="login--title">Grocery POS System</h1>
