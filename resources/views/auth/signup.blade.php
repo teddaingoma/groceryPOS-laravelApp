@@ -24,7 +24,7 @@
     <!-- HypeGames icon -->
     <link rel="icon" href="{{ asset('images/logo-dark.ico') }}">
 </head>
-<body class="register-body">
+<body class="register-body no-nav">
 
 
   <div class="register-form">
