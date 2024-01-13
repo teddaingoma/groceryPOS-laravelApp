@@ -2,17 +2,22 @@
 
 @section('content')
 
-  <div class="pps-main-content-header">
     @if (session('status'))
         <div class="alert alert-success alert-dismissible fade show text-wrap" role="alert">
             {{ session('status') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
+  <div class="pps-main-content-header">
+    <span class="icon-container icon--circle">
+        <img class="icon" src="{{ asset('images/dashboard-dark.ico') }}" alt="">
+    </span>
     <h2 class="pps-main-content-title">
+
         Dashboard
+
         @if( auth()->user()->businesses !== null )
-            : {{ auth()->user()->businesses->name }}
+            | {{ auth()->user()->businesses->name }}
         @else
             unregistered business
         @endif

@@ -37,27 +37,31 @@
                     </li>
                     <li class="nav-item item-icon">
                         <span class="icon--circle">
-                        <img class="icon" src="{{ asset('images/add-cus-dark.ico') }}" alt="">
+                        <img class="icon" src="{{ asset('images/supplier-dark.ico') }}" alt="">
                         </span>
                         <a class="nav-link" href="{{ route('add_supplier') }}">Add Supplier</a>
                     </li>
 
-                    <li class="nav-item dropdown">
+                    <li class="nav-item item-icon dropdown">
+                        <span class="icon--circle">
+                            <img class="icon" src="{{ asset('images/settings2-dark.ico') }}" alt="">
+                        </span>
                         <a class="nav-link dropdown-toggle" href="#" id="dropdowna" data-bs-toggle="dropdown" aria-expanded="false">Manage</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdowna">
-                            <li><a class="dropdown-item" href="{{ route('view_suppliers') }}">Suppliers</a></li>
                             @if( auth()->user()->businesses !== null )
                                 <li>
                                     <a class="dropdown-item" href="{{ route('view_business', auth()->user()->businesses) }}">Business</a>
                                 </li>
-                                <li><a class="dropdown-item" href="{{ route('category.create') }}">add category</a></li>
+                                <li><a class="dropdown-item" href="{{ route('category.create') }}">Add category</a></li>
                             @else
                                 <li>
-                                    <span class="dropdown-item" href="">unregistered business</span>
+                                    <span class="dropdown-item" href="">Unregistered business</span>
                                 </li>
                             @endif
-                            <li><a class="dropdown-item" href="{{ route('view_user_profile') }}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ route('view_suppliers') }}">Suppliers</a></li>
                             <li><a class="dropdown-item" href="{{ route('bar_chart') }}">Charts</a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="{{ route('view_user_profile') }}">Profile</a></li>
                         </ul>
                     </li>
 
@@ -90,11 +94,12 @@
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="profile">
                             @auth
+
                                 <li class="dropdown-item item-icon">
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn--primary btn--icon">
-                                            <span class="icon-container icon--small">
+                                        <button type="submit" class="btn btn--img btn--link">
+                                            <span class="icon-container">
                                                 <img class="icon" src="{{ asset('images/logout-dark.ico') }}" alt="">
                                             </span>
                                             <span class="btn__text">logout</span>
@@ -102,6 +107,9 @@
                                     </form>
                                 </li>
                                 <li class="dropdown-item item-icon">
+                                    <span>
+                                        <img class="icon" src="{{ asset('images/register-dark.ico') }}" alt="">
+                                    </span>
                                     <a class="nav-link" href="{{ route('register_business') }}">Register</a>
                                 </li>
 

@@ -59,7 +59,7 @@
           <li class="nav-item">
             <a href="{{ route('view_suppliers') }}" class="nav-link link-dark">
                 <span class="icon--small bi me-2">
-                    <img class="icon" src="{{ asset('images/customers.ico') }}" alt="">
+                    <img class="icon" src="{{ asset('images/supplier-dark.ico') }}" alt="">
                 </span>
                 Suppliers
             </a>
@@ -96,8 +96,8 @@
             <li class="dropdown-item item-icon">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn--primary btn--icon">
-                        <span class="icon-container icon--small">
+                    <button type="submit" class="btn btn--image btn--link">
+                        <span class="icon-container">
                             <img class="icon" src="{{ asset('images/logout-dark.ico') }}" alt="">
                         </span>
                         <span class="btn__text">logout</span>

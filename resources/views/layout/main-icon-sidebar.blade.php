@@ -50,6 +50,13 @@
                 </span>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('view_suppliers') }}" class="nav-link py-3 border-bottom" title="Suppliers" data-bs-toggle="tooltip" data-bs-placement="right">
+                <span class="icon--small bi me-2">
+                    <img class="icon" src="{{ asset('images/supplier-dark.ico') }}" alt="">
+                </span>
+            </a>
+          </li>
         </ul>
         <div class="dropdown border-top">
           <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" title="Account" data-bs-toggle="dropdown" aria-expanded="false">
@@ -80,8 +87,8 @@
             <li class="dropdown-item item-icon">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn--primary btn--icon">
-                        <span class="icon-container icon--small">
+                    <button type="submit" class="btn btn--image btn--link">
+                        <span class="icon-container">
                             <img class="icon" src="{{ asset('images/logout-dark.ico') }}" alt="">
                         </span>
                         <span class="btn__text">logout</span>
