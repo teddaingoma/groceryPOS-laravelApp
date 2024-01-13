@@ -1092,6 +1092,33 @@ form .btn[type=submit]:hover {
   color: var(--color-blue);
 }
 
+.card.card--secondary,
+.select-page .pps-main-content-body .card,
+.modal .card {
+  margin: 0.3rem;
+  border-radius: 0;
+  width: auto;
+}
+
+.card.card--secondary .card__header,
+.select-page .pps-main-content-body .card .card__header,
+.modal .card .card__header {
+  background: var(--color-white);
+  color: var(--color-blue);
+}
+
+.card.card--secondary .commodity__icon,
+.select-page .pps-main-content-body .card .commodity__icon,
+.modal .card .commodity__icon {
+  background: var(--color-white);
+}
+
+.card.card--secondary .commodity__name,
+.select-page .pps-main-content-body .card .commodity__name,
+.modal .card .commodity__name {
+  color: var(--color-blue);
+}
+
 .select-page .pps-footer,
 .user-profile-page .pps-footer {
   border-top: 0;
@@ -1646,6 +1673,7 @@ form .btn.btn--link .btn__text {
   text-transform: uppercase;
   color: var(--color-blue);
   font-weight: 500;
+  margin: 0 1rem;
 }
 
 .title-case-lower {
