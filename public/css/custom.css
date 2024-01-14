@@ -1119,6 +1119,11 @@ form .btn[type=submit]:hover {
   color: var(--color-blue);
 }
 
+.flex-col--wrap .card.card--secondary .commodity__description {
+  white-space: wrap;
+  overflow: visible;
+}
+
 .select-page .pps-footer,
 .user-profile-page .pps-footer {
   border-top: 0;

@@ -833,6 +833,11 @@ form .btn[type="submit"]:hover {
     color: var(--color-blue)
 }
 
+.flex-col--wrap .card.card--secondary .commodity__description {
+    white-space: wrap;
+    overflow:visible;
+}
+
 // .select-page .pps-main-content-body .card.dashboard .btn--img::before {
 //     content: url(../images/menubar-light.ico);
 // }

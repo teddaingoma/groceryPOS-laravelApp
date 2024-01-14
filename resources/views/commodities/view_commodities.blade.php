@@ -78,7 +78,7 @@
                                                     <h3 class="commodity__name">Bar Graph</h3>
                                                 </div>
                                                 <div class="commodity__tags">
-                                                    <span class="commodity__description">Inventory Level, Quantity</span>
+                                                    <span class="commodity__description">Number of times items were bought per month</span>
                                                 </div>
                                             </header>
                                             <div class="card__body">
@@ -97,7 +97,7 @@
                                                     <h3 class="commodity__name">Bar Graph</h3>
                                                 </div>
                                                 <div class="commodity__tags">
-                                                    <span class="commodity__description">Inventory Level, Quantity</span>
+                                                    <span class="commodity__description">Number or Level of Quantity of an item</span>
                                                 </div>
                                             </header>
                                             <div class="card__body">
@@ -116,7 +116,7 @@
                                                     <h3 class="commodity__name">Bar Graph</h3>
                                                 </div>
                                                 <div class="commodity__tags">
-                                                    <span class="commodity__description">Inventory Level, Quantity</span>
+                                                    <span class="commodity__description">Total sales amount of an item</span>
                                                 </div>
                                             </header>
                                             <div class="card__body">
@@ -135,7 +135,7 @@
                                                     <h3 class="commodity__name">Bar Graph</h3>
                                                 </div>
                                                 <div class="commodity__tags">
-                                                    <span class="commodity__description">Inventory Level, Quantity</span>
+                                                    <span class="commodity__description">Number of times customer bought item(s)</span>
                                                 </div>
                                             </header>
                                             <div class="card__body">
@@ -154,7 +154,7 @@
                                                     <h3 class="commodity__name">Bar Graph</h3>
                                                 </div>
                                                 <div class="commodity__tags">
-                                                    <span class="commodity__description">Inventory Level, Quantity</span>
+                                                    <span class="commodity__description">Number of times item(s) were bought from supplier</span>
                                                 </div>
                                             </header>
                                             <div class="card__body">
@@ -173,7 +173,7 @@
                                                     <h3 class="commodity__name">Bar Graph</h3>
                                                 </div>
                                                 <div class="commodity__tags">
-                                                    <span class="commodity__description">Inventory Level, Quantity</span>
+                                                    <span class="commodity__description">Number of item(s) acquired in a month</span>
                                                 </div>
                                             </header>
                                             <div class="card__body">
@@ -192,7 +192,7 @@
                                                     <h3 class="commodity__name">Bar Graph</h3>
                                                 </div>
                                                 <div class="commodity__tags">
-                                                    <span class="commodity__description">Inventory Level, Quantity</span>
+                                                    <span class="commodity__description">Number of times item(s) were sold in a month</span>
                                                 </div>
                                             </header>
                                             <div class="card__body">
@@ -211,7 +211,7 @@
                                                     <h3 class="commodity__name">Bar Graph</h3>
                                                 </div>
                                                 <div class="commodity__tags">
-                                                    <span class="commodity__description">Inventory Level, Quantity</span>
+                                                    <span class="commodity__description">Number of times an item has sold</span>
                                                 </div>
                                             </header>
                                             <div class="card__body">
@@ -227,10 +227,10 @@
                                             <header class="card__header">
                                                 <div class="commodity__icon">
                                                     <img class="icon" src="{{ asset('images/charts-dark.ico') }}" alt="">
-                                                    <h3 class="commodity__name">Bar Graph</h3>
+                                                    <h3 class="commodity__name">Line Chart</h3>
                                                 </div>
                                                 <div class="commodity__tags">
-                                                    <span class="commodity__description">Inventory Level, Quantity</span>
+                                                    <span class="commodity__description">Number or Level of Quantity of an item</span>
                                                 </div>
                                             </header>
                                             <div class="card__body">
@@ -246,10 +246,10 @@
                                             <header class="card__header">
                                                 <div class="commodity__icon">
                                                     <img class="icon" src="{{ asset('images/charts-dark.ico') }}" alt="">
-                                                    <h3 class="commodity__name">Bar Graph</h3>
+                                                    <h3 class="commodity__name">Mixed Chart</h3>
                                                 </div>
                                                 <div class="commodity__tags">
-                                                    <span class="commodity__description">Inventory Level, Quantity</span>
+                                                    <span class="commodity__description">Number or Level of Quantity of an item</span>
                                                 </div>
                                             </header>
                                             <div class="card__body">
@@ -265,10 +265,10 @@
                                             <header class="card__header">
                                                 <div class="commodity__icon">
                                                     <img class="icon" src="{{ asset('images/charts-dark.ico') }}" alt="">
-                                                    <h3 class="commodity__name">Bar Graph</h3>
+                                                    <h3 class="commodity__name">Pie Chart</h3>
                                                 </div>
                                                 <div class="commodity__tags">
-                                                    <span class="commodity__description">Inventory Level, Quantity</span>
+                                                    <span class="commodity__description">Number or Level of Quantity of an item</span>
                                                 </div>
                                             </header>
                                             <div class="card__body">
@@ -284,10 +284,10 @@
                                             <header class="card__header">
                                                 <div class="commodity__icon">
                                                     <img class="icon" src="{{ asset('images/charts-dark.ico') }}" alt="">
-                                                    <h3 class="commodity__name">Bar Graph</h3>
+                                                    <h3 class="commodity__name">Doughnut Pie Chart</h3>
                                                 </div>
                                                 <div class="commodity__tags">
-                                                    <span class="commodity__description">Inventory Level, Quantity</span>
+                                                    <span class="commodity__description">Number or Level of Quantity of an item</span>
                                                 </div>
                                             </header>
                                             <div class="card__body">
