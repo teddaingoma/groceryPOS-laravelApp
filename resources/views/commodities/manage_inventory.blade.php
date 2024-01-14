@@ -270,37 +270,64 @@
 
                                 <div class="flex flex-col--wrap scrollable-list">
                                     @if( auth()->user()->businesses()->count() )
+                                        <a href="{{ route('category.create') }}" role="button">
+                                            <span class="icon-container icon--circle">
+                                                <img class="icon" src="{{ asset('images/add-dark.ico') }}" alt="">
+                                                new
+                                            </span>
+
+                                        </a>
                                         @forelse (auth()->user()->categories as $category)
-                                        <div class="commodity">
-                                            <div class="card">
-                                                <header class="card__header">
-                                                    <div class="commodity__icon">
 
-                                                        <h3 class="commodity__name">{{  $category->name }}</h3>
-                                                    </div>
-                                                </header>
 
-                                                <div class="card__body">
+                                            <div class="commodity">
+                                                <div class="card">
+                                                    <header class="card__header">
+                                                        <div class="commodity__icon">
+                                                            <img class="icon" src="{{ asset('images/category-light.ico') }}" alt="">
+                                                            <h3 class="commodity__name">{{  $category->name }}</h3>
+                                                        </div>
+                                                    </header>
+                                                    <div class="card__body">
+
                                                     <span class="commodity__acquisition-date">
                                                         <span class="acquisition-text">Created On</span>
-                                                            <span class="badge acquisition-date">{{ date('d-m-Y', strtotime($category->created_at)) }}</span>
+                                                        <span class="badge acquisition-date">{{ date('d-m-Y', strtotime($category->created_at)) }}</span>
                                                     </span>
-                                                    <span class="commodity__category">
-                                                        <span class="category-text">Commodity (s) :</span>
-                                                        <div class="category-values">
+
+                                                    <table class="table pps-table table--single-column">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Commodities Assigned</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
                                                             @forelse ($category->Commodities as $commodity)
-                                                                <a href="{{ route('home.show', $commodity->id) }}" class="link">
-                                                                    <span class="badge category-value">{{ $commodity -> name }}</span>
-                                                                </a>
+                                                                <tr>
+
+                                                                    <td>
+                                                                        <a href="{{ route('home.show', $commodity->id) }}" class="data-link ">
+                                                                            {{ $commodity -> name }}
+                                                                        </a>
+                                                                    </td>
+
+                                                                </tr>
                                                             @empty
-                                                                <span class="badge category-value">no comodities</span>
+                                                                <td>
+                                                                    <span class="badge category-value">no comodities</span>
+                                                                </td>
                                                             @endforelse
-                                                        </div>
-                                                    </span>
+
+
+                                                        </tbody>
+                                                    </table>
+
+                                                    </div>
 
                                                 </div>
                                             </div>
-                                        </div>
+
                                         @empty
                                             <div class="commodity">
                                                 <p> {{ auth()->user()->name }}, you dont have any categories yet </p>
