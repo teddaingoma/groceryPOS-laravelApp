@@ -1,13 +1,3 @@
-{{--  @extends('layout.app')
-
-@section('content')
-
-
-
-
-
-@endsection  --}}
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -39,7 +29,7 @@
                     <span class="icon-container icon--circle">
                         <img class="icon" src="{{ asset('images/dashboard-dark.ico') }}" alt="">
                     </span>
-                    <h2 class="pps-main-content-title">
+                    <h2 class="pps-main-content-title title-case-lower">
 
                         Dashboard
 

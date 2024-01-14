@@ -31,6 +31,12 @@ use Illuminate\Support\Facades\Route;
 //commodities resource route
 Route::resource('/home', CommoditiesController::class);
 
+//route to manage commodities inventory list at a detailed level
+Route::get(
+    '/commodities/manage_inventory',
+    [CommoditiesController::class, 'manage_inventory']
+)->name('manage_inventory');
+
 //show commodities belonging to a user (grocery owner)
 Route::get(
     '/commodities/show/{commodity:id}',

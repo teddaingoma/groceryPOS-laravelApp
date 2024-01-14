@@ -50,6 +50,9 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdowna">
                             @if( auth()->user()->businesses !== null )
                                 <li>
+                                    <a class="dropdown-item" href="{{ route('manage_inventory') }}">Inventory</a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item" href="{{ route('view_business', auth()->user()->businesses) }}">Business</a>
                                 </li>
                                 <li><a class="dropdown-item" href="{{ route('category.create') }}">Add category</a></li>

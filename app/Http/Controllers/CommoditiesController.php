@@ -444,4 +444,18 @@ class CommoditiesController extends Controller
 
         // return back();
     }
+
+    /**
+     * for the owner to manage their inventories on a more detailed level
+     */
+    public function manage_inventory()
+    {
+        // display commodities only of the currently authenticated user
+        $user_commodities = Commodity::all()->where('user_id', auth()->user()->id);
+        // auth()->user()->commodities;
+
+        return view('commodities.manage_inventory', compact(
+            'user_commodities'
+        ));
+    }
 }
