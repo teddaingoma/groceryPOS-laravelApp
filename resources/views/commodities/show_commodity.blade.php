@@ -9,7 +9,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    <h2 class="pps-main-content-title">{{ $commodity -> name }}</h2>
+    <span class="icon-container icon--circle">
+        <img class="icon" src="{{ asset('commodity_images/' . $commodity -> image_path) }}" alt="">
+    </span>
+    <h2 class="pps-main-content-title title-case-lower">{{ $commodity -> name }}</h2>
   </div>
 
   <div class="pps-main-content-body">
@@ -31,7 +34,7 @@
                 <h3 class="title">Type (s) of {{ $commodity->name }}</h3>
             </div>
 
-            <div class="flex flex-col--wrap scrollable-list">
+            <div class="flex flex-col--wrap">
                 @forelse ($commodity->Types as $type)
                     <x-type :type="$type" :commodity="$commodity" />
                 @empty

@@ -13,7 +13,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-                <h2 class="pps-main-content-title">{{ $commodity -> name }} Type | {{ $type->type_name }}</h2>
+                <span class="icon-container icon--circle">
+                    @if ($type->image_path == '')
+                        <img class="icon" src="{{ asset('commodity_images/' . $commodity -> image_path) }}" alt="">
+                    @else
+                        <img class="icon" src="{{ asset('commodity_images/' . $type -> image_path) }}" alt="">
+                    @endif
+                </span>
+                <h2 class="pps-main-content-title title-case-lower">{{ $commodity -> name }} Type | {{ $type->type_name }}</h2>
             </div>
 
             <div class="pps-main-content-body">
