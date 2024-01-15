@@ -9,19 +9,23 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    <h2 class="pps-main-content-title">Available Commodities To Sell</h2>
+    <span class="icon-container icon--circle">
+        <img class="icon" src="{{ asset('images/inventory-dark.ico') }}" alt="">
+    </span>
+    <h2 class="pps-main-content-title title-case-lower">Available Commodities To Sell</h2>
   </div>
 
   <div class="pps-main-content-body">
     <nav class="pps-body-nav">
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Tabs</button>
-          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">List</button>
+          <button class="nav-link active" id="nav-tabs-tab" data-bs-toggle="tab" data-bs-target="#nav-tabs" type="button" role="tab" aria-controls="nav-tabs" aria-selected="true">Tabs view</button>
+          <button class="nav-link" id="nav-list-tab" data-bs-toggle="tab" data-bs-target="#nav-list" type="button" role="tab" aria-controls="nav-list" aria-selected="false">List view</button>
+          <button class="nav-link" id="nav-inventory-tab" data-bs-toggle="tab" data-bs-target="#nav-inventory" type="button" role="tab" aria-controls="nav-inventory" aria-selected="false">Commodities</button>
         </div>
       </nav>
     <div class="tab-content pps-body-content" id="nav-tabContent">
 
-      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <div class="tab-pane fade show active" id="nav-tabs" role="tabpanel" aria-labelledby="nav-tabs-tab">
 
         <div class="pps-commodities">
 
@@ -63,7 +67,7 @@
 
       </div>
 
-      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <div class="tab-pane fade" id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab">
 
         @if(auth()->user()->commodities !== null)
 
@@ -112,6 +116,39 @@
 
         @endif
 
+
+      </div>
+
+      <div class="tab-pane fade" id="nav-inventory" role="tabpanel" aria-labelledby="nav-inventory-tab">
+
+        <div class="pps-commodities">
+
+            <div class="flex flex-col--wrap scrollable-list">
+
+                @if( auth()->user()->businesses()->count() )
+                    @forelse ($commodities as $commodity)
+                        @if ($commodity->business_id == auth()->user()->businesses->id)
+                            <x-commodity :commodity="$commodity" />
+                        @endif
+                    @empty
+                        <div class="commodity">
+                            <p> {{ auth()->user()->name }}, your inventory list is empty </p>
+
+                            <button class="btn btn--primary btn--icon btn--outline">
+                                <img class="icon" src="{{ asset('images/add-commodity-dark.ico') }}" alt="">
+                                <span class="btn__text">
+                                    <a class="nav-link" href="{{ route('home.create') }}">Add</a>
+                                </span>
+                            </button>
+                        </div>
+                    @endforelse
+                @else
+                    unregistered business
+                @endif
+
+            </div>
+
+        </div>
 
       </div>
 

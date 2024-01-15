@@ -286,28 +286,6 @@
                                         </div>
                                     </div>
 
-                                    @if( auth()->user()->businesses()->count() )
-                                        @forelse ($user_commodities as $commodity)
-                                            @if ($commodity->business_id == auth()->user()->businesses->id)
-                                                <x-commodity :commodity="$commodity" />
-                                            @endif
-                                        @empty
-                                            <div class="commodity">
-                                                <p> {{ auth()->user()->name }}, your inventory list is empty </p>
-
-                                                <button class="btn btn--primary btn--icon btn--outline">
-                                                    <img class="icon" src="{{ asset('images/add-commodity-dark.ico') }}" alt="">
-                                                    <span class="btn__text">
-                                                        <a class="nav-link" href="{{ route('home.create') }}">Add</a>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        @endforelse
-                                    @else
-                                        unregistered business
-                                    @endif
-
-
                                 </div>
 
                             </div>
