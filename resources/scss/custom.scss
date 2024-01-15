@@ -1434,6 +1434,7 @@ form .btn.btn--link .btn__text {
 }
 
 .pps-main-content-header .icon--circle {
+    margin-left: 1rem;
     background: var(--color-secondary)
 }
 
@@ -1817,13 +1818,13 @@ span[class="commodity__category"]:first-child {
     font-size: 1.1rem;
 }
 
-.commodity-delete-modal .modal-content .modal-footer .btn[type="submit"]
+.commodity-delete-modal .modal-content .modal-footer .btn[type="submit"] 
 /* #commodityDeleteModal .modal-content .modal-footer .btn[type="submit"]  */
 {
     background: #dc3545;
 }
 
-.commodity-delete-modal .modal-content .modal-footer .btn[type="submit"]:hover
+.commodity-delete-modal .modal-content .modal-footer .btn[type="submit"]:hover 
 /* #commodityDeleteModal .modal-content .modal-footer .btn[type="submit"]:hover  */
 {
     background: #be0b1d;

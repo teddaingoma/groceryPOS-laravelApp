@@ -169,7 +169,7 @@
                                                       </div>
 
                                                       <div class="card__btn">
-                                                        <a href="" class="btn btn--primary btn--img">
+                                                        <a href="{{ route('home.show', $commodity->id) }}" class="btn btn--primary btn--img">
                                                             <span class="btn__text">manage commodity >></span>
                                                         </a>
                                                       </div>
@@ -275,7 +275,7 @@
                                                 <img class="icon" src="{{ asset('images/add-dark.ico') }}" alt="">
                                                 new
                                             </span>
-
+                            
                                         </a>
                                         @forelse (auth()->user()->categories as $category)
 

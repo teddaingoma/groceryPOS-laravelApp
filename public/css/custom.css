@@ -1671,6 +1671,7 @@ form .btn.btn--link .btn__text {
 }
 
 .pps-main-content-header .icon--circle {
+  margin-left: 1rem;
   background: var(--color-secondary);
 }
 
