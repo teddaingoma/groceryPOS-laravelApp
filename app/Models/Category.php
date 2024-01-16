@@ -21,6 +21,12 @@ class Category extends Model
         return $this->belongsToMany(Commodity::class);
     }
 
+    //One or more categories have or contains one or many commodity types
+    public function CommodityTypes()
+    {
+        return $this->belongsToMany(CommodityType::class);
+    }
+
     //
     public function User()
     {

@@ -50,7 +50,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdowna">
                             @if( auth()->user()->businesses !== null )
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('manage_inventory') }}">Inventory</a>
+                                    <a class="dropdown-item" href="{{ route('manage_inventories') }}">Inventory</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="{{ route('view_business', auth()->user()->businesses) }}">Business</a>
