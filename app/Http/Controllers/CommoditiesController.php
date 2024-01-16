@@ -432,8 +432,8 @@ class CommoditiesController extends Controller
         // find out if the owner has types for this commodity before deleting
         // if this commodity has types, prompt for comfirmation first
         if ($commodity->Types()->count()) {
-            $message = $commodity->name." has ".$commodity->Types()->count()." type(s). Kindly delete individually";
-            return redirect()->route('home.show', $id)->with('status', $message);
+            $message = $commodity->name." has ".$commodity->Types()->count()." type(s). Kindly delete the type(s) individually first";
+            return redirect()->route('manage_inventory', $commodity)->with('status', $message);
         }
 
         $request->user()->commodities()->where('id', $id)->delete();
@@ -448,14 +448,25 @@ class CommoditiesController extends Controller
     /**
      * for the owner to manage their inventories on a more detailed level
      */
-    public function manage_inventory()
+    public function manage_inventories()
     {
         // display commodities only of the currently authenticated user
         $user_commodities = Commodity::all()->where('user_id', auth()->user()->id);
         // auth()->user()->commodities;
 
-        return view('commodities.manage_inventory', compact(
+        return view('commodities.manage_inventories', compact(
             'user_commodities'
+        ));
+    }
+
+    /**
+     * for the owner to manage an individual inventory commodity on a more detailed level
+     */
+    public function manage_inventory(Commodity $commodity)
+    {
+
+        return view('commodities.manage_inventory', compact(
+            'commodity'
         ));
     }
 }
