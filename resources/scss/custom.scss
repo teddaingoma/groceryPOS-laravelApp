@@ -1044,6 +1044,17 @@ form .btn[type="submit"]:hover {
 .add-commodity .form--input-line input {
     border: 1px solid var(--color-blue);
 }
+
+.add-commodity .category--link .icon--circle{
+    background: transparent;
+    border: 1px solid var(--color-blue);
+    border-radius: 15%;
+    color: var(--color-blue);
+}
+
+.add-commodity .category--link .icon--circle:hover {
+    background: var(--color-secondary)
+}
 /* Add Commodity */
 
 /* Sell */
@@ -1818,13 +1829,13 @@ span[class="commodity__category"]:first-child {
     font-size: 1.1rem;
 }
 
-.commodity-delete-modal .modal-content .modal-footer .btn[type="submit"] 
+.commodity-delete-modal .modal-content .modal-footer .btn[type="submit"]
 /* #commodityDeleteModal .modal-content .modal-footer .btn[type="submit"]  */
 {
     background: #dc3545;
 }
 
-.commodity-delete-modal .modal-content .modal-footer .btn[type="submit"]:hover 
+.commodity-delete-modal .modal-content .modal-footer .btn[type="submit"]:hover
 /* #commodityDeleteModal .modal-content .modal-footer .btn[type="submit"]:hover  */
 {
     background: #be0b1d;

@@ -42,11 +42,17 @@
                     <div class="form--header">
                         @if (session('status'))
                             <div class="alert alert-success alert-dismissible fade show text-wrap" role="alert">
+                                <strong>Great!</strong>
                                 {{ session('status') }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
-                        <h1 class="form--title">Add Attributes of {{ $commodity -> name}}</h1>
+                        <div class="pps-main-content-header">
+                            <span class="icon-container">
+                                <img class="icon" src="{{ asset('images/item-light.ico') }}" alt="">
+                            </span>
+                            <h1 class="form--title title-case-lower">Add Attributes of {{ $commodity -> name}}</h1>
+                        </div>
                     </div>
 
                     <div class="add-commodity--body">
@@ -59,8 +65,9 @@
                                     <h2 class="mb-0 control-lead-text">Commodity Item Details</h2>
                                 </div>
                                 <input class="no-view" name="commodity_id" type="text" class="form-control" id="firstName" value="{{ $commodity -> id }}" readonly>
+
                                 <div class="row g-3">
-                                    <div class="names row">
+                                    <div class="names row g-3">
 
                                         <div class="col-sm-6 form--input-line">
                                             <label for="category" class="form-label">Commodity Category:</label>
@@ -78,9 +85,17 @@
                                                 In what category does it belong?
                                             </div>
                                         </div>
-                                        <span class="col-sm-6 badge d-flex">
+                                        {{--  <span class="col-sm-6 badge d-flex">
                                             <a href="{{ route('category.create') }}" role="button" class="btn btn--icon">
                                                 <img class="icon" src="{{ asset('images/add-dark.ico') }}" alt="">
+                                            </a>
+                                        </span>  --}}
+                                        <span class="col-sm-1 badge d-flex category--link">
+                                            <a href="{{ route('category.create') }}" role="button" class="btn btn--icon">
+                                                <span class="icon-container icon--circle">
+                                                    <img class="icon" src="{{ asset('images/add-dark.ico') }}" alt="">
+                                                    new
+                                                </span>
                                             </a>
                                         </span>
 

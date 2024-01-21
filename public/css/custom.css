@@ -1310,6 +1310,17 @@ form .btn[type=submit]:hover {
   border: 1px solid var(--color-blue);
 }
 
+.add-commodity .category--link .icon--circle {
+  background: transparent;
+  border: 1px solid var(--color-blue);
+  border-radius: 15%;
+  color: var(--color-blue);
+}
+
+.add-commodity .category--link .icon--circle:hover {
+  background: var(--color-secondary);
+}
+
 /* Add Commodity */
 /* Sell */
 .add-commodity--body .add-commodity.sell .names {

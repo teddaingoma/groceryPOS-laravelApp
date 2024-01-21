@@ -48,7 +48,7 @@
                 <aside class="pps-sidebar wide-display collapse collapse-horizontal" id="collapseSideMenuBar">
                     <div class="form--header">
                         <img class="form--brand" src="{{ asset('images/add-commodity-light.ico') }}" alt="">
-                        <h1 class="form--title">Add a Commodity Item</h1>
+                        <h1 class="form--title title-case-lower">Add a Commodity Item</h1>
                     </div>
                 </aside>
 
@@ -59,7 +59,12 @@
                 <div class="add-commodity-form scrollable-list">
 
                     <div class="form--header">
-                        <h1 class="form--title">Add a Commodity Item</h1>
+                        <div class="pps-main-content-header">
+                            <span class="icon-container icon--circle">
+                                <img class="icon" src="{{ asset('images/add-commodity-dark.ico') }}" alt="">
+                            </span>
+                            <h1 class="form--title title-case-lower">Add a Commodity Item</h1>
+                        </div>
                     </div>
 
                     <div class="add-commodity--body">
