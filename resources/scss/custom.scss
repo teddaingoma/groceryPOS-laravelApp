@@ -426,6 +426,15 @@ a {
     display: none;
 }
 
+.pps-table tbody .data-link {
+    color: var(--color-blue);
+}
+
+.pps-table tbody .data-link:hover {
+    color: var(--color-blue-dark);
+    text-decoration: underline;
+}
+
 .financial-statement .commodity__quantity,
 .financial-statement .commodity__acquisition-date {
     width: 100%;
@@ -503,9 +512,15 @@ a {
         flex-direction: column;
     }
 
+    .pps-table tbody .data-link,
     .pps-table tbody tr th {
         background: var(--color-blue);
         color: var(--color-white);
+    }
+
+    .pps-table.table--single-column tbody .data-link {
+        background: var(--color-white);
+        color: var(--color-blue);
     }
 
     .pps-table tbody td {

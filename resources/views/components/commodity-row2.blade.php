@@ -2,9 +2,9 @@
 
 <tr>
     <th scope="row">
-        <a href="{{ route('home.show', $budgetedSales->commodity_id) }}">
+        <a class="data-link" href="{{ route('home.show', $budgetedSales->commodity_id) }}">
             {{ $budgetedSales->CommodityBudgetedSale->name }}
-        </a>`
+        </a>
     </th>
     <td>
         <span class="data-name">Budgeted Sales (K):</span>

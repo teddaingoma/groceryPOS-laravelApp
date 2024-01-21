@@ -56,7 +56,7 @@
                                 {{--  <x-type-row2 :typeSale="$typeSale" />  --}}
                                 <tr>
                                     <th scope="row">
-                                        <a href="{{ route('show_commodity_type', ['commodity' => $typeSale->commodity_id, 'type' => $typeSale->commodity_type_id]) }}">
+                                        <a class="data-link" href="{{ route('show_commodity_type', ['commodity' => $typeSale->commodity_id, 'type' => $typeSale->commodity_type_id]) }}">
                                             {{ $typeSale->CommodityType->type_name }}
                                         </a>
                                     </th>
@@ -134,7 +134,11 @@
                                 @foreach (auth()->user()->soldCommodityItem as $soldCommodity )
 
                                     <tr>
-                                        <th scope="row">{{ $soldCommodity->SoldCommodity->name }}</th>
+                                        <th scope="row">
+                                            <a class="data-link" href="{{ route('home.show', $soldCommodity->commodity_id) }}">
+                                                {{ $soldCommodity->SoldCommodity->name }}
+                                            </a>
+                                        </th>
                                         <td>
                                             <span class="data-name">Budgeted Sales (K):</span>
                                             {{ $soldCommodity->SoldCommodity->CommodityBudgetedSales->quantity * $soldCommodity->SoldCommodity->Price->price }}
@@ -161,7 +165,11 @@
                                 @foreach (auth()->user()->soldTypeItem as $soldType )
 
                                     <tr>
-                                        <th scope="row">{{ $soldType->SoldType->type_name }}</th>
+                                        <th scope="row">
+                                            <a class="data-link" href="{{ route('show_commodity_type', ['commodity' => $soldType->commodity_id, 'type' => $soldType->commodity_type_id]) }}">
+                                                {{ $soldType->SoldType->type_name }}
+                                            </a>
+                                        </th>
                                         <td>
                                             <span class="data-name">Budgeted Sales (K):</span>
                                             {{ $soldType->SoldType->TypeBudgetedSale->quantity * $soldType->SoldType->TypePrice->type_price }}
@@ -242,7 +250,7 @@
                                         <tr>
                                             <th scope="row">
                                                 {{--  {{ route('home.show', $commoditySellInvoice->commodity_id) }}  --}}
-                                                <a href="" data-bs-toggle="modal" data-bs-target="#itemSellInvoice_{{ $commoditySellInvoice->id }}">
+                                                <a class="data-link" href="" data-bs-toggle="modal" data-bs-target="#itemSellInvoice_{{ $commoditySellInvoice->id }}">
                                                     {{ $commoditySellInvoice->Commodity->name }}
                                                 </a>
                                             </th>
@@ -278,16 +286,17 @@
                                     @if ($commoditySellInvoice->Commodity !== null )
 
                                         {{--  Display Full details of a sale transaction using a modal  --}}
-                                        <div class="modal fade" id="itemSellInvoice_{{ $commoditySellInvoice->id }}" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="ViewItemSellInvoice" aria-hidden="true">
+                                        <div class="modal commodity-delete-modal fade" id="itemSellInvoice_{{ $commoditySellInvoice->id }}" data-bs-backdrop="static" tabindex="-1" role="dialog" data-bs-keyboard="false" aria-labelledby="ViewItemSellInvoice" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
 
                                                 <div class="modal-content">
 
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Sell Transaction</h5>
-                                                        <span class="btn icon-container" data-bs-dismiss="modal" aria-label="Close">
-                                                            <img class="icon" src="{{ asset('images/close-dark.ico') }}" alt="">
+                                                    <div class="modal-header pps-main-content-header px-2">
+                                                        <span class="icon-container">
+                                                            <img class="icon" src="{{ asset('/images/item-dark.ico') }}" alt="">
+                                                            <h5 class="pps-main-content-title title-case-lower">transaction details</h5>
                                                         </span>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
 
                                                     <div class="modal-body">
@@ -301,77 +310,99 @@
                                                                 </header>
                                                                 <div class="card__body">
 
-                                                                    <span class="commodity__quantity">
-                                                                        <span class="quantity-text">Item Name</span>
-                                                                        <span class="commodity__unit">
-                                                                            {{ $commoditySellInvoice->Commodity->name }}
-
-                                                                        </span>
+                                                                    <span class="commodity__acquisition-date">
+                                                                        <span class="acquisition-text">Item Name</span>
+                                                                        <span class="badge acquisition-date">{{ $commoditySellInvoice->Commodity->name }}</span>
                                                                     </span>
+
                                                                     <span class="commodity__quantity">
                                                                         <span class="quantity-text">Price</span>
-                                                                        <span class="commodity__unit">
-                                                                            {{ $commoditySellInvoice->selling_price }}
-                                                                        </span>
+                                                                        <div class="position-absolute end-0">
+                                                                          <span class="commodity__unit mx-3">
+                                                                              K {{ $commoditySellInvoice->selling_price }}
+                                                                          </span>
+                                                                        </div>
                                                                     </span>
+
                                                                     <span class="commodity__quantity">
                                                                         <span class="quantity-text">Quantity</span>
-                                                                        <span class="commodity__unit">
+                                                                        <div class="position-absolute end-0">
+                                                                          <span class="commodity__unit mx-3">
                                                                             {{ $commoditySellInvoice->sell_quantity }}
-
-                                                                        </span>
+                                                                          </span>
+                                                                        </div>
                                                                     </span>
-                                                                    <span class="commodity__quantity">
-                                                                        <span class="quantity-text">Cost</span>
-                                                                        <span class="commodity__unit">
-                                                                            {{
-                                                                                $commoditySellInvoice->sell_quantity * $commoditySellInvoice->selling_price
-                                                                            }}
 
-                                                                        </span>
-                                                                    </span>
                                                                     <span class="commodity__quantity">
                                                                         <span class="quantity-text">Amount Paid</span>
-                                                                        <span class="commodity__unit">
-                                                                            {{ $commoditySellInvoice->payment }}
-
-                                                                        </span>
+                                                                        <div class="position-absolute end-0">
+                                                                          <span class="commodity__unit mx-3">
+                                                                            K {{ $commoditySellInvoice->payment }}
+                                                                          </span>
+                                                                        </div>
                                                                     </span>
-                                                                    <span class="commodity__quantity">
+
+                                                                    {{--  <span class="commodity__quantity">
                                                                         <span class="quantity-text">Change</span>
                                                                         <span class="commodity__unit">
                                                                             {{
                                                                                 ($commoditySellInvoice->payment) - ($commoditySellInvoice->sell_quantity * $commoditySellInvoice->selling_price)
                                                                              }}
                                                                         </span>
-                                                                    </span>
+                                                                    </span>  --}}
+
+
                                                                     <span class="commodity__quantity">
                                                                         <span class="quantity-text">Time</span>
-                                                                        <span class="commodity__unit">
+                                                                        <div class="position-absolute end-0">
+                                                                          <span class="commodity__unit mx-3">
                                                                             {{ date('h:i:s', strtotime($commoditySellInvoice->date_time)) }}
-                                                                        </span>
+                                                                          </span>
+                                                                        </div>
                                                                     </span>
+
+
                                                                     <span class="commodity__quantity">
                                                                         <span class="quantity-text">Date</span>
-                                                                        <span class="commodity__unit">
+                                                                        <div class="position-absolute end-0">
+                                                                          <span class="commodity__unit mx-3">
                                                                             {{ date('d-m-Y', strtotime($commoditySellInvoice->date_time)) }}
-                                                                        </span>
+                                                                          </span>
+                                                                        </div>
                                                                     </span>
+
+
                                                                     <span class="commodity__quantity">
                                                                         <span class="quantity-text">Seller</span>
-                                                                        <span class="commodity__unit">
+                                                                        <div class="position-absolute end-0">
+                                                                          <span class="commodity__unit mx-3">
                                                                             {{ auth()->user()->name }}
-                                                                        </span>
+                                                                          </span>
+                                                                        </div>
                                                                     </span>
+
                                                                     <span class="commodity__quantity">
                                                                         <span class="quantity-text">Buyer</span>
-                                                                        <span class="commodity__unit">
+                                                                        <div class="position-absolute end-0">
+                                                                          <span class="commodity__unit mx-3">
                                                                             @if ($commoditySellInvoice->customer_id !== 0 && $commoditySellInvoice->Customer !== null)
                                                                                 {{ $commoditySellInvoice->Customer->name }}
                                                                             @else
 
                                                                             @endif
-                                                                        </span>
+                                                                          </span>
+                                                                        </div>
+                                                                    </span>
+
+                                                                    <span class="commodity__category">
+                                                                        <span class="category-text">Total Cost </span>
+                                                                        <div class="position-absolute end-0">
+                                                                          <span class="badge acquisition-date mx-3">
+                                                                            {{
+                                                                                $commoditySellInvoice->sell_quantity * $commoditySellInvoice->selling_price
+                                                                            }}
+                                                                          </span>
+                                                                        </div>
                                                                     </span>
 
                                                                 </div>
@@ -379,9 +410,8 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="modal-footer">
-                                                        Footer
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <div class="modal-footer py-1">
+                                                        <button type="button" class="btn btn--edit" data-bs-dismiss="modal">close</button>
                                                     </div>
 
                                                 </div>
