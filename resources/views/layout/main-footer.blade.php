@@ -9,7 +9,15 @@
               </header>
               <div class="collapsible__content">
                   <ul class="list">
-                      <li><a href="{{ route('home.index') }}">View Commodities</a></li>
+                      <li>
+                        <a href="{{ route('home.index') }}">
+                            <span class="icon-container icon--small">
+                                <img class="icon" src="{{ asset('images/item-light.ico') }}" alt="">
+                            </span>
+                            <span>View Commodities</span>
+
+                        </a>
+                    </li>
                   </ul>
               </div>
           </section>
