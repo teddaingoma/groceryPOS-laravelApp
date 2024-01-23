@@ -56,12 +56,12 @@
                 </div>
             </div>
 
+            <div class="form--btn-group">
+
+                <button class="btn btn--primary" type="submit">Update</button>
         </div>
 
-        <div class="form--btn-group">
-
-          <button class="btn btn--primary" type="submit">Update</button>
-        </div>
+          </div>
       </form>
     </div>
 

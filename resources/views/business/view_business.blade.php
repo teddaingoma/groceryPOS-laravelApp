@@ -2,32 +2,36 @@
 
 @section('content')
 
-  <div class="pps-main-content-header">
-    @if (session('status'))
-        <div class="alert alert-success alert-dismissible fade show text-wrap" role="alert">
-            {{ session('status') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-    <h2 class="pps-main-content-title"></h2>
-  </div>
+    <div class="pps-main-content-header">
+        @if (session('status'))
+            <div class="alert alert-success alert-dismissible fade show text-wrap" role="alert">
+                {{ session('status') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        <span class="icon-container icon--circle">
+            <img class="icon" src="{{ ('/images/logo-dark.ico') }}" alt="">
+        </span>
+        <h2 class="pps-main-content-title title-case-lower">business |
+            @if (auth()->user()->businesses !== null)
+                {{  $business->name }}
+            @else
+                Unregistered Business
+            @endif
+        </h2>
+    </div>
 
   <div class="pps-main-content-body">
-    <nav class="pps-body-nav">
-      <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Commodities</button>
-      </div>
-    </nav>
-    <div class="tab-content pps-body-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
-            <div class="pps-commodities">
+        <div class="pps-commodities">
+
+            @if (auth()->user()->businesses !== null)
 
                 <div class="commodity">
-                    <div class="card">
+                    <div class="card card--secondary">
                         <header class="card__header">
                             <div class="commodity__icon">
-
+                                <img class="icon" src="{{ asset('images/business.ico') }}" alt="">
                                 <h3 class="commodity__name">{{  $business->name }}</h3>
                             </div>
                             <div class="commodity__tags">
@@ -41,6 +45,9 @@
 
                                     <span class="badge acquisition-date">{{ date('d-m-Y', strtotime($business->created_at)) }}</span>
 
+                            </span>
+                            <span class="commodity__acquisition-date">
+                                <span class="acquisition-text"> <strong> Items Sold </strong> </span>
                             </span>
                             <div class="scrollable-list">
                                 <table class="table pps-table">
@@ -116,26 +123,32 @@
                         <footer class="card__footer">
 
                             <div class="card__divider"></div>
-                            <div class="btn--group">
-                                {{--  <a href="{{ route('edit_business', $business) }}" class="btn btn--edit btn--icon">
-                                    <span class="icon-container icon--small">
-                                        <img class="icon" src="{{ URL("images/edit-filled.ico") }}" alt="">
-                                    </span>
-                                    <span class="btn__text">edit</span>
-                                </a>  --}}
-                            </div>
+
                         </footer>
                     </div>
                 </div>
 
-            </div>
+            @else
+                <div class="commodity">
+                    <div class="card card--secondary">
+                        <header class="card__header">
+                            No registered Business
+                        </header>
+                    </div>
+                </div>
+            @endif
 
         </div>
-    </div>
+
+  </div>
 
   <footer class="pps-main-content-footer">
     <p>
-        .
+        @if (auth()->user()->businesses !== null)
+            Business | {{  $business->name }}
+        @else
+            Unregistered Business
+        @endif
     </p>
   </footer>
 
