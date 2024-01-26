@@ -37,7 +37,7 @@
 
                     <div class="commodity">
 
-                        <div class="card card--secondary">
+                        <div class="card    ">
                             <header class="card__header">
                                 <div class="commodity__icon">
                                     <img class="icon" src="{{ asset('images/admin-light.ico') }}" alt="">
