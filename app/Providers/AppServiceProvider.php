@@ -23,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // usually, assets load in http, unsecured
+        // to allow the assets to be loaded when in a secured environment like https
+        if($this->app->environment('production')) {
+            \URL::forceScheme('https');
+        }
     }
 }
